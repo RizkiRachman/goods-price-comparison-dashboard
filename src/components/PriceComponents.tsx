@@ -1,5 +1,5 @@
 import type { PriceRecord } from '@/types/api'
-import { formatPrice, formatDate, formatRelativeTime } from '@/lib/utils'
+import { formatPrice } from '@/lib/utils'
 
 interface PriceBarProps {
   price: number
@@ -20,28 +20,23 @@ export function PriceBar({ price, min, max }: PriceBarProps) {
   )
 }
 
-const availabilityConfig: Record<string, { label: string; dot: string }> = {
-  in_stock: { label: 'Tersedia', dot: 'bg-emerald-500' },
-  limited_stock: { label: 'Terbatas', dot: 'bg-amber-500' },
-  out_of_stock: { label: 'Habis', dot: 'bg-red-500' },
-}
-
 interface ReceiptRowProps {
   item: PriceRecord
   min: number
   max: number
   isLowest?: boolean
+  showUnitPrice?: boolean
 }
 
-export function ReceiptRow({ item, min, max, isLowest }: ReceiptRowProps) {
-  const pct = max === min ? 0 : ((item.price - min) / (max - min)) * 100
+export function ReceiptRow({ item, min, max, isLowest, showUnitPrice }: ReceiptRowProps) {
+  const displayPrice = showUnitPrice ? (item.unitPrice ?? item.price) : item.price
+  const pct = max === min ? 0 : ((displayPrice - min) / (max - min)) * 100
   const barColor = pct <= 33
     ? 'from-emerald-500 to-emerald-400'
     : pct <= 66
       ? 'from-amber-500 to-amber-400'
       : 'from-red-500 to-red-400'
 
-  const av = availabilityConfig[item.availability] ?? { label: item.availability, dot: 'bg-gray-400' }
   const storeInitial = item.storeName?.charAt(0) ?? '?'
 
   return (
@@ -70,22 +65,14 @@ export function ReceiptRow({ item, min, max, isLowest }: ReceiptRowProps) {
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-2 mt-1">
-                <div className={`w-2 h-2 rounded-full ${av.dot}`} />
-                <p className="text-xs text-gray-400">{av.label}</p>
-                <span className="text-gray-300">·</span>
-                <p className="text-xs text-gray-400">{formatDate(item.dateRecorded)}</p>
-                <span className="text-gray-300 hidden sm:inline">·</span>
-                <p className="text-xs text-gray-400 hidden sm:block">{formatRelativeTime(item.dateRecorded)}</p>
-              </div>
-              <PriceBar price={item.price} min={min} max={max} />
+              <PriceBar price={displayPrice} min={min} max={max} />
             </div>
           </div>
           <div className="text-right shrink-0">
             <p className="text-lg sm:text-xl font-extrabold text-gray-900 group-hover:text-indigo-600 transition-colors">
-              {formatPrice(item.price)}
+              {formatPrice(displayPrice)}
             </p>
-            {item.unitPrice != null && item.unitPrice !== item.price && (
+            {!showUnitPrice && item.unitPrice != null && item.unitPrice !== item.price && (
               <p className="text-[11px] text-gray-400 mt-0.5">{formatPrice(item.unitPrice)}/unit</p>
             )}
           </div>
