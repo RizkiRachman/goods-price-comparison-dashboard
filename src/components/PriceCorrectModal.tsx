@@ -24,7 +24,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
   const [isPromo, setIsPromo] = useState(false)
   const [done, setDone] = useState(false)
 
-  const mutation = usePriceCorrection(productId, storeId)
+  const mutation = usePriceCorrection(productId)
 
   useEffect(() => {
     inputRef.current?.focus()
