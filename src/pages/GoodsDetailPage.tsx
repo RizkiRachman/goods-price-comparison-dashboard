@@ -95,7 +95,7 @@ export default function GoodsDetailPage() {
   const goodName = product?.name ?? 'Barang'
   const unit = product?.unit ?? ''
 
-  const isWeightUnit = unit && ['kg', 'kilogram', 'gr', 'gram'].includes(unit.toLowerCase())
+  const isWeightUnit = !!(unit && ['kg', 'kilogram', 'gr', 'gram'].includes(unit.toLowerCase()))
   const getPrice = (item: PriceRecord) =>
     isWeightUnit ? (item.unitPrice ?? item.price) : item.price
 
