@@ -122,6 +122,15 @@ export function useReceiptJobs() {
     [persist],
   )
 
+  const updateJobResult = useCallback(
+    (receiptId: string, result: ReceiptResult) => {
+      persist((prev) =>
+        prev.map((j) => (j.receiptId === receiptId ? { ...j, result } : j)),
+      )
+    },
+    [persist],
+  )
+
   return {
     jobs,
     addJob,
@@ -130,6 +139,7 @@ export function useReceiptJobs() {
     approveJob,
     rejectJob,
     refreshJob,
+    updateJobResult,
     processingCount: jobs.filter((j) => !isTerminal(j.status)).length,
   }
 }

@@ -3,7 +3,7 @@ import { usePagination } from '@/hooks/usePagination'
 import { useState, useMemo } from 'react'
 import { useProducts } from '@/hooks/useGoods'
 import { useStores } from '@/hooks/useStores'
-import type { Unit } from '@/types/goods'
+import { normalizeUnit, normalizeCategory } from '@/utils/goods'
 
 export type SearchMode = 'product' | 'store'
 
@@ -128,8 +128,8 @@ export function useSearchLogic() {
         return {
           goodId: String(p.id),
           goodName: p.name,
-          category: p.category ?? 'Uncategorized',
-          unit: (p.unit as Unit) ?? 'pcs',
+          category: normalizeCategory(p.category),
+          unit: normalizeUnit(p.unit),
           latestPrice: p.latestPrice ?? 0,
           avgPrice,
           lowestPrice,

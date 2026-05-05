@@ -1,30 +1,32 @@
+import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import type { PriceRecord } from '@/types/api'
-import { useProductPrices } from '@/hooks/usePrices'
+import { useProductPrices, useUpdatePriceRecord, useDeletePriceRecord } from '@/hooks/usePrices'
 import { useProduct } from '@/hooks/useGoods'
 import { ReceiptRow } from '@/components/PriceComponents'
 import { formatPrice } from '@/lib/utils'
 
 function PriceSummary({ min, max, latest, unit }: { min: number; max: number; latest: number; unit?: string }) {
-  const unitLabel = unit ? ` /${unit}` : ''
+  const unitLabel = unit ? `/${unit}` : ''
+
+  const cards = [
+    { label: 'Terendah', value: min, color: 'text-emerald-600', bar: 'bg-emerald-500', accent: 'border-l-emerald-400' },
+    { label: 'Terbaru',  value: latest, color: 'text-indigo-600', bar: 'bg-indigo-500', accent: 'border-l-indigo-400' },
+    { label: 'Tertinggi',value: max, color: 'text-rose-500', bar: 'bg-rose-400', accent: 'border-l-rose-400' },
+  ]
 
   return (
-    <div className="grid grid-cols-3 gap-3 mb-8">
-      <div className="bg-white/90 backdrop-blur rounded-2xl p-4 shadow-lg shadow-black/5 border border-gray-100">
-        <p className="text-emerald-600 text-xs font-semibold mb-1">Terendah</p>
-        <p className="text-xl font-extrabold tracking-tight text-gray-900">{formatPrice(min)}</p>
-        <p className="text-gray-400 text-xs mt-0.5">{unitLabel}</p>
-      </div>
-      <div className="bg-white/90 backdrop-blur rounded-2xl p-4 shadow-lg shadow-black/5 border border-gray-100">
-        <p className="text-indigo-600 text-xs font-semibold mb-1">Terbaru</p>
-        <p className="text-xl font-extrabold tracking-tight text-gray-900">{formatPrice(latest)}</p>
-        <p className="text-gray-400 text-xs mt-0.5">{unitLabel}</p>
-      </div>
-      <div className="bg-white/90 backdrop-blur rounded-2xl p-4 shadow-lg shadow-black/5 border border-gray-100">
-        <p className="text-red-500 text-xs font-semibold mb-1">Tertinggi</p>
-        <p className="text-xl font-extrabold tracking-tight text-gray-900">{formatPrice(max)}</p>
-        <p className="text-gray-400 text-xs mt-0.5">{unitLabel}</p>
-      </div>
+    <div className="flex gap-3 mb-8 overflow-x-auto pb-1 no-scrollbar">
+      {cards.map((c) => (
+        <div
+          key={c.label}
+          className={`flex-shrink-0 flex-1 min-w-[120px] bg-white rounded-3xl border border-slate-100 border-l-4 ${c.accent} shadow-sm p-4`}
+        >
+          <p className={`text-xs font-semibold uppercase tracking-widest ${c.color} mb-1`}>{c.label}</p>
+          <p className="text-xl font-black tracking-tight text-slate-900">{formatPrice(c.value)}</p>
+          {unitLabel && <p className="text-slate-400 text-xs mt-0.5">{unitLabel}</p>}
+        </div>
+      ))}
     </div>
   )
 }
@@ -115,31 +117,72 @@ export default function GoodsDetailPage() {
   const unitMin = rawData.length > 0 ? Math.min(...rawData.map(i => i.unitPrice ?? i.price)) : 0
   const unitMax = rawData.length > 0 ? Math.max(...rawData.map(i => i.unitPrice ?? i.price)) : 0
 
+  const [editingId, setEditingId] = useState<number | null>(null)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [editPrice, setEditPrice] = useState(0)
+  const [editUnitPrice, setEditUnitPrice] = useState<number | undefined>(undefined)
+  const [editDate, setEditDate] = useState('')
+
+  const { mutate: doUpdate, isPending: isUpdating } = useUpdatePriceRecord(editingId ?? 0)
+  const { mutate: doDelete, isPending: isDeletingMutation } = useDeletePriceRecord()
+
+  function startEdit(item: PriceRecord) {
+    setEditingId(item.id)
+    setEditPrice(item.price)
+    setEditUnitPrice(item.unitPrice)
+    setEditDate(item.dateRecorded.slice(0, 10))
+  }
+
+  function cancelEdit() {
+    setEditingId(null)
+  }
+
+  function saveEdit() {
+    if (editingId == null) return
+    doUpdate(
+      { price: editPrice, unitPrice: editUnitPrice ?? null, dateRecorded: editDate },
+      { onSuccess: () => setEditingId(null) },
+    )
+  }
+
+  function confirmDelete(item: PriceRecord) {
+    setDeletingId(item.id)
+  }
+
+  function cancelDelete() {
+    setDeletingId(null)
+  }
+
+  function executeDelete() {
+    if (deletingId == null) return
+    doDelete(deletingId, { onSuccess: () => setDeletingId(null) })
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100/50">
-      <header className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-6 pb-10 relative">
+    <div className="min-h-screen bg-slate-50">
+      {/* Sticky header */}
+      <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center gap-3">
           <Link
             to="/goods"
-            className="inline-flex items-center gap-1.5 text-white/70 hover:text-white text-sm mb-6 transition-all hover:gap-2.5"
+            className="flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Kembali
           </Link>
-
-          {!isLoading && (
-            <>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">{goodName}</h1>
-              <p className="text-white/60 text-sm mt-1.5">{sorted.length} catatan harga</p>
-            </>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-base font-bold text-slate-900 tracking-tight truncate">{goodName}</h1>
+          </div>
+          {product?.category && (
+            <span className="flex-shrink-0 text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+              {product.category}
+            </span>
           )}
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 -mt-5 pb-12">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-6 pb-12">
         {isLoading && <LoadingSkeleton />}
 
         {isError && <ErrorState />}
@@ -151,23 +194,125 @@ export default function GoodsDetailPage() {
             <PriceSummary min={summaryMin} max={summaryMax} latest={summaryLatest} unit={unit} />
 
             <div className="flex items-center justify-between mb-4 px-1">
-              <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">
-                {isWeightUnit ? 'Diurutkan dari harga per unit terendah' : 'Diurutkan dari harga terendah'}
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                {isWeightUnit ? 'Harga per unit terendah' : 'Harga terendah'}
               </p>
-              <p className="text-xs text-gray-400">{sorted.length} hasil</p>
+              <p className="text-xs text-slate-400">{sorted.length} hasil</p>
             </div>
 
             <div className="flex flex-col gap-3">
-              {sorted.map((item, index) => (
-                <div
-                  key={item.id}
-                  style={{
-                    animation: `fade-in-up 0.3s ease-out ${index * 50}ms both`,
-                  }}
-                >
-                  <ReceiptRow item={item} min={isWeightUnit ? unitMin : priceMin} max={isWeightUnit ? unitMax : priceMax} isLowest={getPrice(item) === summaryMin} showUnitPrice={isWeightUnit} />
-                </div>
-              ))}
+              {sorted.map((item, index) => {
+                const isEditing = editingId === item.id
+                const isDeleting = deletingId === item.id
+
+                if (isDeleting) {
+                  return (
+                    <div key={item.id} className="bg-white rounded-3xl border border-rose-200 px-5 py-4">
+                      <p className="text-sm font-semibold text-slate-800">Hapus harga dari <span className="text-rose-600">{item.storeName}</span>?</p>
+                      <p className="text-xs text-slate-400 mt-1">{formatPrice(item.price)} — {item.dateRecorded.slice(0, 10)}</p>
+                      <div className="flex gap-2 mt-3">
+                        <button
+                          onClick={executeDelete}
+                          disabled={isDeletingMutation}
+                          className="flex-1 py-2 rounded-xl text-xs font-semibold text-white bg-rose-500 hover:bg-rose-600 disabled:opacity-50 transition"
+                        >
+                          {isDeletingMutation ? 'Menghapus…' : 'Ya, Hapus'}
+                        </button>
+                        <button
+                          onClick={cancelDelete}
+                          disabled={isDeletingMutation}
+                          className="flex-1 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 transition"
+                        >
+                          Batal
+                        </button>
+                      </div>
+                    </div>
+                  )
+                }
+
+                if (isEditing) {
+                  return (
+                    <div key={item.id} className="bg-white rounded-3xl border border-indigo-200 px-5 py-4 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                          {item.storeName.charAt(0).toUpperCase()}
+                        </div>
+                        <p className="font-semibold text-slate-900 text-sm">{item.storeName}</p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3">
+                        <div>
+                          <label className="text-xs text-slate-400 font-medium">Harga</label>
+                          <input
+                            type="number"
+                            min={0}
+                            step={100}
+                            value={editPrice}
+                            onChange={(e) => setEditPrice(Math.max(0, Number(e.target.value)))}
+                            className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition rounded-xl"
+                          />
+                        </div>
+                        {isWeightUnit && (
+                          <div>
+                            <label className="text-xs text-slate-400 font-medium">Harga/unit</label>
+                            <input
+                              type="number"
+                              min={0}
+                              step={100}
+                              value={editUnitPrice ?? ''}
+                              onChange={(e) => setEditUnitPrice(e.target.value ? Number(e.target.value) : undefined)}
+                              className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition rounded-xl"
+                            />
+                          </div>
+                        )}
+                        <div>
+                          <label className="text-xs text-slate-400 font-medium">Tanggal</label>
+                          <input
+                            type="date"
+                            value={editDate}
+                            onChange={(e) => setEditDate(e.target.value)}
+                            className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition rounded-xl"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-1">
+                        <button
+                          onClick={saveEdit}
+                          disabled={isUpdating}
+                          className="flex-1 py-2 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 transition"
+                        >
+                          {isUpdating ? 'Menyimpan…' : 'Simpan'}
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          disabled={isUpdating}
+                          className="flex-1 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 transition"
+                        >
+                          Batal
+                        </button>
+                      </div>
+                    </div>
+                  )
+                }
+
+                return (
+                  <div
+                    key={item.id}
+                    style={{
+                      animation: `fade-in-up 0.3s ease-out ${index * 50}ms both`,
+                    }}
+                  >
+                    <ReceiptRow
+                      item={item}
+                      min={isWeightUnit ? unitMin : priceMin}
+                      max={isWeightUnit ? unitMax : priceMax}
+                      isLowest={getPrice(item) === summaryMin}
+                      showUnitPrice={isWeightUnit}
+                      onEdit={startEdit}
+                      onDelete={confirmDelete}
+                    />
+                  </div>
+                )
+              })}
             </div>
           </>
         )}
