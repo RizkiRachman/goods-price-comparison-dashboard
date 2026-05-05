@@ -293,6 +293,11 @@ export const handlers = [
     return HttpResponse.json({ data: chains })
   }),
 
+  // Trigger product price recalculation job
+  http.post('/v1/admin/jobs/product-prices-calculate', () =>
+    HttpResponse.json({ jobId: crypto.randomUUID(), status: 'PENDING' }),
+  ),
+
   // Correct receipt
   http.post('/v1/receipts/:id/correct', async ({ params }) => {
     const response: ReceiptCorrectResponse = {
