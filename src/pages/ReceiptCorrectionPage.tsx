@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useReceiptJobs } from '@/hooks/useReceiptJobs'
 import { useReceiptHistory } from '@/hooks/useReceiptHistory'
+import { useReceiptCorrection } from '@/hooks/useReceiptCorrection'
 import type { ReceiptResultItem } from '@/types/receipt'
 
 function fmt(n: number) {
@@ -16,6 +17,7 @@ export default function ReceiptCorrectionPage() {
 
   const { jobs, updateJobResult } = useReceiptJobs()
   const { history, updateHistory } = useReceiptHistory()
+  const correction = useReceiptCorrection()
 
   const job = isHistory
     ? history.find((r) => r.receiptId === receiptId)
@@ -61,20 +63,29 @@ export default function ReceiptCorrectionPage() {
   }
 
   function handleSave() {
-    const corrected = {
-      ...jobResult!,
+    const body = {
       storeName: storeName || jobResult!.storeName,
+      storeLocation: jobResult!.storeLocation,
       date: date || undefined,
       items,
       totalAmount: items.reduce((sum, i) => sum + i.totalPrice, 0),
     }
-    if (isHistory) {
-      updateHistory(receiptId!, corrected)
-    } else {
-      updateJobResult(receiptId!, corrected)
-    }
-    setSaved(true)
-    setTimeout(() => navigate(-1), 600)
+
+    correction.mutate(
+      { receiptId: receiptId!, body },
+      {
+        onSuccess: () => {
+          const corrected = { ...jobResult!, ...body }
+          if (isHistory) {
+            updateHistory(receiptId!, corrected)
+          } else {
+            updateJobResult(receiptId!, corrected)
+          }
+          setSaved(true)
+          setTimeout(() => navigate(-1), 600)
+        },
+      },
+    )
   }
 
   const issueCount = [issues.store, issues.date, issues.total, issues.noItems]
@@ -112,6 +123,16 @@ export default function ReceiptCorrectionPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 -mt-4 pb-12 space-y-4">
+        {correction.isError && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-red-100 rounded-xl flex items-center justify-center text-lg">✗</div>
+            <div>
+              <p className="text-sm font-semibold text-red-800">Gagal menyimpan</p>
+              <p className="text-xs text-red-600 mt-0.5">Coba lagi atau hubungi admin</p>
+            </div>
+          </div>
+        )}
+
         {saved && (
           <div className="bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-4 flex items-center gap-3">
             <div className="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center text-lg">✅</div>
@@ -239,10 +260,12 @@ export default function ReceiptCorrectionPage() {
 
         <button
           onClick={handleSave}
-          disabled={saved}
+          disabled={saved || correction.isPending}
           className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
-          {saved ? (
+          {correction.isPending ? (
+            <>⏳ Menyimpan…</>
+          ) : saved ? (
             <>✅ Tersimpan</>
           ) : (
             <>

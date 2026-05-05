@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import { mockStoresWithStats, storeProductPrices } from './data'
-import type { ProductListResponse, StoreListResponse } from '@/types/api'
+import type { ProductListResponse, StoreListResponse, ReceiptCorrectResponse } from '@/types/api'
 
 // Mock products data
 const mockProducts = [
@@ -291,6 +291,15 @@ export const handlers = [
   http.get('/api/v1/stores/chains', () => {
     const chains = [...new Set(mockStoresWithStats.map((s) => s.chain).filter(Boolean))]
     return HttpResponse.json({ data: chains })
+  }),
+
+  // Correct receipt
+  http.post('/v1/receipts/:id/correct', async ({ params }) => {
+    const response: ReceiptCorrectResponse = {
+      receiptId: params.id as string,
+      status: 'PENDING_REVIEW',
+    }
+    return HttpResponse.json(response)
   }),
 
   // Get single store with stats
