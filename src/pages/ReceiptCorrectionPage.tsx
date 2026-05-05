@@ -28,7 +28,18 @@ export default function ReceiptCorrectionPage() {
   )
   const [saved, setSaved] = useState(false)
 
-  if (!job || !job.result) {
+  const jobResult = job?.result
+  const totalAmount = items.reduce((sum, i) => sum + i.totalPrice, 0)
+  const issues = useMemo(() => ({
+    store: !storeName?.trim(),
+    date: !date,
+    total: totalAmount <= 0,
+    noItems: items.length === 0,
+    itemsMissingPrice: items.map((it) => !it.unitPrice || it.unitPrice <= 0),
+    itemsMissingQty: items.map((it) => !it.quantity || it.quantity <= 0),
+  }), [storeName, date, totalAmount, items])
+
+  if (!job || !jobResult) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
         <div className="w-20 h-20 bg-gray-100 rounded-3xl flex items-center justify-center text-4xl">🔍</div>
@@ -51,8 +62,8 @@ export default function ReceiptCorrectionPage() {
 
   function handleSave() {
     const corrected = {
-      ...job.result!,
-      storeName: storeName || job.result!.storeName,
+      ...jobResult!,
+      storeName: storeName || jobResult!.storeName,
       date: date || undefined,
       items,
       totalAmount: items.reduce((sum, i) => sum + i.totalPrice, 0),
@@ -65,18 +76,6 @@ export default function ReceiptCorrectionPage() {
     setSaved(true)
     setTimeout(() => navigate(-1), 600)
   }
-
-  const totalAmount = items.reduce((sum, i) => sum + i.totalPrice, 0)
-
-  // Derive validation issues for inline highlighting
-  const issues = useMemo(() => ({
-    store: !storeName?.trim(),
-    date: !date,
-    total: totalAmount <= 0,
-    noItems: items.length === 0,
-    itemsMissingPrice: items.map((it) => !it.unitPrice || it.unitPrice <= 0),
-    itemsMissingQty: items.map((it) => !it.quantity || it.quantity <= 0),
-  }), [storeName, date, totalAmount, items])
 
   const issueCount = [issues.store, issues.date, issues.total, issues.noItems]
     .filter(Boolean).length
@@ -100,7 +99,7 @@ export default function ReceiptCorrectionPage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-white/60 text-xs font-medium uppercase tracking-wide mb-1">Koreksi Struk</p>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">{storeName || job.result.storeName}</h1>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">{storeName || jobResult.storeName}</h1>
               {job.fileName && <p className="text-indigo-200 text-sm mt-1">{job.fileName}</p>}
             </div>
             <div className="text-right flex-shrink-0">
