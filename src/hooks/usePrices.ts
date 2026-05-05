@@ -49,23 +49,29 @@ export const useCreatePriceRecord = (productId: number) => {
   })
 }
 
-export const useUpdatePriceRecord = (priceId: number) => {
+export const useUpdatePriceRecord = (priceId: number, productId?: number | null) => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (body: UpdatePriceRecordRequest) => pricesApi.updateRecord(priceId, body),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['prices', priceId] })
       qc.invalidateQueries({ queryKey: ['prices', 'search'] })
+      if (productId != null) {
+        qc.invalidateQueries({ queryKey: ['products', productId, 'prices'] })
+      }
     },
   })
 }
 
-export const useDeletePriceRecord = () => {
+export const useDeletePriceRecord = (productId?: number | null) => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (priceId: number) => pricesApi.deleteRecord(priceId),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['prices'] })
+      if (productId != null) {
+        qc.invalidateQueries({ queryKey: ['products', productId, 'prices'] })
+      }
     },
   })
 }

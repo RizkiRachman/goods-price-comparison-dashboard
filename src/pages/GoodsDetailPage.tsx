@@ -123,8 +123,8 @@ export default function GoodsDetailPage() {
   const [editUnitPrice, setEditUnitPrice] = useState<number | undefined>(undefined)
   const [editDate, setEditDate] = useState('')
 
-  const { mutate: doUpdate, isPending: isUpdating } = useUpdatePriceRecord(editingId ?? 0)
-  const { mutate: doDelete, isPending: isDeletingMutation } = useDeletePriceRecord()
+  const { mutate: doUpdate, isPending: isUpdating } = useUpdatePriceRecord(editingId ?? 0, productId)
+  const { mutate: doDelete, isPending: isDeletingMutation } = useDeletePriceRecord(productId)
 
   function startEdit(item: PriceRecord) {
     setEditingId(item.id)
@@ -140,7 +140,7 @@ export default function GoodsDetailPage() {
   function saveEdit() {
     if (editingId == null) return
     doUpdate(
-      { price: editPrice, unitPrice: editUnitPrice ?? null, dateRecorded: editDate },
+      { price: editPrice, unitPrice: editUnitPrice ?? null, dateRecorded: `${editDate}T00:00:00+07:00` },
       { onSuccess: () => setEditingId(null) },
     )
   }
