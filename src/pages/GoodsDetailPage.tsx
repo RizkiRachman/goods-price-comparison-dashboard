@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
+import type { PriceRecord } from '@/types/api'
 import { useProductPrices } from '@/hooks/usePrices'
 import { useProduct } from '@/hooks/useGoods'
 import { ReceiptRow } from '@/components/PriceComponents'
@@ -88,17 +89,31 @@ export default function GoodsDetailPage() {
     sortOrder: 'asc',
   })
 
-  const sorted = pricesData?.data ?? []
-  const min = sorted[0]?.price ?? 0
-  const max = sorted[sorted.length - 1]?.price ?? 0
+  const rawData = pricesData?.data ?? []
   const goodName = product?.name ?? 'Barang'
   const unit = product?.unit ?? ''
 
-  const latestPrice = sorted.length > 0
-    ? sorted.reduce((latest, item) =>
-        new Date(item.dateRecorded) > new Date(latest.dateRecorded) ? item : latest
-      ).price
+  const isWeightUnit = unit && ['kg', 'kilogram', 'gr', 'gram'].includes(unit.toLowerCase())
+  const getPrice = (item: PriceRecord) =>
+    isWeightUnit ? (item.unitPrice ?? item.price) : item.price
+
+  const sorted = isWeightUnit
+    ? [...rawData].sort((a, b) => getPrice(a) - getPrice(b))
+    : rawData
+
+  const summaryMin = rawData.length > 0 ? Math.min(...rawData.map(getPrice)) : 0
+  const summaryMax = rawData.length > 0 ? Math.max(...rawData.map(getPrice)) : 0
+  const summaryLatest = rawData.length > 0
+    ? getPrice(
+        rawData.reduce((latest, item) =>
+          new Date(item.dateRecorded) > new Date(latest.dateRecorded) ? item : latest
+        ))
     : 0
+
+  const priceMin = rawData.length > 0 ? Math.min(...rawData.map(i => i.price)) : 0
+  const priceMax = rawData.length > 0 ? Math.max(...rawData.map(i => i.price)) : 0
+  const unitMin = rawData.length > 0 ? Math.min(...rawData.map(i => i.unitPrice ?? i.price)) : 0
+  const unitMax = rawData.length > 0 ? Math.max(...rawData.map(i => i.unitPrice ?? i.price)) : 0
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100/50">
@@ -133,11 +148,11 @@ export default function GoodsDetailPage() {
 
         {!isLoading && !isError && sorted.length > 0 && (
           <>
-            <PriceSummary min={min} max={max} latest={latestPrice} unit={unit} />
+            <PriceSummary min={summaryMin} max={summaryMax} latest={summaryLatest} unit={unit} />
 
             <div className="flex items-center justify-between mb-4 px-1">
               <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">
-                Diurutkan dari harga terendah
+                {isWeightUnit ? 'Diurutkan dari harga per unit terendah' : 'Diurutkan dari harga terendah'}
               </p>
               <p className="text-xs text-gray-400">{sorted.length} hasil</p>
             </div>
@@ -150,7 +165,7 @@ export default function GoodsDetailPage() {
                     animation: `fade-in-up 0.3s ease-out ${index * 50}ms both`,
                   }}
                 >
-                  <ReceiptRow item={item} min={min} max={max} isLowest={item.price === min} />
+                  <ReceiptRow item={item} min={isWeightUnit ? unitMin : priceMin} max={isWeightUnit ? unitMax : priceMax} isLowest={getPrice(item) === summaryMin} showUnitPrice={isWeightUnit} />
                 </div>
               ))}
             </div>
