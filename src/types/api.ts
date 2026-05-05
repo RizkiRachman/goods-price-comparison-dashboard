@@ -378,6 +378,19 @@ export interface ReceiptRejectResponse {
   status: ReceiptStatus
 }
 
+export interface ReceiptCorrectRequest {
+  storeName: string
+  storeLocation?: string
+  date?: string
+  totalAmount: number
+  items: ReceiptResultItem[]
+}
+
+export interface ReceiptCorrectResponse {
+  receiptId: string
+  status: ReceiptStatus
+}
+
 export interface ShoppingOptimizeRequest {
   items: string[]
   preferences?: ShoppingPreferences

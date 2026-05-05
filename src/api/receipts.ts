@@ -6,6 +6,8 @@ import type {
   ReceiptApproveResponse,
   ReceiptRejectRequest,
   ReceiptRejectResponse,
+  ReceiptCorrectRequest,
+  ReceiptCorrectResponse,
 } from '@/types/api'
 
 export const receiptsApi = {
@@ -30,4 +32,7 @@ export const receiptsApi = {
 
   reject: (id: string, body?: ReceiptRejectRequest) =>
     apiClient.post<ReceiptRejectResponse>(`/v1/receipts/${id}/reject`, body).then((r) => r.data),
+
+  correct: (id: string, body: ReceiptCorrectRequest) =>
+    apiClient.post<ReceiptCorrectResponse>(`/v1/receipts/${id}/correct`, body).then((r) => r.data),
 }
