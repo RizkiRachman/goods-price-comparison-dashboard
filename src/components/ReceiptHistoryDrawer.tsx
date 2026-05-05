@@ -23,19 +23,26 @@ function formatPrice(price: number): string {
   }).format(price)
 }
 
-function ReceiptCard({ receipt, onClick }: { receipt: CompletedReceipt; onClick: () => void }) {
+function ReceiptCard({
+  receipt,
+  onClick,
+  onCorrect,
+}: {
+  receipt: CompletedReceipt
+  onClick: () => void
+  onCorrect?: () => void
+}) {
   const isApproved = receipt.status === 'APPROVED' || receipt.status === 'COMPLETED'
 
   return (
-    <button
-      onClick={onClick}
-      className={`w-full text-left rounded-xl overflow-hidden transition hover:shadow-md ${
+    <div
+      className={`w-full rounded-xl overflow-hidden transition hover:shadow-md ${
         isApproved
           ? 'bg-emerald-50 border border-emerald-100 hover:border-emerald-200'
           : 'bg-red-50 border border-red-100 hover:border-red-200 opacity-75'
       }`}
     >
-      <div className="p-4">
+      <button onClick={onClick} className="w-full text-left p-4">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
@@ -96,8 +103,23 @@ function ReceiptCard({ receipt, onClick }: { receipt: CompletedReceipt; onClick:
             </div>
           </div>
         )}
-      </div>
-    </button>
+      </button>
+
+      {/* Koreksi button — only for approved receipts with result */}
+      {isApproved && receipt.result && onCorrect && (
+        <div className="px-4 pb-3">
+          <button
+            onClick={(e) => { e.stopPropagation(); onCorrect() }}
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 transition"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Koreksi Data
+          </button>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -109,6 +131,11 @@ export function ReceiptHistoryDrawer({ receipts, onClose }: Props) {
   const handleReceiptClick = (receiptId: string) => {
     onClose()
     navigate(`/receipts/${receiptId}`)
+  }
+
+  const handleCorrect = (receiptId: string) => {
+    onClose()
+    navigate(`/receipts/${receiptId}/correct?source=history`)
   }
 
   return (
@@ -168,6 +195,7 @@ export function ReceiptHistoryDrawer({ receipts, onClose }: Props) {
                         key={receipt.receiptId}
                         receipt={receipt}
                         onClick={() => handleReceiptClick(receipt.receiptId)}
+                        onCorrect={() => handleCorrect(receipt.receiptId)}
                       />
                     ))}
                   </div>

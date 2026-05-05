@@ -4,8 +4,16 @@ import { useProductsByStore } from '@/hooks/useProductsByStore'
 import { usePagination } from '@/hooks/usePagination'
 import { GoodCard } from '@/components/GoodCard'
 import { Pagination } from '@/components/Pagination'
-import type { Unit } from '@/types/goods'
-import { useMemo } from 'react'
+import { PriceCorrectModal } from '@/components/PriceCorrectModal'
+import { normalizeUnit, normalizeCategory } from '@/utils/goods'
+import { useMemo, useState } from 'react'
+
+interface CorrectTarget {
+  productId: number
+  productName: string
+  currentPrice?: number
+  unit?: string
+}
 
 export default function StoreDetailPage() {
   const { storeId } = useParams<{ storeId: string }>()
@@ -13,14 +21,16 @@ export default function StoreDetailPage() {
   const { data: store } = useStore(id)
   const { page, setPage, pageParam } = usePagination({ pageSize: 10 })
   const { data: productsData, isLoading, isError } = useProductsByStore(id, pageParam)
+  const [correctTarget, setCorrectTarget] = useState<CorrectTarget | null>(null)
 
   const goods = useMemo(
     () =>
       (productsData?.data ?? []).map((p) => ({
         goodId: String(p.id),
+        productId: p.id,
         goodName: p.name,
-        category: p.category ?? 'Uncategorized',
-        unit: (p.unit as Unit) ?? 'pcs',
+        category: normalizeCategory(p.category),
+        unit: normalizeUnit(p.unit),
         latestPrice: p.latestPrice ?? 0,
         avgPrice: p.detail?.price?.avg ?? p.avgPrice ?? 0,
         lowestPrice: p.detail?.price?.min ?? p.lowestPrice ?? 0,
@@ -67,7 +77,7 @@ export default function StoreDetailPage() {
         )}
 
         {isLoading && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 overflow-visible">
             {Array.from({ length: 10 }).map((_, i) => (
               <div key={i} className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-pulse">
                 <div className="h-1.5 bg-gray-200" />
@@ -100,15 +110,29 @@ export default function StoreDetailPage() {
 
         {!isLoading && !isError && goods.length > 0 && (
           <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 overflow-visible">
               {goods.map((good, index) => (
                 <div
                   key={good.goodId}
-                  style={{
-                    animation: `fade-in-up 0.3s ease-out ${index * 40}ms both`,
-                  }}
+                  className="relative group/correct"
+                  style={{ animation: `fade-in-up 0.3s ease-out ${index * 40}ms both` }}
                 >
                   <GoodCard good={good} />
+                  <button
+                    onClick={() => setCorrectTarget({
+                      productId: good.productId,
+                      productName: good.goodName,
+                      currentPrice: good.latestPrice || good.avgPrice || undefined,
+                      unit: good.unit,
+                    })}
+                    aria-label={`Koreksi harga ${good.goodName}`}
+                    className="absolute bottom-2 right-2 opacity-0 group-hover/correct:opacity-100 focus:opacity-100 transition-opacity flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Koreksi
+                  </button>
                 </div>
               ))}
             </div>
@@ -116,6 +140,17 @@ export default function StoreDetailPage() {
               <Pagination page={page} totalPages={productsData.pagination.totalPages} onPageChange={setPage} />
             )}
           </>
+        )}
+
+        {correctTarget && id && (
+          <PriceCorrectModal
+            productId={correctTarget.productId}
+            productName={correctTarget.productName}
+            storeId={id}
+            currentPrice={correctTarget.currentPrice}
+            unit={correctTarget.unit}
+            onClose={() => setCorrectTarget(null)}
+          />
         )}
 
         {!isLoading && !isError && goods.length === 0 && (

@@ -1,6 +1,34 @@
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { ReceiptStatus, TrackedJob } from '@/types/receipt'
+import type { ReceiptResult, ReceiptStatus, TrackedJob } from '@/types/receipt'
+
+interface ValidationIssue {
+  field: string
+  message: string
+}
+
+function validateReceipt(result: ReceiptResult): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
+  if (!result.storeName?.trim()) issues.push({ field: 'store', message: 'Nama toko kosong' })
+  if (!result.date) issues.push({ field: 'date', message: 'Tanggal struk kosong' })
+  if (!result.totalAmount || result.totalAmount <= 0) issues.push({ field: 'total', message: 'Total pembayaran kosong' })
+  if (!result.items?.length) {
+    issues.push({ field: 'items', message: 'Tidak ada barang ditemukan' })
+  } else {
+    const missingPrice = result.items.filter((i) => !i.unitPrice || i.unitPrice <= 0)
+    if (missingPrice.length > 0) {
+      issues.push({
+        field: 'prices',
+        message: `${missingPrice.length} barang tanpa harga: ${missingPrice.map((i) => i.productName).join(', ')}`,
+      })
+    }
+    const missingQty = result.items.filter((i) => !i.quantity || i.quantity <= 0)
+    if (missingQty.length > 0) {
+      issues.push({ field: 'qty', message: `${missingQty.length} barang dengan jumlah 0` })
+    }
+  }
+  return issues
+}
 
 const STATUS_LABEL: Partial<Record<ReceiptStatus, string>> = {
   PENDING:          'Mengunggah…',
@@ -39,6 +67,8 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
   const isLlmReady = job.status === 'COMPLETED' && job.result
   const isProcessing = !isCompleted && !isFailed && !isPendingReview && !isLlmReady
   const hasItems = job.result && job.result.items.length > 0
+  const validationIssues = job.result ? validateReceipt(job.result) : []
+  const canApprove = validationIssues.length === 0
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
@@ -124,6 +154,23 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
             </div>
           )}
           
+          {/* Validation warnings */}
+          {validationIssues.length > 0 && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 space-y-1">
+              <p className="text-xs font-semibold text-amber-700 flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                </svg>
+                Data perlu dikoreksi sebelum disetujui
+              </p>
+              <ul className="space-y-0.5">
+                {validationIssues.map((issue) => (
+                  <li key={issue.field} className="text-xs text-amber-600 pl-5">• {issue.message}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* View detail button for all items */}
           <button
             onClick={() => onNavigate(job.receiptId)}
@@ -131,11 +178,24 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
           >
             Lihat Detail Struk
           </button>
-          
+
+          <button
+            onClick={() => onNavigate(`${job.receiptId}/correct`)}
+            className={`w-full py-2 text-xs font-semibold rounded-lg transition ${
+              !canApprove
+                ? 'text-white bg-amber-500 hover:bg-amber-600 animate-pulse'
+                : 'text-amber-600 bg-amber-50 hover:bg-amber-100'
+            }`}
+          >
+            {!canApprove ? '⚠️ Koreksi Data Sekarang' : 'Koreksi Data'}
+          </button>
+
           <div className="flex gap-2">
             <button
+              disabled={!canApprove}
               onClick={() => onApprove?.(job.receiptId)}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl font-semibold text-xs text-white bg-emerald-500 hover:bg-emerald-600 transition"
+              title={!canApprove ? 'Selesaikan koreksi data terlebih dahulu' : undefined}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl font-semibold text-xs text-white bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

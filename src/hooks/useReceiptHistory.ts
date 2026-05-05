@@ -53,6 +53,21 @@ export function useReceiptHistory() {
     []
   )
 
+  const updateHistory = useCallback(
+    (receiptId: string, result: ReceiptResult) => {
+      setHistory((prev) => {
+        const next = prev.map((r) =>
+          r.receiptId === receiptId
+            ? { ...r, result, totalItems: result.items.length, totalAmount: result.totalAmount }
+            : r
+        )
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+        return next
+      })
+    },
+    []
+  )
+
   const clearHistory = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY)
     setHistory([])
@@ -88,6 +103,7 @@ export function useReceiptHistory() {
   return {
     history,
     addToHistory,
+    updateHistory,
     removeFromHistory,
     clearHistory,
     stats,
