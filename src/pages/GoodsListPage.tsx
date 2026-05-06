@@ -11,6 +11,7 @@ import { useReceiptManager } from '@/hooks/useReceiptManager'
 import { useSearchLogic } from './GoodsListPage.logic'
 import { useProductPricesCalculate } from '@/hooks/useProductPricesCalculate'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function GoodsListPage() {
   const {
@@ -22,6 +23,7 @@ export default function GoodsListPage() {
     rejectJob,
     history,
     stats,
+    processingCount,
   } = useReceiptManager()
 
   const [showUpload, setShowUpload] = useState(false)
@@ -29,6 +31,7 @@ export default function GoodsListPage() {
   const [showHistory, setShowHistory] = useState(false)
   const [syncMsg, setSyncMsg] = useState<string | null>(null)
 
+  const navigate = useNavigate()
   const sync = useProductPricesCalculate()
 
   const {
@@ -103,6 +106,21 @@ export default function GoodsListPage() {
               {stats.total > 0 && (
                 <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-rose-500 text-white text-[10px] font-bold rounded-full px-1">
                   {stats.total}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => navigate('/receipts/pending')}
+              className="relative flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              <span className="hidden sm:inline">Proses</span>
+              {processingCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-amber-500 text-white text-[10px] font-bold rounded-full px-1">
+                  {processingCount}
                 </span>
               )}
             </button>

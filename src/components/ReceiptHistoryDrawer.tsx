@@ -162,17 +162,6 @@ export function ReceiptHistoryDrawer({ receipts, onClose }: Props) {
             </button>
           </div>
 
-          {/* Quick stats */}
-          <div className="grid grid-cols-2 gap-3 mt-4">
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-white">{approved.length}</p>
-              <p className="text-xs text-indigo-100">Diterima</p>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-white">{rejected.length}</p>
-              <p className="text-xs text-indigo-100">Ditolak</p>
-            </div>
-          </div>
         </div>
 
         {/* Content */}
