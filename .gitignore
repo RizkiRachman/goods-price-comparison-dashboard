@@ -1,3 +1,20 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+target
+build
+out
+*.tsbuildinfo
+
+# Environment
+.env
+.env.*
+!.env.example
+*.local
+
 # Logs
 logs
 *.log
@@ -7,10 +24,18 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Cache
+.eslintcache
+.stylelintcache
+.cache
+.turbo
+.pnp.*
+
+# Generated cache
+.vite
+
+# Screenshots
+screenshot/
 
 # Editor directories and files
 .vscode/*
@@ -25,4 +50,15 @@ dist-ssr
 
 # AI tooling artifacts
 .aider*
-.cursor/rules/*.mdc
+.claude/
+.cursor/
+.opencode/
+.github/copilot*
+CLAUDE.md
+AGENTS.md
+*.prompt
+.ai*
+!*.ai-generated.md
+
+opencode.json
+tunnel.sh
