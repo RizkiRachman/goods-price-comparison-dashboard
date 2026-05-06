@@ -369,10 +369,6 @@ export interface ReceiptApproveResponse {
   status: ReceiptStatus
 }
 
-export interface ReceiptRejectRequest {
-  reason?: string
-}
-
 export interface ReceiptRejectResponse {
   receiptId: string
   status: ReceiptStatus

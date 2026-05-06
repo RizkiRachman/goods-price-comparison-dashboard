@@ -4,7 +4,6 @@ import type {
   ReceiptStatusResponse,
   ReceiptResultResponse,
   ReceiptApproveResponse,
-  ReceiptRejectRequest,
   ReceiptRejectResponse,
   ReceiptCorrectRequest,
   ReceiptCorrectResponse,
@@ -30,8 +29,8 @@ export const receiptsApi = {
   approve: (id: string) =>
     apiClient.post<ReceiptApproveResponse>(`/v1/receipts/${id}/approve`).then((r) => r.data),
 
-  reject: (id: string, body?: ReceiptRejectRequest) =>
-    apiClient.post<ReceiptRejectResponse>(`/v1/receipts/${id}/reject`, body).then((r) => r.data),
+  reject: (id: string) =>
+    apiClient.delete<ReceiptRejectResponse>(`/v1/receipts/${id}/reject`).then((r) => r.data),
 
   correct: (id: string, body: ReceiptCorrectRequest) =>
     apiClient.post<ReceiptCorrectResponse>(`/v1/receipts/${id}/correct`, body).then((r) => r.data),
