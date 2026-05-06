@@ -81,6 +81,9 @@ export default function GoodsListPage() {
               </svg>
             </div>
             <span className="font-black text-slate-900 text-lg tracking-tight">HargaKu</span>
+            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 bg-slate-100 text-slate-500 text-xs font-semibold rounded-full">
+              {totalItems.toLocaleString()} {searchMode === 'product' ? 'barang' : 'toko'}
+            </span>
           </div>
 
           {/* Action buttons */}
@@ -184,47 +187,6 @@ export default function GoodsListPage() {
           </div>
         </div>
       </section>
-
-      {/* ── Stats bar ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div className="flex items-center gap-3 overflow-x-auto pb-1 no-scrollbar">
-          <div className="flex-shrink-0 flex items-center gap-2.5 bg-white rounded-2xl border border-slate-100 shadow-sm px-4 py-3">
-            <div className="w-8 h-8 bg-indigo-50 rounded-xl flex items-center justify-center">
-              <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Total</p>
-              <p className="text-xl font-black text-slate-900 leading-tight">{totalItems}</p>
-            </div>
-          </div>
-
-          <div className="flex-shrink-0 flex items-center gap-2.5 bg-white rounded-2xl border border-slate-100 shadow-sm px-4 py-3">
-            <div className="w-8 h-8 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Disetujui</p>
-              <p className="text-xl font-black text-slate-900 leading-tight">{stats.approved ?? 0}</p>
-            </div>
-          </div>
-
-          <div className="flex-shrink-0 flex items-center gap-2.5 bg-white rounded-2xl border border-slate-100 shadow-sm px-4 py-3">
-            <div className="w-8 h-8 bg-amber-50 rounded-xl flex items-center justify-center">
-              <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Struk</p>
-              <p className="text-xl font-black text-slate-900 leading-tight">{stats.total}</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* ── Main Content ── */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 pb-24">

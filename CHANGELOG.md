@@ -26,3 +26,8 @@ All notable changes to this project are documented here.
 
 ### Fixed
 - "Terbaru" stat now shows most recent price instead of cheapest
+- Pending receipts page upload button now opens upload modal inline instead of navigating to home page
+
+### Changed
+- Moved total product/store count from stats bar into navbar badge on main page
+- Removed Disetujui and Struk stat cards from main page stats bar
