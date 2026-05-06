@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useReceiptJobs } from '@/hooks/useReceiptJobs'
+import { ReceiptUploadModal } from '@/components/ReceiptUploadModal'
 
 const STATUS_LABEL: Record<string, string> = {
   PENDING:          'Mengunggah…',
@@ -29,7 +31,8 @@ function fmt(n: number) {
 
 export default function PendingReceiptsPage() {
   const navigate = useNavigate()
-  const { jobs, approveJob, rejectJob, removeJob } = useReceiptJobs()
+  const { jobs, addJob, approveJob, rejectJob, removeJob } = useReceiptJobs()
+  const [showUpload, setShowUpload] = useState(false)
 
   const pendingJobs = jobs.filter(
     (j) => j.status === 'PENDING_REVIEW' || j.status === 'COMPLETED'
@@ -54,15 +57,26 @@ export default function PendingReceiptsPage() {
       {/* Header */}
       <header className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-4 pb-8">
-          <button
-            onClick={() => navigate('/goods')}
-            className="flex items-center gap-2 text-white/70 hover:text-white text-sm font-medium mb-6 transition"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Kembali
-          </button>
+          <div className="flex items-center justify-between mb-6">
+            <button
+              onClick={() => navigate('/goods')}
+              className="flex items-center gap-2 text-white/70 hover:text-white text-sm font-medium transition"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Kembali
+            </button>
+            <button
+              onClick={() => setShowUpload(true)}
+              className="flex items-center gap-2 px-3 py-1.5 bg-white/15 hover:bg-white/25 text-white text-sm font-medium rounded-xl transition backdrop-blur"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              Upload
+            </button>
+          </div>
           <h1 className="text-2xl font-extrabold text-white">Proses Struk</h1>
           <p className="text-indigo-200 text-sm mt-1">{jobs.length} struk diproses</p>
         </div>
@@ -196,7 +210,7 @@ export default function PendingReceiptsPage() {
             <p className="text-lg font-semibold text-gray-700">Tidak ada struk yang perlu diproses</p>
             <p className="text-sm text-gray-400 mt-1">Upload struk untuk memulai</p>
             <button
-              onClick={() => navigate('/goods')}
+              onClick={() => setShowUpload(true)}
               className="mt-6 px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl shadow-sm hover:shadow-md transition"
             >
               Upload Struk
@@ -231,6 +245,16 @@ export default function PendingReceiptsPage() {
           </section>
         )}
       </main>
+
+      {showUpload && (
+        <ReceiptUploadModal
+          onClose={() => setShowUpload(false)}
+          onJobCreated={(receiptId, fileName) => {
+            addJob(receiptId, fileName)
+            setShowUpload(false)
+          }}
+        />
+      )}
     </div>
   )
 }
