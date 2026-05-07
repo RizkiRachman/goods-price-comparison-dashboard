@@ -25,6 +25,58 @@ export const mockStoresWithStats: StoreWithStats[] = [
   { ...mockStores[5], totalProducts: 1256, priceRange: { min: 1800, max: 890000 }, avgPrice: 89500, lastUpdated: '2026-05-04T15:30:00Z' },
 ]
 
+export const mockShoppingOptimizeResponse = {
+  singleStore: {
+    totalItems: 2,
+    totalCost: 84000,
+    storesToVisit: 1,
+    route: [
+      {
+        storeId: 6,
+        storeName: 'Hypermart Puri Indah',
+        storeLocation: 'Puri Indah Mall, Jakarta Barat',
+        items: [
+          { productName: 'Beras Premium 5kg', price: 63500, quantity: 1 },
+          { productName: 'Minyak Goreng 2L', price: 42800, quantity: 1 },
+        ],
+        subtotal: 106300,
+        estimatedTime: '15 menit',
+      },
+    ],
+    savings: { comparedToSingleStore: 0, percentage: 0 },
+  },
+  multiStore: {
+    totalItems: 4,
+    totalCost: 115500,
+    storesToVisit: 2,
+    route: [
+      {
+        storeId: 6,
+        storeName: 'Hypermart Puri Indah',
+        storeLocation: 'Puri Indah Mall, Jakarta Barat',
+        items: [
+          { productName: 'Beras Premium 5kg', price: 63500, quantity: 1 },
+          { productName: 'Telur Ayam 1kg', price: 30500, quantity: 1 },
+        ],
+        subtotal: 94000,
+        estimatedTime: '15 menit',
+      },
+      {
+        storeId: 2,
+        storeName: 'Alfamart Thamrin',
+        storeLocation: 'Jl. MH Thamrin Kav. 10, Jakarta Pusat',
+        items: [
+          { productName: 'Minyak Goreng 2L', price: 41000, quantity: 1 },
+          { productName: 'Gula Pasir 1kg', price: 18200, quantity: 1 },
+        ],
+        subtotal: 59200,
+        estimatedTime: '10 menit',
+      },
+    ],
+    savings: { comparedToSingleStore: 14700, percentage: 5.2 },
+  },
+}
+
 // Per-store product prices: storeId → { productId → price }
 export const storeProductPrices: Record<number, Record<number, { price: number }>> = {
   1: { 1: { price: 65000 }, 2: { price: 42000 }, 4: { price: 18500 }, 5: { price: 22500 }, 6: { price: 32000 }, 7: { price: 18500 } },
