@@ -13,6 +13,7 @@ All notable changes to this project are documented here.
 - Pending receipts page at `/receipts/pending` with approve/reject actions, accessible from navbar
 
 ### Changed
+- Vite dev server proxy: `/api` now routes to `http://dev.good-prices:8082/goods-price-service` instead of `http://localhost:8080`
 - GoodsListPage: refactored with overlap pattern, consistent header gradient
 - StoreDetailPage: refactored with overlap pattern, consistent styling
 - GoodCard, StoreCard, SkeletonCard: unified to `rounded-2xl` and gray color scheme
