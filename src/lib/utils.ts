@@ -64,3 +64,76 @@ export function createRange(length: number): number[] {
 export function isNonNull<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined
 }
+
+const MAX_UPLOAD_SIZE = 6 * 1024 * 1024 // 6 MB
+const COMPRESS_THRESHOLD = 3.5 * 1024 * 1024 // 3.5 MB
+const COMPRESS_QUALITY = 0.5
+
+export interface CompressResult {
+  file: File
+  compressed: boolean
+  originalSize: number
+}
+
+/**
+ * Compress an image file if it exceeds the threshold.
+ * Rejects if the file is still > 6 MB after compression.
+ */
+export function compressImageIfNeeded(file: File): Promise<CompressResult> {
+  if (file.size <= COMPRESS_THRESHOLD) {
+    if (file.size > MAX_UPLOAD_SIZE) {
+      return Promise.reject(new Error('Ukuran file melebihi batas maksimum 6 MB.'))
+    }
+    return Promise.resolve({ file, compressed: false, originalSize: file.size })
+  }
+
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    const url = URL.createObjectURL(file)
+
+    img.onload = () => {
+      URL.revokeObjectURL(url)
+
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        reject(new Error('Gagal mengompres gambar.'))
+        return
+      }
+
+      ctx.drawImage(img, 0, 0)
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(new Error('Gagal mengompres gambar.'))
+            return
+          }
+
+          if (blob.size > MAX_UPLOAD_SIZE) {
+            reject(new Error('Ukuran file melebihi batas maksimum 6 MB.'))
+            return
+          }
+
+          const compressedFile = new File([blob], file.name, {
+            type: file.type,
+            lastModified: Date.now(),
+          })
+
+          resolve({ file: compressedFile, compressed: true, originalSize: file.size })
+        },
+        file.type,
+        COMPRESS_QUALITY,
+      )
+    }
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('Gagal membaca gambar.'))
+    }
+
+    img.src = url
+  })
+}

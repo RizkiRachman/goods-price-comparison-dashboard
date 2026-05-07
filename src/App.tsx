@@ -5,6 +5,7 @@ import StoreDetailPage from '@/pages/StoreDetailPage'
 import ReceiptDetailPage from '@/pages/ReceiptDetailPage'
 import ReceiptCorrectionPage from '@/pages/ReceiptCorrectionPage'
 import PendingReceiptsPage from '@/pages/PendingReceiptsPage'
+import GoodsTrackerPage from '@/pages/GoodsTrackerPage'
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Route path="/goods" element={<GoodsListPage />} />
       <Route path="/goods/:id" element={<GoodsDetailPage />} />
       <Route path="/stores/:storeId" element={<StoreDetailPage />} />
+      <Route path="/tracker" element={<GoodsTrackerPage />} />
       <Route path="/receipts/pending" element={<PendingReceiptsPage />} />
       <Route path="/receipts/:receiptId/correct" element={<ReceiptCorrectionPage />} />
       <Route path="/receipts/:receiptId" element={<ReceiptDetailPage />} />

@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
-import { mockStoresWithStats, storeProductPrices } from './data'
-import type { ProductListResponse, StoreListResponse, ReceiptCorrectResponse } from '@/types/api'
+import { mockStoresWithStats, storeProductPrices, mockShoppingOptimizeResponse } from './data'
+import type { ProductListResponse, StoreListResponse, ReceiptCorrectResponse, ShoppingOptimizeResponse } from '@/types/api'
 
 // Mock products data
 const mockProducts = [
@@ -317,5 +317,19 @@ export const handlers = [
     }
 
     return HttpResponse.json(store)
+  }),
+
+  // Shopping optimize — mock response based on item count
+  http.post('/api/v1/shopping/optimize', async ({ request }) => {
+    const body = (await request.json()) as { items?: string[] }
+    const itemCount = body.items?.length ?? 0
+
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 800))
+
+    const response: ShoppingOptimizeResponse =
+      itemCount >= 3 ? mockShoppingOptimizeResponse.multiStore : mockShoppingOptimizeResponse.singleStore
+
+    return HttpResponse.json(response)
   }),
 ]
