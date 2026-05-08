@@ -11,9 +11,10 @@ export default defineConfig({
     allowedHosts: true,
     proxy: {
       '/api': {
-        target: 'http://dev.good-prices:8082',
+        target: 'https://api.goods.price.aneh.biz.id',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/goods-price-service'),
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
