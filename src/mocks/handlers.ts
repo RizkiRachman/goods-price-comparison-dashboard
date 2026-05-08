@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import { mockStoresWithStats, storeProductPrices, mockShoppingOptimizeResponse } from './data'
-import type { ProductListResponse, StoreListResponse, ReceiptCorrectResponse, ShoppingOptimizeResponse } from '@/types/api'
+import type { ProductListResponse, StoreListResponse, ReceiptCorrectResponse, ReceiptCreateResponse, ShoppingOptimizeResponse } from '@/types/api'
 
 // Mock products data
 const mockProducts = [
@@ -302,6 +302,15 @@ export const handlers = [
   http.post('/v1/receipts/:id/correct', async ({ params }) => {
     const response: ReceiptCorrectResponse = {
       receiptId: params.id as string,
+      status: 'PENDING_REVIEW',
+    }
+    return HttpResponse.json(response)
+  }),
+
+  // Create receipt
+  http.post('/v1/receipts', async () => {
+    const response: ReceiptCreateResponse = {
+      receiptId: crypto.randomUUID(),
       status: 'PENDING_REVIEW',
     }
     return HttpResponse.json(response)
