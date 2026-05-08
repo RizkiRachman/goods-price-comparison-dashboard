@@ -387,6 +387,19 @@ export interface ReceiptCorrectResponse {
   status: ReceiptStatus
 }
 
+export interface ReceiptCreateRequest {
+  storeName: string
+  storeLocation?: string
+  date?: string
+  totalAmount: number
+  items: ReceiptResultItem[]
+}
+
+export interface ReceiptCreateResponse {
+  receiptId: string
+  status: ReceiptStatus
+}
+
 export interface ShoppingOptimizeRequest {
   items: string[]
   preferences?: ShoppingPreferences
@@ -400,7 +413,8 @@ export interface ShoppingPreferences {
 export interface ShoppingItem {
   productName: string
   price: number
-  quantity: number
+  quantity: number | null
+  unit?: string | null
 }
 
 export interface StoreVisit {
