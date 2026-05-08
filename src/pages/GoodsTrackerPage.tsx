@@ -58,15 +58,20 @@ function StoreResultCard({ result }: { result: ShoppingOptimizeResponse }) {
             <div className="space-y-1.5 pl-10">
               {store.items.map((item, ii) => (
                 <div key={ii} className="flex items-center justify-between text-sm">
-                  <span className="text-slate-600">
-                    {item.productName}{' '}
-                    {item.quantity > 1 && (
-                      <span className="text-slate-400">x{item.quantity}</span>
+                  <span className="text-slate-600">{item.productName}</span>
+                  <div className="text-right">
+                    <span className="font-medium text-slate-800">
+                      Rp {item.price.toLocaleString('id-ID')}
+                      {item.unit && (
+                        <span className="text-xs text-slate-400 font-normal ml-0.5">
+                          /{item.unit.toLowerCase()}
+                        </span>
+                      )}
+                    </span>
+                    {item.quantity != null && item.quantity > 1 && (
+                      <p className="text-xs text-slate-400">x{item.quantity}</p>
                     )}
-                  </span>
-                  <span className="font-medium text-slate-800">
-                    Rp {item.price.toLocaleString('id-ID')}
-                  </span>
+                  </div>
                 </div>
               ))}
             </div>
