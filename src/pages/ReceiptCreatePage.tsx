@@ -239,8 +239,8 @@ export default function ReceiptCreatePage() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3">
-                    <div>
+                  <div className="grid grid-cols-3 gap-3 items-start">
+                    <div className="flex flex-col gap-1.5">
                       <label className={`text-xs font-medium flex items-center gap-1 ${badQty ? 'text-red-500' : 'text-gray-400'}`}>
                         Jumlah
                         {badQty && <span className="text-red-400">*</span>}
@@ -252,18 +252,20 @@ export default function ReceiptCreatePage() {
                         value={item.quantity || ''}
                         onChange={(e) => updateItem(i, 'quantity', Math.max(0, Number(e.target.value)))}
                         placeholder="0"
-                        className={`mt-1 w-full rounded-xl border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+                        className={`h-10 w-full rounded-xl border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
                           badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-gray-200 focus:ring-emerald-500'
                         }`}
                       />
                     </div>
-                    <div>
-                      <label className="text-xs font-medium text-gray-400">Satuan</label>
-                      <div className="relative mt-1">
+                    <div className="flex flex-col gap-1.5">
+                      <label className={`text-xs font-medium flex items-center gap-1 ${badQty ? 'text-red-500' : 'text-gray-400'}`}>
+                        Satuan
+                      </label>
+                      <div className="relative">
                         <select
                           value={item.unit ?? 'pcs'}
                           onChange={(e) => updateItem(i, 'unit', e.target.value)}
-                          className="w-full appearance-none rounded-xl border border-gray-200 px-3 py-2 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
+                          className="h-10 w-full appearance-none rounded-xl border border-gray-200 px-3 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
                         >
                           {UNIT_OPTIONS.map((opt) => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -274,7 +276,7 @@ export default function ReceiptCreatePage() {
                         </svg>
                       </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col gap-1.5">
                       <label className={`text-xs font-medium flex items-center gap-1 ${badPrice ? 'text-red-500' : 'text-gray-400'}`}>
                         Harga Satuan
                         {badPrice && <span className="text-red-400">*</span>}
@@ -286,7 +288,7 @@ export default function ReceiptCreatePage() {
                         value={item.unitPrice || ''}
                         onChange={(e) => updateItem(i, 'unitPrice', Math.max(0, Number(e.target.value)))}
                         placeholder="0"
-                        className={`mt-1 w-full rounded-xl border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+                        className={`h-10 w-full rounded-xl border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
                           badPrice ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-gray-200 focus:ring-emerald-500'
                         }`}
                       />
