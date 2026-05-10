@@ -257,17 +257,20 @@ export default function ReceiptCreatePage() {
                         }`}
                       />
                     </div>
-                    <div>
+                    <div className="relative">
                       <label className="text-xs font-medium text-gray-400">Satuan</label>
                       <select
                         value={item.unit ?? 'pcs'}
                         onChange={(e) => updateItem(i, 'unit', e.target.value)}
-                        className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
+                        className="mt-1 w-full appearance-none rounded-xl border border-gray-200 px-3 py-2.5 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
                       >
                         {UNIT_OPTIONS.map((opt) => (
                           <option key={opt.value} value={opt.value}>{opt.label}</option>
                         ))}
                       </select>
+                      <svg className="pointer-events-none absolute right-3 top-[38px] w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
                     </div>
                     <div>
                       <label className={`text-xs font-medium flex items-center gap-1 ${badPrice ? 'text-red-500' : 'text-gray-400'}`}>
