@@ -3,8 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import { useReceiptCreate } from '@/hooks/useReceiptCreate'
 import type { ReceiptResultItem } from '@/types/receipt'
 
+const UNIT_OPTIONS = [
+  { value: 'pcs', label: 'Buah' },
+  { value: 'kg', label: 'Kg' },
+  { value: 'gr', label: 'Gram' },
+  { value: 'liter', label: 'Liter' },
+  { value: 'ml', label: 'Ml' },
+]
+
 function emptyItem(): ReceiptResultItem {
-  return { productName: '', quantity: 0, unitPrice: 0, totalPrice: 0 }
+  return { productName: '', quantity: 0, unitPrice: 0, totalPrice: 0, unit: 'pcs' }
 }
 
 function fmt(n: number) {
@@ -41,7 +49,7 @@ export default function ReceiptCreatePage() {
     return count
   }, [issues])
 
-  function updateItem(index: number, field: 'productName' | 'quantity' | 'unitPrice', value: string | number) {
+  function updateItem(index: number, field: 'productName' | 'quantity' | 'unitPrice' | 'unit', value: string | number) {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== index) return item
@@ -231,7 +239,7 @@ export default function ReceiptCreatePage() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-3 gap-3">
                     <div>
                       <label className={`text-xs font-medium flex items-center gap-1 ${badQty ? 'text-red-500' : 'text-gray-400'}`}>
                         Jumlah
@@ -248,6 +256,18 @@ export default function ReceiptCreatePage() {
                           badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-gray-200 focus:ring-emerald-500'
                         }`}
                       />
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-gray-400">Satuan</label>
+                      <select
+                        value={item.unit ?? 'pcs'}
+                        onChange={(e) => updateItem(i, 'unit', e.target.value)}
+                        className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
+                      >
+                        {UNIT_OPTIONS.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
+                      </select>
                     </div>
                     <div>
                       <label className={`text-xs font-medium flex items-center gap-1 ${badPrice ? 'text-red-500' : 'text-gray-400'}`}>
