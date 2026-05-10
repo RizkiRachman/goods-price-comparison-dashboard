@@ -31,6 +31,7 @@ export default function GoodsListPage() {
   const [showHistory, setShowHistory] = useState(false)
   const [syncMsg, setSyncMsg] = useState<string | null>(null)
   const [showAddMenu, setShowAddMenu] = useState(false)
+  const [showMobileAddMenu, setShowMobileAddMenu] = useState(false)
   const addMenuRef = useRef<HTMLDivElement>(null)
 
   const navigate = useNavigate()
@@ -166,7 +167,7 @@ export default function GoodsListPage() {
               className="relative flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-medium rounded-xl transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19V5m4 14v-6m4 6v-8m4 8v-4" />
               </svg>
               <span className="hidden sm:inline">Tracker</span>
             </button>
@@ -340,15 +341,45 @@ export default function GoodsListPage() {
       </main>
 
       {/* ── Mobile FAB ── */}
-      <button
-        onClick={() => setShowUpload(true)}
-        className="fixed bottom-6 right-5 sm:hidden w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl shadow-lg shadow-emerald-400/40 flex items-center justify-center active:scale-90 transition-transform z-40"
-        aria-label="Upload struk"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-        </svg>
-      </button>
+      {showMobileAddMenu && (
+        <div className="fixed inset-0 z-40 sm:hidden" onClick={() => setShowMobileAddMenu(false)} />
+      )}
+      <div className="fixed bottom-6 right-5 sm:hidden z-40 flex flex-col items-center gap-3">
+        {showMobileAddMenu && (
+          <div className="flex flex-col items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+            <button
+              onClick={() => { setShowMobileAddMenu(false); navigate('/receipts/create') }}
+              className="flex items-center gap-2 px-4 py-2.5 bg-white text-slate-700 text-sm font-semibold rounded-xl shadow-lg border border-slate-200 active:scale-95 transition-transform"
+            >
+              <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Input Manual
+            </button>
+            <button
+              onClick={() => { setShowMobileAddMenu(false); setShowUpload(true) }}
+              className="flex items-center gap-2 px-4 py-2.5 bg-white text-slate-700 text-sm font-semibold rounded-xl shadow-lg border border-slate-200 active:scale-95 transition-transform"
+            >
+              <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              Upload Foto
+            </button>
+          </div>
+        )}
+        <button
+          onClick={() => setShowMobileAddMenu((v) => !v)}
+          className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl shadow-lg shadow-emerald-400/40 flex items-center justify-center active:scale-90 transition-transform"
+          aria-label="Tambah struk"
+        >
+          <svg
+            className={`w-6 h-6 transition-transform ${showMobileAddMenu ? 'rotate-45' : ''}`}
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+      </div>
 
       {showUpload && (
         <ReceiptUploadModal
