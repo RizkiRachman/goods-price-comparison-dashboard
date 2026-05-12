@@ -4,15 +4,26 @@ import { useReceiptCreate } from '@/hooks/useReceiptCreate'
 import type { ReceiptResultItem } from '@/types/receipt'
 
 const UNIT_OPTIONS = [
-  { value: 'pcs', label: 'Buah' },
-  { value: 'kg', label: 'Kg' },
-  { value: 'gr', label: 'Gram' },
-  { value: 'liter', label: 'Liter' },
-  { value: 'ml', label: 'Ml' },
+  { value: 'PIECE', label: 'Buah' },
+  { value: 'KILOGRAM', label: 'Kg' },
+  { value: 'GRAM', label: 'Gram' },
 ]
 
+const CATEGORY_OPTIONS = [
+  { value: 'snack', label: 'Snack' },
+  { value: 'drink', label: 'Minuman' },
+  { value: 'produce', label: 'Produk Segar' },
+  { value: 'dairy', label: 'Susu & Olahan' },
+  { value: 'household', label: 'Rumah Tangga' },
+  { value: 'food', label: 'Makanan' },
+  { value: 'unknown', label: 'Lainnya' },
+]
+
+const CATEGORY_VALUES = CATEGORY_OPTIONS.map((c) => c.value)
+const UNIT_VALUES = UNIT_OPTIONS.map((u) => u.value)
+
 function emptyItem(): ReceiptResultItem {
-  return { productName: '', quantity: 0, unitPrice: 0, totalPrice: 0, unit: 'pcs' }
+  return { productName: '', quantity: 0, unitPrice: 0, totalPrice: 0, unit: 'PIECE', category: 'unknown' }
 }
 
 function fmt(n: number) {
@@ -49,7 +60,7 @@ export default function ReceiptCreatePage() {
     return count
   }, [issues])
 
-  function updateItem(index: number, field: 'productName' | 'quantity' | 'unitPrice' | 'unit', value: string | number) {
+  function updateItem(index: number, field: 'productName' | 'quantity' | 'unitPrice' | 'unit' | 'category', value: string | number) {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== index) return item
@@ -71,11 +82,16 @@ export default function ReceiptCreatePage() {
   }
 
   function handleSave() {
+    const cleanItems = items.map((item) => ({
+      ...item,
+      category: CATEGORY_VALUES.includes(item.category ?? '') ? item.category : 'unknown',
+      unit: UNIT_VALUES.includes(item.unit ?? '') ? item.unit : 'PIECE',
+    }))
     const body = {
       storeName: storeName.trim(),
       storeLocation: storeLocation.trim() || undefined,
       date: date || undefined,
-      items,
+      items: cleanItems,
       totalAmount,
     }
 
@@ -237,6 +253,24 @@ export default function ReceiptCreatePage() {
                         </svg>
                       </button>
                     )}
+                    </div>
+
+                  <div className="mb-3">
+                    <label className="text-xs font-medium text-gray-400">Kategori</label>
+                    <div className="relative mt-1">
+                      <select
+                        value={item.category ?? 'unknown'}
+                        onChange={(e) => updateItem(i, 'category', e.target.value)}
+                        className="h-10 w-full appearance-none rounded-xl border border-gray-200 px-3 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
+                      >
+                        {CATEGORY_OPTIONS.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
+                      </select>
+                      <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-3 gap-3 items-start">
@@ -263,7 +297,7 @@ export default function ReceiptCreatePage() {
                       </label>
                       <div className="relative">
                         <select
-                          value={item.unit ?? 'pcs'}
+                          value={item.unit ?? 'PIECE'}
                           onChange={(e) => updateItem(i, 'unit', e.target.value)}
                           className="h-10 w-full appearance-none rounded-xl border border-gray-200 px-3 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white"
                         >
