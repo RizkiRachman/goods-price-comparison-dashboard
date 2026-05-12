@@ -395,10 +395,7 @@ export interface ReceiptCreateRequest {
   items: ReceiptResultItem[]
 }
 
-export interface ReceiptCreateResponse {
-  receiptId: string
-  status: ReceiptStatus
-}
+export type ReceiptCreateResponse = ReceiptResultResponse
 
 export interface ShoppingOptimizeRequest {
   items: string[]

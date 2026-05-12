@@ -47,6 +47,16 @@ export function useReceiptJobs() {
     [persist],
   )
 
+  const addJobWithResult = useCallback(
+    (receiptId: string, status: ReceiptStatus, result: ReceiptResult) => {
+      persist((prev) => [
+        { receiptId, status, result, addedAt: Date.now() },
+        ...prev,
+      ])
+    },
+    [persist],
+  )
+
   const removeJob = useCallback(
     (receiptId: string) => {
       persist((prev) => prev.filter((j) => j.receiptId !== receiptId))
@@ -134,6 +144,7 @@ export function useReceiptJobs() {
   return {
     jobs,
     addJob,
+    addJobWithResult,
     removeJob,
     clearCompleted,
     approveJob,

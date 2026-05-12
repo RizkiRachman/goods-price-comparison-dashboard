@@ -308,10 +308,22 @@ export const handlers = [
   }),
 
   // Create receipt
-  http.post('/v1/receipts', async () => {
+  http.post('/v1/receipts', async ({ request }) => {
+    const body = await request.json() as { storeName: string; storeLocation?: string; date?: string; items: { productName: string; category?: string; quantity: number; unitPrice: number; totalPrice: number; unit?: string }[]; totalAmount: number }
     const response: ReceiptCreateResponse = {
       receiptId: crypto.randomUUID(),
-      status: 'PENDING_REVIEW',
+      storeName: body.storeName,
+      ...(body.storeLocation ? { storeLocation: body.storeLocation } : {}),
+      ...(body.date ? { date: body.date } : {}),
+      items: body.items.map((i) => ({
+        productName: i.productName,
+        quantity: i.quantity,
+        unitPrice: i.unitPrice,
+        totalPrice: i.totalPrice,
+        category: i.category ?? 'unknown',
+        ...(i.unit ? { unit: i.unit } : {}),
+      })),
+      totalAmount: body.totalAmount,
     }
     return HttpResponse.json(response)
   }),
