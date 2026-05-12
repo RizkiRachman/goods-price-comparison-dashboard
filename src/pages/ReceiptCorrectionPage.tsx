@@ -5,6 +5,25 @@ import { useReceiptHistory } from '@/hooks/useReceiptHistory'
 import { useReceiptCorrection } from '@/hooks/useReceiptCorrection'
 import type { ReceiptResultItem } from '@/types/receipt'
 
+const UNIT_OPTIONS = [
+  { value: 'PIECE', label: 'Buah' },
+  { value: 'KILOGRAM', label: 'Kg' },
+  { value: 'GRAM', label: 'Gram' },
+]
+
+const CATEGORY_OPTIONS = [
+  { value: 'snack', label: 'Snack' },
+  { value: 'drink', label: 'Minuman' },
+  { value: 'produce', label: 'Produk Segar' },
+  { value: 'dairy', label: 'Susu & Olahan' },
+  { value: 'household', label: 'Rumah Tangga' },
+  { value: 'food', label: 'Makanan' },
+  { value: 'unknown', label: 'Lainnya' },
+]
+
+const CATEGORY_VALUES = CATEGORY_OPTIONS.map((c) => c.value)
+const UNIT_VALUES = UNIT_OPTIONS.map((u) => u.value)
+
 function fmt(n: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n)
 }
@@ -51,23 +70,30 @@ export default function ReceiptCorrectionPage() {
     )
   }
 
-  function updateItem(index: number, field: 'quantity' | 'unitPrice', value: number) {
+  function updateItem(index: number, field: 'quantity' | 'unitPrice' | 'unit' | 'category', value: number | string) {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== index) return item
         const updated = { ...item, [field]: value }
-        updated.totalPrice = updated.quantity * updated.unitPrice
+        if (field === 'quantity' || field === 'unitPrice') {
+          updated.totalPrice = updated.quantity * updated.unitPrice
+        }
         return updated
       }),
     )
   }
 
   function handleSave() {
+    const cleanItems = items.map((item) => ({
+      ...item,
+      category: CATEGORY_VALUES.includes(item.category ?? '') ? item.category : 'unknown',
+      unit: UNIT_VALUES.includes(item.unit ?? '') ? item.unit : 'PIECE',
+    }))
     const body = {
       storeName: storeName || jobResult!.storeName,
       storeLocation: jobResult!.storeLocation,
       date: date || undefined,
-      items,
+      items: cleanItems,
       totalAmount: items.reduce((sum, i) => sum + i.totalPrice, 0),
     }
 
@@ -203,15 +229,27 @@ export default function ReceiptCorrectionPage() {
                       </span>
                     )}
                   </div>
-                  {item.category && item.category.toLowerCase() !== 'unknown' && (
-                    <span className="inline-block text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-medium mb-2">
-                      {item.category}
-                    </span>
-                  )}
-                  <div className="grid grid-cols-2 gap-3 mt-2">
+                  <div className="mb-3">
+                    <label className="text-xs font-medium text-gray-400">Kategori</label>
+                    <div className="relative mt-1">
+                      <select
+                        value={item.category ?? 'unknown'}
+                        onChange={(e) => updateItem(i, 'category', e.target.value)}
+                        className="h-10 w-full appearance-none rounded-xl border border-gray-200 px-3 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white"
+                      >
+                        {CATEGORY_OPTIONS.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
+                      </select>
+                      <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 mt-2">
                     <div>
                       <label className={`text-xs font-medium flex items-center gap-1 ${badQty ? 'text-red-500' : 'text-gray-400'}`}>
-                        Jumlah ({item.unit ?? 'pcs'})
+                        Jumlah
                         {badQty && <span className="text-red-400">*</span>}
                       </label>
                       <input
@@ -224,6 +262,23 @@ export default function ReceiptCorrectionPage() {
                           badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-gray-200 focus:ring-indigo-500'
                         }`}
                       />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-medium text-gray-400">Satuan</label>
+                      <div className="relative">
+                        <select
+                          value={item.unit ?? 'PIECE'}
+                          onChange={(e) => updateItem(i, 'unit', e.target.value)}
+                          className="h-10 w-full appearance-none rounded-xl border border-gray-200 px-3 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white"
+                        >
+                          {UNIT_OPTIONS.map((opt) => (
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                          ))}
+                        </select>
+                        <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
                     </div>
                     <div>
                       <label className={`text-xs font-medium flex items-center gap-1 ${badPrice ? 'text-red-500' : 'text-gray-400'}`}>
