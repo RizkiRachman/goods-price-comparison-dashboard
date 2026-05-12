@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReceiptJobs } from '@/hooks/useReceiptJobs'
+import { receiptsApi } from '@/api/receipts'
+import type { ReceiptResult, ReceiptStatus } from '@/types/receipt'
 
 function fmt(n: number | null | undefined) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n ?? 0)
@@ -18,8 +20,12 @@ function Spinner() {
 export default function ReceiptDetailPage() {
   const { receiptId } = useParams<{ receiptId: string }>()
   const navigate = useNavigate()
-  const { jobs, approveJob, rejectJob, refreshJob } = useReceiptJobs()
+  const { jobs, approveJob, rejectJob, refreshJob, addJobWithResult } = useReceiptJobs()
   const [actionLoading, setActionLoading] = useState<'approve' | 'reject' | null>(null)
+  type FetchState = { type: 'loading' } | { type: 'done'; data: ReceiptResult } | { type: 'error' }
+  const [fetchState, setFetchState] = useState<FetchState>(() =>
+    receiptId ? { type: 'loading' } : { type: 'error' },
+  )
 
   useEffect(() => {
     if (!receiptId) return
@@ -28,8 +34,33 @@ export default function ReceiptDetailPage() {
 
   const job = jobs.find((j) => j.receiptId === receiptId)
 
+  // Fallback: if not in tracked jobs, try direct API fetch
+  useEffect(() => {
+    if (fetchState.type !== 'loading') return
+    if (!receiptId || job) return
+    receiptsApi.getResults(receiptId)
+      .then((data) => {
+        setFetchState({ type: 'done', data })
+        addJobWithResult(receiptId, 'APPROVED' as ReceiptStatus, data)
+      })
+      .catch(() => setFetchState({ type: 'error' }))
+  }, [receiptId, job, fetchState, addJobWithResult])
+
+  const result = job?.result ?? (fetchState.type === 'done' ? fetchState.data : undefined)
+
+  // ── Fallback: loading from API ────────────────────────────────────────────────
+  if (!job && fetchState.type === 'loading') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
+        <div className="w-20 h-20 bg-indigo-50 rounded-3xl flex items-center justify-center text-4xl animate-pulse">📤</div>
+        <p className="text-lg font-semibold text-gray-700">Memuat struk…</p>
+        <button onClick={() => navigate(-1)} className="text-sm text-indigo-600 font-semibold hover:underline">Kembali</button>
+      </div>
+    )
+  }
+
   // ── Not found ────────────────────────────────────────────────────────────────
-  if (!job) {
+  if (!job && !result && fetchState.type !== 'loading') {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
         <div className="w-20 h-20 bg-gray-100 rounded-3xl flex items-center justify-center text-4xl">🔍</div>
@@ -40,7 +71,7 @@ export default function ReceiptDetailPage() {
   }
 
   // ── PENDING — waiting for upload/analysis result ──────────────────────────
-  if (job.status === 'PENDING') {
+  if (job?.status === 'PENDING') {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
         <div className="w-20 h-20 bg-indigo-50 rounded-3xl flex items-center justify-center text-4xl animate-pulse">📤</div>
@@ -52,7 +83,7 @@ export default function ReceiptDetailPage() {
   }
 
   // ── FAILED — analysis failed, no result available ─────────────────────────
-  if (job.status === 'FAILED') {
+  if (job?.status === 'FAILED') {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
         <div className="w-20 h-20 bg-red-50 rounded-3xl flex items-center justify-center text-4xl">❌</div>
@@ -64,7 +95,6 @@ export default function ReceiptDetailPage() {
   }
 
   // ── All remaining statuses should have a result ──────────────────────────
-  const result = job.result
   if (!result) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
@@ -90,8 +120,8 @@ export default function ReceiptDetailPage() {
     try { await rejectJob(receiptId) } finally { setActionLoading(null) }
   }
 
-  const showApproveReject =
-    job.status === 'COMPLETED' || job.status === 'INGESTION_FAILED'
+  const showApproveReject = !!job &&
+    (job.status === 'COMPLETED' || job.status === 'INGESTION_FAILED')
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -129,14 +159,14 @@ export default function ReceiptDetailPage() {
         {/* PENDING_REVIEW — approve / reject */}
         {showApproveReject && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-5 py-4">
-            {job.status === 'INGESTION_FAILED' && (
+            {job?.status === 'INGESTION_FAILED' && (
               <div className="flex items-center gap-2 mb-3 text-amber-600 bg-amber-50 rounded-xl px-3 py-2">
                 <span className="text-base">⚠️</span>
                 <p className="text-xs font-semibold">Gagal menyimpan data. Coba setujui atau tolak kembali.</p>
               </div>
             )}
             <p className="text-sm font-semibold text-gray-700 mb-3">
-              {job.status === 'INGESTION_FAILED' ? 'Verifikasi ulang struk ini?' : 'Setujui data struk ini?'}
+              {job?.status === 'INGESTION_FAILED' ? 'Verifikasi ulang struk ini?' : 'Setujui data struk ini?'}
             </p>
             <div className="flex gap-3">
               <button
@@ -168,7 +198,7 @@ export default function ReceiptDetailPage() {
         )}
 
         {/* INGESTING — ingestion in progress banner */}
-        {job.status === 'INGESTING' && (
+        {job?.status === 'INGESTING' && (
           <div className="bg-indigo-50 border border-indigo-200 rounded-2xl px-5 py-4 flex items-center gap-3">
             <div className="w-9 h-9 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-indigo-600 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -184,7 +214,7 @@ export default function ReceiptDetailPage() {
         )}
 
         {/* COMPLETED — LLM response ready, waiting for approval */}
-        {job.status === 'COMPLETED' && !showApproveReject && (
+        {job?.status === 'COMPLETED' && !showApproveReject && (
           <div className="bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-4 flex items-center gap-3">
             <div className="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 text-lg">✅</div>
             <div>
@@ -195,7 +225,7 @@ export default function ReceiptDetailPage() {
         )}
 
         {/* REJECTED — rejected banner */}
-        {job.status === 'REJECTED' && (
+        {job?.status === 'REJECTED' && (
           <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-center gap-3">
             <div className="w-9 h-9 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0 text-lg">🚫</div>
             <div>
@@ -208,18 +238,20 @@ export default function ReceiptDetailPage() {
         {/* Receipt detail card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           {/* File info */}
-          <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-50">
-            <div className="w-9 h-9 bg-indigo-50 rounded-xl flex items-center justify-center text-lg">🧾</div>
-            <div>
-              <p className="text-sm font-semibold text-gray-800">{job.fileName ?? 'struk.jpg'}</p>
-              <p className="text-xs text-gray-400">
-                {new Date(job.addedAt).toLocaleDateString('id-ID', {
-                  day: 'numeric', month: 'long', year: 'numeric',
-                  hour: '2-digit', minute: '2-digit',
-                })}
-              </p>
+          {job && (
+            <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-50">
+              <div className="w-9 h-9 bg-indigo-50 rounded-xl flex items-center justify-center text-lg">🧾</div>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">{job.fileName ?? 'Struk'}</p>
+                <p className="text-xs text-gray-400">
+                  {new Date(job.addedAt).toLocaleDateString('id-ID', {
+                    day: 'numeric', month: 'long', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit',
+                  })}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Items */}
           <div className="divide-y divide-gray-50">

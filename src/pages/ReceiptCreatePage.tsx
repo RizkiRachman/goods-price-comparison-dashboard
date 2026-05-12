@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useReceiptCreate } from '@/hooks/useReceiptCreate'
-import type { ReceiptResultItem } from '@/types/receipt'
+import { useReceiptJobs } from '@/hooks/useReceiptJobs'
+import type { ReceiptResultItem, ReceiptStatus } from '@/types/receipt'
 
 const UNIT_OPTIONS = [
   { value: 'PIECE', label: 'Buah' },
@@ -33,6 +34,7 @@ function fmt(n: number) {
 export default function ReceiptCreatePage() {
   const navigate = useNavigate()
   const create = useReceiptCreate()
+  const { addJobWithResult } = useReceiptJobs()
 
   const [storeName, setStoreName] = useState('')
   const [storeLocation, setStoreLocation] = useState('')
@@ -98,7 +100,8 @@ export default function ReceiptCreatePage() {
     create.mutate(body, {
       onSuccess: (response) => {
         setSaved(true)
-        setTimeout(() => navigate(`/receipts/${response.receiptId}`), 600)
+        addJobWithResult(response.receiptId, 'APPROVED' as ReceiptStatus, response)
+        setTimeout(() => navigate(`/receipts/${response.receiptId}`, { replace: true }), 600)
       },
     })
   }
