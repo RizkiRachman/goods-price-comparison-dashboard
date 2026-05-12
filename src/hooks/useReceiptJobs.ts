@@ -18,7 +18,8 @@ function isTerminal(status: ReceiptStatus) {
 
 function load(): TrackedJob[] {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]') as TrackedJob[]
+    return data.filter((j) => typeof j.receiptId === 'string' && j.receiptId.length > 0)
   } catch {
     return []
   }
@@ -39,6 +40,7 @@ export function useReceiptJobs() {
 
   const addJob = useCallback(
     (receiptId: string, fileName?: string) => {
+      if (typeof receiptId !== 'string' || !receiptId) return
       persist((prev) => [
         { receiptId, status: 'PENDING' as ReceiptStatus, fileName, addedAt: Date.now() },
         ...prev,
@@ -49,6 +51,7 @@ export function useReceiptJobs() {
 
   const addJobWithResult = useCallback(
     (receiptId: string, status: ReceiptStatus, result: ReceiptResult) => {
+      if (typeof receiptId !== 'string' || !receiptId) return
       persist((prev) => [
         { receiptId, status, result, addedAt: Date.now() },
         ...prev,
@@ -70,6 +73,7 @@ export function useReceiptJobs() {
 
   const approveJob = useCallback(
     async (receiptId: string) => {
+      if (typeof receiptId !== 'string' || !receiptId) return
       await receiptsApi.approve(receiptId)
       persist((prev) =>
         prev.map((j) => (j.receiptId === receiptId ? { ...j, status: 'APPROVED' as ReceiptStatus } : j)),
@@ -80,6 +84,7 @@ export function useReceiptJobs() {
 
   const rejectJob = useCallback(
     async (receiptId: string) => {
+      if (typeof receiptId !== 'string' || !receiptId) return
       await receiptsApi.reject(receiptId)
       persist((prev) =>
         prev.map((j) => (j.receiptId === receiptId ? { ...j, status: 'REJECTED' as ReceiptStatus } : j)),
@@ -95,6 +100,7 @@ export function useReceiptJobs() {
     const id = setInterval(async () => {
       const polling = jobsRef.current.filter((j) => !isTerminal(j.status))
       for (const job of polling) {
+        if (typeof job.receiptId !== 'string' || !job.receiptId) continue
         try {
           const { status } = await receiptsApi.getStatus(job.receiptId)
           if (status === job.status) continue
@@ -124,6 +130,7 @@ export function useReceiptJobs() {
 
   const refreshJob = useCallback(
     async (receiptId: string) => {
+      if (typeof receiptId !== 'string' || !receiptId) return
       const result: ReceiptResult = await receiptsApi.getResults(receiptId)
       persist((prev) =>
         prev.map((j) => (j.receiptId === receiptId ? { ...j, result } : j)),
@@ -134,6 +141,7 @@ export function useReceiptJobs() {
 
   const updateJobResult = useCallback(
     (receiptId: string, result: ReceiptResult) => {
+      if (typeof receiptId !== 'string' || !receiptId) return
       persist((prev) =>
         prev.map((j) => (j.receiptId === receiptId ? { ...j, result } : j)),
       )
