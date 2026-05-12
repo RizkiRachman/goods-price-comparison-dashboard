@@ -38,7 +38,7 @@ export function useReceiptHistory() {
         status,
         result,
         completedAt: Date.now(),
-        totalItems: result?.items.length ?? 0,
+        totalItems: result?.items?.length ?? 0,
         totalAmount: result?.totalAmount ?? 0,
       }
 
