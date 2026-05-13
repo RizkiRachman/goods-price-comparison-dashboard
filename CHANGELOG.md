@@ -2,6 +2,37 @@
 
 All notable changes to this project are documented here.
 
+## [1.1.0] - 2026-05-13
+
+### Added
+- Admin panel at `/admin/*` with sidebar navigation (Motion layout animations)
+  - Category management: list, create, edit, delete (`/admin/categories`)
+  - Unit management: list, create, edit, delete (`/admin/units`)
+- Bill split feature from receipt detail page (`/receipts/:receiptId`)
+  - Mode selection: Bagi Rata (equal split) or Pilih Barang (item-based)
+  - SELECTION mode: set max participants, add per-person item selections with shared quantity tracking
+  - Expandable participant cards with item breakdown
+  - Unassigned items summary
+- Generic reusable components:
+  - `DataTable` — sortable, searchable table with pagination and Motion row animations
+  - `FormModal` — bottom-sheet modal with backdrop, drag handle, ESC close
+  - `FormBanner` — animated error/success/warning banners
+  - `SubmitButton` — 3-state button (loading/done/idle)
+  - `AdminLayout` — sidebar + mobile nav + page transitions
+- `useSyncFormData` hook — sync API data into form state without ESLint violations
+- Admin gear icon in main navbar linking to `/admin/categories`
+- Expandable receipt item cards on receipt detail page (card-level + item-level collapse)
+
+### Changed
+- Package dependencies: added `motion` (formerly Framer Motion) for layout animations
+- `BillSplitOrder` type: now nested under `BillSplitOrderGroup` with `details` array
+- Receipt detail page: items section is now collapsible — tap header to show/hide all items
+- Split bill modal: redesigned with 3-step flow (mode → participants → items)
+- Unit `: UnitType` in API types: `WEIGHT | VOLUME | QUANTITY`
+
+### Removed
+- RATIO mode temporarily removed from bill split (restored in this release)
+
 ## [Unreleased]
 
 ### Added

@@ -475,3 +475,113 @@ export interface TrackedJob {
   result?: ReceiptResultResponse
   addedAt: number
 }
+
+// ── Category types ────────────────────────────────────────────────
+
+export interface Category {
+  id: string
+  name: string
+  description?: string | null
+  status: EntityStatus
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateCategoryRequest {
+  id: string
+  name: string
+  description?: string
+  status?: EntityStatus
+}
+
+export interface UpdateCategoryRequest {
+  name?: string
+  description?: string | null
+  status?: EntityStatus
+}
+
+export interface CategoryListResponse {
+  data: Category[]
+  pagination: Pagination
+}
+
+// ── Unit types ────────────────────────────────────────────────────
+
+export type UnitType = 'WEIGHT' | 'VOLUME' | 'QUANTITY'
+
+export interface Unit {
+  id: string
+  name: string
+  symbol?: string
+  type: UnitType
+  description?: string | null
+  status: EntityStatus
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateUnitRequest {
+  id: string
+  name: string
+  symbol?: string
+  type: UnitType
+  description?: string
+  status?: EntityStatus
+}
+
+export interface UpdateUnitRequest {
+  name?: string
+  symbol?: string | null
+  type?: UnitType
+  description?: string | null
+  status?: EntityStatus
+}
+
+export interface UnitListResponse {
+  data: Unit[]
+  pagination: Pagination
+}
+
+// ── Bill Split types ──────────────────────────────────────────────
+
+export type BillSplitType = 'RATIO' | 'SELECTION'
+
+export interface BillSplitOrder {
+  name: string
+  productId: number
+  quantity: number
+}
+
+export interface BillSplitOrderGroup {
+  name: string
+  details: BillSplitOrder[]
+}
+
+export interface BillSplitRequest {
+  type: BillSplitType
+  numberOfParticipants: number
+  orders?: BillSplitOrderGroup[]
+}
+
+export interface BillSplitItem {
+  productId: number
+  productName: string
+  quantity: number
+  unitPrice: number
+  subtotal: number
+}
+
+export interface BillSplitParticipant {
+  name: string
+  items: BillSplitItem[]
+  subtotal: number
+}
+
+export interface BillSplitResponse {
+  receiptId: string
+  type: BillSplitType
+  numberOfParticipants: number
+  totalAmount: number
+  unassignedTotal: number
+  participants: BillSplitParticipant[]
+}
