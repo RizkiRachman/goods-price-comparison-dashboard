@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReceiptJobs } from '@/hooks/useReceiptJobs'
 import { receiptsApi } from '@/api/receipts'
+import { BillSplitModal } from '@/components/BillSplitModal'
 import type { ReceiptResult, ReceiptStatus } from '@/types/receipt'
 
 function fmt(n: number | null | undefined) {
@@ -22,6 +23,9 @@ export default function ReceiptDetailPage() {
   const navigate = useNavigate()
   const { jobs, approveJob, rejectJob, refreshJob, addJobWithResult } = useReceiptJobs()
   const [actionLoading, setActionLoading] = useState<'approve' | 'reject' | null>(null)
+  const [showSplit, setShowSplit] = useState(false)
+  const [expandedItem, setExpandedItem] = useState<number | null>(null)
+  const [showAllItems, setShowAllItems] = useState(false)
   type FetchState = { type: 'loading' } | { type: 'done'; data: ReceiptResult } | { type: 'error' }
   const [fetchState, setFetchState] = useState<FetchState>(() =>
     receiptId ? { type: 'loading' } : { type: 'error' },
@@ -237,52 +241,99 @@ export default function ReceiptDetailPage() {
 
         {/* Receipt detail card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          {/* File info */}
-          {job && (
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-50">
-              <div className="w-9 h-9 bg-indigo-50 rounded-xl flex items-center justify-center text-lg">🧾</div>
-              <div>
-                <p className="text-sm font-semibold text-gray-800">{job.fileName ?? 'Struk'}</p>
+          {/* File info - clickable to toggle items */}
+          <button
+            onClick={() => setShowAllItems(!showAllItems)}
+            className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-gray-50/50 transition border-b border-gray-50"
+          >
+            <div className="w-9 h-9 bg-indigo-50 rounded-xl flex items-center justify-center text-lg flex-shrink-0">🧾</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-gray-800">{job?.fileName ?? 'Struk'}</p>
+              {job && (
                 <p className="text-xs text-gray-400">
                   {new Date(job.addedAt).toLocaleDateString('id-ID', {
                     day: 'numeric', month: 'long', year: 'numeric',
                     hour: '2-digit', minute: '2-digit',
                   })}
                 </p>
-              </div>
+              )}
+              <p className="text-xs text-gray-400 mt-0.5">{items.length} barang</p>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <span className="text-sm font-bold text-gray-900">{fmt(result.totalAmount)}</span>
+              <svg className={`w-4 h-4 text-gray-300 transition-transform ${showAllItems ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </button>
+
+          {/* Items (collapsible) */}
+          {showAllItems && (
+            <div className="divide-y divide-gray-50 max-h-80 overflow-y-auto">
+              {items.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-10 text-center">
+                  <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-3xl mb-3">📦</div>
+                  <p className="text-sm font-semibold text-gray-500">Tidak ada barang</p>
+                  <p className="text-xs text-gray-400 mt-1">Tidak ada barang yang ditemukan di struk ini</p>
+                </div>
+              ) : items.map((item, i) => {
+                const isExpanded = expandedItem === i
+                return (
+                  <div key={i}>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setExpandedItem(isExpanded ? null : i) }}
+                      className="w-full flex items-start gap-3 px-5 py-4 text-left hover:bg-gray-50/50 transition"
+                    >
+                      <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center text-xs font-bold text-gray-400 flex-shrink-0 mt-0.5">
+                        {i + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-800 leading-snug">{item.productName}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          {item.category && (
+                            <span className="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-medium">
+                              {item.category}
+                            </span>
+                          )}
+                          <span className="text-xs text-gray-400">
+                            {item.quantity} {item.unit ?? 'pcs'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className="text-sm font-bold text-gray-900">{fmt(item.totalPrice)}</span>
+                        <svg className={`w-4 h-4 text-gray-300 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </button>
+                    {isExpanded && (
+                      <div className="px-5 pb-4 pt-0 space-y-1.5 bg-gray-50/30">
+                        <div className="flex justify-between text-xs text-gray-500 pl-11">
+                          <span>Harga satuan</span>
+                          <span>{fmt(item.unitPrice)}</span>
+                        </div>
+                        <div className="flex justify-between text-xs text-gray-500 pl-11">
+                          <span>Jumlah</span>
+                          <span>{item.quantity} {item.unit ?? 'pcs'}</span>
+                        </div>
+                        {item.category && (
+                          <div className="flex justify-between text-xs text-gray-500 pl-11">
+                            <span>Kategori</span>
+                            <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-medium">{item.category}</span>
+                          </div>
+                        )}
+                        <div className="flex justify-between text-xs font-semibold text-gray-700 pl-11 pt-1.5 border-t border-gray-100">
+                          <span>Subtotal</span>
+                          <span>{fmt(item.totalPrice)}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           )}
-
-          {/* Items */}
-          <div className="divide-y divide-gray-50">
-            {items.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-10 text-center">
-                <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-3xl mb-3">📦</div>
-                <p className="text-sm font-semibold text-gray-500">Tidak ada barang</p>
-                <p className="text-xs text-gray-400 mt-1">Tidak ada barang yang ditemukan di struk ini</p>
-              </div>
-            ) : items.map((item, i) => (
-              <div key={i} className="flex items-start gap-3 px-5 py-4">
-                <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center text-xs font-bold text-gray-400 flex-shrink-0 mt-0.5">
-                  {i + 1}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-800 leading-snug">{item.productName}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    {item.category && (
-                      <span className="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-medium">
-                        {item.category}
-                      </span>
-                    )}
-                    <span className="text-xs text-gray-400">
-                      {item.quantity} {item.unit ?? 'pcs'} × {fmt(item.unitPrice)}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-sm font-bold text-gray-900 flex-shrink-0">{fmt(item.totalPrice)}</p>
-              </div>
-            ))}
-          </div>
 
           {/* Summary */}
           <div className="border-t border-gray-100 px-5 py-4 bg-gray-50 space-y-2">
@@ -302,7 +353,27 @@ export default function ReceiptDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Split Bill button */}
+        {items.length > 0 && (
+          <button
+            onClick={() => setShowSplit(true)}
+            className="w-full flex items-center justify-center gap-2 py-3 px-5 bg-white rounded-2xl border border-gray-100 shadow-sm text-sm font-semibold text-indigo-600 hover:bg-indigo-50 transition"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Split Bill
+          </button>
+        )}
       </main>
+
+      <BillSplitModal
+        open={showSplit}
+        onClose={() => setShowSplit(false)}
+        receiptId={receiptId ?? ''}
+        items={items}
+      />
     </div>
   )
 }

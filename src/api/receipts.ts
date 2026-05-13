@@ -9,6 +9,8 @@ import type {
   ReceiptCorrectResponse,
   ReceiptCreateRequest,
   ReceiptCreateResponse,
+  BillSplitRequest,
+  BillSplitResponse,
 } from '@/types/api'
 
 export const receiptsApi = {
@@ -39,4 +41,7 @@ export const receiptsApi = {
 
   create: (body: ReceiptCreateRequest) =>
     apiClient.post<ReceiptCreateResponse>('/v1/receipts', body).then((r) => r.data),
+
+  splitBill: (receiptId: string, body: BillSplitRequest) =>
+    apiClient.post<BillSplitResponse>(`/v1/receipts/${receiptId}/bill-split`, body).then((r) => r.data),
 }
