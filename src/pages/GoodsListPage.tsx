@@ -10,7 +10,7 @@ import { SkeletonCard, StoreSkeletonCard } from '@/components/SkeletonCard'
 import { StaggerGrid, StaggerItem } from '@/components/ui/StaggerGrid'
 import { useReceiptManager } from '@/hooks/useReceiptManager'
 import { useSearchLogic } from './GoodsListPage.logic'
-import { useProductPricesCalculate } from '@/hooks/useProductPricesCalculate'
+
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
 
@@ -30,13 +30,11 @@ export default function GoodsListPage() {
   const [showUpload, setShowUpload] = useState(false)
   const [showDrawer, setShowDrawer] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
-  const [syncMsg, setSyncMsg] = useState<string | null>(null)
   const [showAddMenu, setShowAddMenu] = useState(false)
   const [showMobileAddMenu, setShowMobileAddMenu] = useState(false)
   const addMenuRef = useRef<HTMLDivElement>(null)
 
   const navigate = useNavigate()
-  const sync = useProductPricesCalculate()
 
   const {
     searchMode,
@@ -56,13 +54,6 @@ export default function GoodsListPage() {
   } = useSearchLogic()
 
   useEffect(() => {
-    if (syncMsg) {
-      const t = setTimeout(() => setSyncMsg(null), 3000)
-      return () => clearTimeout(t)
-    }
-  }, [syncMsg])
-
-  useEffect(() => {
     if (!showAddMenu) return
     function handleClick(e: MouseEvent) {
       if (addMenuRef.current && !addMenuRef.current.contains(e.target as Node)) {
@@ -72,13 +63,6 @@ export default function GoodsListPage() {
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [showAddMenu])
-
-  function handleSync() {
-    sync.mutate(undefined, {
-      onSuccess: () => setSyncMsg('Harga berhasil disinkronisasi'),
-      onError: () => setSyncMsg('Gagal sinkronisasi harga'),
-    })
-  }
 
   const itemLabel = searchMode === 'product' ? 'barang' : 'toko'
   const isEmpty = searchMode === 'product' ? goods.length === 0 : (storesData?.data.length ?? 0) === 0
@@ -199,19 +183,6 @@ export default function GoodsListPage() {
               </svg>
             </NavLink>
 
-            <button
-              onClick={handleSync}
-              disabled={sync.isPending}
-              className="flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-xl transition-colors disabled:opacity-50"
-              aria-label="Sinkronisasi harga"
-            >
-              <svg className={`w-4 h-4 ${sync.isPending ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-            </button>
-            {syncMsg && (
-              <span className="text-xs text-slate-500 hidden sm:inline">{syncMsg}</span>
-            )}
 
           </div>
         </div>

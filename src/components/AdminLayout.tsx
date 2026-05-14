@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
+import { useProductPricesCalculate } from '@/hooks/useProductPricesCalculate'
 
 const navItems = [
   {
@@ -24,100 +26,89 @@ const navItems = [
 
 export function AdminLayout() {
   const location = useLocation()
+  const sync = useProductPricesCalculate()
+  const [syncMsg, setSyncMsg] = useState<string | null>(null)
+
+  function handleSync() {
+    sync.mutate(undefined, {
+      onSuccess: () => setSyncMsg('Harga berhasil disinkronisasi'),
+      onError: () => setSyncMsg('Gagal sinkronisasi harga'),
+    })
+  }
+
+  useEffect(() => {
+    if (syncMsg) {
+      const t = setTimeout(() => setSyncMsg(null), 3000)
+      return () => clearTimeout(t)
+    }
+  }, [syncMsg])
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col w-64 bg-white border-r border-gray-100 flex-shrink-0">
-        <div className="px-6 py-5 border-b border-gray-100">
-          <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Admin Panel</p>
-        </div>
-
-        <nav className="flex-1 px-3 py-4 space-y-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${
-                  isActive
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                }`
-              }
-            >
-              {item.icon}
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        {/* Back to home */}
-        <div className="px-3 py-4 border-t border-gray-100">
-          <NavLink
-            to="/goods"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition"
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Top bar */}
+      <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
+        <NavLink
+          to="/goods"
+          className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-gray-900 transition"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Beranda
+        </NavLink>
+        <span className="text-xs text-gray-400">{'/'}</span>
+        <span className="text-sm font-bold text-gray-900">Admin</span>
+        <div className="ml-auto flex items-center gap-2">
+          {syncMsg && (
+            <span className="text-xs text-green-600 font-medium">{syncMsg}</span>
+          )}
+          <button
+            onClick={handleSync}
+            disabled={sync.isPending}
+            className="flex items-center justify-center w-8 h-8 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-xl transition-colors disabled:opacity-50"
+            aria-label="Sinkronisasi harga"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <svg className={`w-4 h-4 ${sync.isPending ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            Kembali ke Beranda
-          </NavLink>
+          </button>
         </div>
-      </aside>
+      </header>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile top bar */}
-        <header className="lg:hidden bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
+      {/* Nav pills */}
+      <div className="bg-white border-b border-gray-100 px-4 py-2 flex gap-2 overflow-x-auto">
+        {navItems.map((item) => (
           <NavLink
-            to="/goods"
-            className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-gray-900 transition"
+            key={item.to}
+            to={item.to}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
+                isActive
+                  ? 'bg-indigo-100 text-indigo-700'
+                  : 'bg-gray-100 text-gray-600'
+              }`
+            }
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Beranda
+            {item.icon}
+            {item.label}
           </NavLink>
-          <span className="text-xs text-gray-400">{'/'}</span>
-          <span className="text-sm font-bold text-gray-900">Admin</span>
-        </header>
-
-        {/* Mobile nav pills */}
-        <div className="lg:hidden bg-white border-b border-gray-100 px-4 py-2 flex gap-2 overflow-x-auto">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
-                  isActive
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'bg-gray-100 text-gray-600'
-                }`
-              }
-            >
-              {item.icon}
-              {item.label}
-            </NavLink>
-          ))}
-        </div>
-
-        {/* Page content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl w-full mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Outlet />
-            </motion.div>
-          </AnimatePresence>
-        </main>
+        ))}
       </div>
+
+      {/* Page content */}
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl w-full mx-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
+      </main>
     </div>
   )
 }
