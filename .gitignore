@@ -61,4 +61,4 @@ AGENTS.md
 !*.ai-generated.md
 
 opencode.json
-tunnel.sh
+tunnel.sh.lean-ctx/

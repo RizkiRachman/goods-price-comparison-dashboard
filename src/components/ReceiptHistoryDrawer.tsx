@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import type { CompletedReceipt } from '@/hooks/useReceiptHistory'
+import { DrawerShell } from '@/components/ui/DrawerShell'
 
 interface Props {
   receipts: CompletedReceipt[]
@@ -38,8 +39,8 @@ function ReceiptCard({
     <div
       className={`w-full rounded-xl overflow-hidden transition hover:shadow-md ${
         isApproved
-          ? 'bg-emerald-50 border border-emerald-100 hover:border-emerald-200'
-          : 'bg-red-50 border border-red-100 hover:border-red-200 opacity-75'
+          ? 'bg-emerald-50/80 backdrop-blur-sm border border-emerald-100 hover:border-emerald-200'
+          : 'bg-red-50/80 backdrop-blur-sm border border-red-100 hover:border-red-200 opacity-75'
       }`}
     >
       <button onClick={onClick} className="w-full text-left p-4">
@@ -110,7 +111,7 @@ function ReceiptCard({
         <div className="px-4 pb-3">
           <button
             onClick={(e) => { e.stopPropagation(); onCorrect() }}
-            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 transition"
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-indigo-600 bg-indigo-50/80 backdrop-blur-sm hover:bg-indigo-100 border border-indigo-100 transition"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -139,77 +140,68 @@ export function ReceiptHistoryDrawer({ receipts, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-
-      {/* Drawer */}
-      <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col animate-[slideInRight_0.3s_ease-out]">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-violet-600 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-white">Riwayat Struk</h2>
-              <p className="text-indigo-100 text-sm mt-1">{receipts.length} struk tersimpan</p>
-            </div>
-            <button
-              onClick={onClose}
-              className="w-10 h-10 rounded-xl bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+    <DrawerShell open={true} onClose={onClose}>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-indigo-600 to-violet-600 p-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-white">Riwayat Struk</h2>
+            <p className="text-indigo-100 text-sm mt-1">{receipts.length} struk tersimpan</p>
           </div>
-
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {receipts.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">📄</div>
-              <p className="text-gray-500 font-medium">Belum ada riwayat</p>
-              <p className="text-sm text-gray-400 mt-1">Upload struk pertama</p>
-            </div>
-          ) : (
-            <>
-              {/* Approved receipts */}
-              {approved.length > 0 && (
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Diterima</h3>
-                  <div className="space-y-3">
-                    {approved.map((receipt) => (
-                      <ReceiptCard
-                        key={receipt.receiptId}
-                        receipt={receipt}
-                        onClick={() => handleReceiptClick(receipt.receiptId)}
-                        onCorrect={() => handleCorrect(receipt.receiptId)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Rejected receipts */}
-              {rejected.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Ditolak</h3>
-                  <div className="space-y-3">
-                    {rejected.map((receipt) => (
-                      <ReceiptCard
-                        key={receipt.receiptId}
-                        receipt={receipt}
-                        onClick={() => handleReceiptClick(receipt.receiptId)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+          <button
+            onClick={onClose}
+            className="w-10 h-10 rounded-xl bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white/60 backdrop-blur-sm">
+        {receipts.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 bg-gray-100/80 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4">📄</div>
+            <p className="text-gray-500 font-medium">Belum ada riwayat</p>
+            <p className="text-sm text-gray-400 mt-1">Upload struk pertama</p>
+          </div>
+        ) : (
+          <>
+            {approved.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Diterima</h3>
+                <div className="space-y-3">
+                  {approved.map((receipt) => (
+                    <ReceiptCard
+                      key={receipt.receiptId}
+                      receipt={receipt}
+                      onClick={() => handleReceiptClick(receipt.receiptId)}
+                      onCorrect={() => handleCorrect(receipt.receiptId)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {rejected.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Ditolak</h3>
+                <div className="space-y-3">
+                  {rejected.map((receipt) => (
+                    <ReceiptCard
+                      key={receipt.receiptId}
+                      receipt={receipt}
+                      onClick={() => handleReceiptClick(receipt.receiptId)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </DrawerShell>
   )
 }

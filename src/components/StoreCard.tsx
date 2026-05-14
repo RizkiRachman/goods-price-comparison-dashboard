@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Store } from '@/types/api'
+import { GlassCard } from '@/components/ui/GlassCard'
 
 const CHAIN_COLORS: Record<string, { gradient: string; initials: string }> = {
   Indomaret:  { gradient: 'from-blue-500 to-blue-700',       initials: 'IN' },
@@ -28,7 +29,10 @@ export function StoreCard({ store }: Props) {
 
   return (
     <Link to={`/stores/${store.id}`} className="group block">
-      <div className="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-100/40 hover:-translate-y-1.5 transition-all duration-200 overflow-hidden">
+      <GlassCard
+        variant="interactive"
+        className="overflow-hidden hover:-translate-y-1.5 transition-transform duration-200 active:scale-[0.98]"
+      >
         {/* Top accent */}
         <div className={`h-1 bg-gradient-to-r ${gradient}`} />
 
@@ -43,7 +47,7 @@ export function StoreCard({ store }: Props) {
                 {store.name}
               </p>
               {store.chain && (
-                <span className="inline-block mt-1 text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                <span className="inline-block mt-1 text-[10px] font-semibold text-slate-400 bg-white/70 backdrop-blur px-2 py-0.5 rounded-full border border-slate-200/50">
                   {store.chain}
                 </span>
               )}
@@ -76,7 +80,7 @@ export function StoreCard({ store }: Props) {
             </div>
           )}
         </div>
-      </div>
+      </GlassCard>
     </Link>
   )
 }

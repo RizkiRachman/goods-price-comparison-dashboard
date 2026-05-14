@@ -1,3 +1,4 @@
+import { motion } from 'motion/react'
 import type { CompletedReceipt } from '@/hooks/useReceiptHistory'
 
 interface Props {
@@ -40,13 +41,16 @@ export function RecentUploadsStrip({ receipts, onShowMore }: Props) {
       </div>
 
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-        {recent.map((receipt) => (
-          <div
+        {recent.map((receipt, index) => (
+          <motion.div
             key={receipt.receiptId}
-            className={`flex-shrink-0 p-3 rounded-xl min-w-[140px] ${
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, type: 'spring', stiffness: 250, damping: 20 }}
+            className={`flex-shrink-0 p-3 rounded-xl min-w-[140px] backdrop-blur-sm border ${
               receipt.status === 'APPROVED' || receipt.status === 'COMPLETED'
-                ? 'bg-white/20 border border-white/30'
-                : 'bg-red-500/20 border border-red-400/30'
+                ? 'bg-white/20 border-white/30'
+                : 'bg-red-500/20 border-red-400/30'
             }`}
           >
             <div className="flex items-center gap-2">
@@ -64,7 +68,7 @@ export function RecentUploadsStrip({ receipts, onShowMore }: Props) {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

@@ -1,21 +1,22 @@
 {
   "name": "gpc-dash-temp",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "start": "vite preview",
-    "preview": "vite preview"
+    "dev": "NODE_OPTIONS='--no-deprecation' vite",
+    "build": "NODE_OPTIONS='--no-deprecation' tsc -b && vite build",
+    "lint": "NODE_OPTIONS='--no-deprecation' eslint .",
+    "test": "NODE_OPTIONS='--no-deprecation' vitest run",
+    "test:watch": "NODE_OPTIONS='--no-deprecation' vitest",
+    "start": "NODE_OPTIONS='--no-deprecation' vite preview",
+    "preview": "NODE_OPTIONS='--no-deprecation' vite preview"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.99.1",
     "axios": "^1.15.0",
     "html2canvas": "^1.4.1",
+    "motion": "^12.38.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.1"
