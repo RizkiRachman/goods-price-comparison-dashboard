@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { ReceiptResult, ReceiptStatus, TrackedJob } from '@/types/receipt'
+import { DrawerShell } from '@/components/ui/DrawerShell'
 
 interface ValidationIssue {
   field: string
@@ -71,11 +71,11 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
   const canApprove = validationIssues.length === 0
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-sm overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3">
         <div
-          className={`w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0 ${
+          className={`w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0 backdrop-blur-sm ${
             isPendingReview ? 'bg-amber-50' : isLlmReady ? 'bg-emerald-50' : isProcessing ? 'bg-indigo-50' : isCompleted ? 'bg-emerald-50' : 'bg-red-50'
           }`}
         >
@@ -126,7 +126,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
 
       {/* PENDING_REVIEW / COMPLETED — show items preview + actions */}
       {(isPendingReview || isLlmReady) && (
-        <div className="border-t border-gray-50 px-4 py-3 space-y-3">
+        <div className="border-t border-white/20 px-4 py-3 space-y-3">
           {job.result && (
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-gray-500 uppercase">{job.result.storeName}</span>
@@ -136,7 +136,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
           
           {/* Items preview - just first 3 */}
           {hasItems && job.result && (
-            <div className="space-y-1 bg-gray-50 rounded-lg p-2">
+            <div className="space-y-1 bg-white/50 backdrop-blur-sm rounded-lg p-2">
               {job.result.items.slice(0, 3).map((item, i) => (
                 <div key={i} className="flex items-start justify-between gap-2 text-xs">
                   <span className="text-gray-600 truncate flex-1">{item.productName}</span>
@@ -156,7 +156,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
           
           {/* Validation warnings */}
           {validationIssues.length > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 space-y-1">
+            <div className="bg-amber-50/80 backdrop-blur-sm border border-amber-200 rounded-xl px-3 py-2.5 space-y-1">
               <p className="text-xs font-semibold text-amber-700 flex items-center gap-1.5">
                 <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
@@ -174,7 +174,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
           {/* View detail button for all items */}
           <button
             onClick={() => onNavigate(job.receiptId)}
-            className="w-full py-2 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition"
+            className="w-full py-2 text-xs font-medium text-indigo-600 bg-indigo-50/80 backdrop-blur-sm hover:bg-indigo-100 rounded-lg transition"
           >
             Lihat Detail Struk
           </button>
@@ -184,7 +184,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
             className={`w-full py-2 text-xs font-semibold rounded-lg transition ${
               !canApprove
                 ? 'text-white bg-amber-500 hover:bg-amber-600 animate-pulse'
-                : 'text-amber-600 bg-amber-50 hover:bg-amber-100'
+                : 'text-amber-600 bg-amber-50/80 backdrop-blur-sm hover:bg-amber-100'
             }`}
           >
             {!canApprove ? '⚠️ Koreksi Data Sekarang' : 'Koreksi Data'}
@@ -219,7 +219,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
       {isCompleted && job.result && (
         <button
           onClick={() => onNavigate(job.receiptId)}
-          className="w-full text-left border-t border-gray-50 px-4 py-3 hover:bg-gray-50 transition group"
+          className="w-full text-left border-t border-white/20 px-4 py-3 hover:bg-white/40 transition group"
         >
           <div className="flex items-center justify-between">
             <div>
@@ -242,78 +242,58 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
 }
 
 export function PendingReceiptsDrawer({ jobs, onRemove, onClearCompleted, onClose, onApprove, onReject }: Props) {
-  const overlayRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [onClose])
-
   const hasCompleted = jobs.some((j) => j.status === 'COMPLETED' || j.status === 'FAILED' || j.status === 'INGESTION_FAILED' || j.status === 'APPROVED' || j.status === 'REJECTED')
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Backdrop */}
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-        onClick={onClose}
-      />
-
-      {/* Panel */}
-      <div className="relative w-full max-w-sm bg-gray-50 h-full flex flex-col shadow-2xl animate-[slideInRight_0.25s_ease-out]">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100">
-          <div>
-            <h2 className="text-base font-bold text-gray-900">Proses Struk</h2>
-            <p className="text-xs text-gray-400 mt-0.5">{jobs.length} struk</p>
-          </div>
-          <div className="flex items-center gap-2">
-            {hasCompleted && (
-              <button
-                onClick={onClearCompleted}
-                className="text-xs text-indigo-600 font-semibold hover:underline"
-              >
-                Hapus selesai
-              </button>
-            )}
-            <button
-              onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 transition"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+    <DrawerShell open={true} onClose={onClose}>
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 py-4 bg-white/60 backdrop-blur-sm border-b border-white/20">
+        <div>
+          <h2 className="text-base font-bold text-gray-900">Proses Struk</h2>
+          <p className="text-xs text-gray-400 mt-0.5">{jobs.length} struk</p>
         </div>
-
-        {/* Job list */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-          {jobs.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center pb-10">
-              <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl mb-3">🧾</div>
-              <p className="text-sm font-semibold text-gray-700">Belum ada struk</p>
-              <p className="text-xs text-gray-400 mt-1">Upload struk untuk memulai</p>
-            </div>
-          ) : (
-            jobs.map((job) => (
-              <JobCard
-                key={job.receiptId}
-                job={job}
-                onRemove={onRemove}
-                onApprove={onApprove}
-                onReject={onReject}
-                onNavigate={(id) => { onClose(); navigate(`/receipts/${id}`) }}
-              />
-            ))
+        <div className="flex items-center gap-2">
+          {hasCompleted && (
+            <button
+              onClick={onClearCompleted}
+              className="text-xs text-indigo-600 font-semibold hover:underline"
+            >
+              Hapus selesai
+            </button>
           )}
+          <button
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center rounded-xl text-gray-400 hover:bg-white/40 transition"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* Job list */}
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+        {jobs.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-center pb-10">
+            <div className="w-16 h-16 bg-indigo-50/80 backdrop-blur-sm rounded-2xl flex items-center justify-center text-3xl mb-3">🧾</div>
+            <p className="text-sm font-semibold text-gray-700">Belum ada struk</p>
+            <p className="text-xs text-gray-400 mt-1">Upload struk untuk memulai</p>
+          </div>
+        ) : (
+          jobs.map((job) => (
+            <JobCard
+              key={job.receiptId}
+              job={job}
+              onRemove={onRemove}
+              onApprove={onApprove}
+              onReject={onReject}
+              onNavigate={(id) => { onClose(); navigate(`/receipts/${id}`) }}
+            />
+          ))
+        )}
+      </div>
+    </DrawerShell>
   )
 }
