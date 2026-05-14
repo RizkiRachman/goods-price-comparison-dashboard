@@ -542,6 +542,7 @@ export interface UnitListResponse {
   pagination: Pagination
 }
 
+
 // ── Bill Split types ──────────────────────────────────────────────
 
 export type BillSplitType = 'RATIO' | 'SELECTION'
@@ -585,3 +586,4 @@ export interface BillSplitResponse {
   unassignedTotal: number
   participants: BillSplitParticipant[]
 }
+

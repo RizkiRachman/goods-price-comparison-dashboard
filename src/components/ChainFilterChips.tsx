@@ -5,15 +5,15 @@ interface Props {
 }
 
 const CHAIN_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  All: { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-200' },
-  Indomaret: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
-  Alfamart: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
-  Alfamidi: { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200' },
-  Superindo: { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200' },
-  Hypermart: { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200' },
+  All: { bg: 'bg-white/60', text: 'text-gray-700', border: 'border-gray-200' },
+  Indomaret: { bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-blue-200' },
+  Alfamart: { bg: 'bg-red-50/80', text: 'text-red-700', border: 'border-red-200' },
+  Alfamidi: { bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-orange-200' },
+  Superindo: { bg: 'bg-green-50/80', text: 'text-green-700', border: 'border-green-200' },
+  Hypermart: { bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-purple-200' },
 }
 
-const DEFAULT_COLOR = { bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-gray-200' }
+const DEFAULT_COLOR = { bg: 'bg-white/60', text: 'text-gray-700', border: 'border-gray-200' }
 
 export function ChainFilterChips({ chains, selected, onSelect }: Props) {
   const allChains = ['All', ...chains]
@@ -28,10 +28,10 @@ export function ChainFilterChips({ chains, selected, onSelect }: Props) {
           <button
             key={chain}
             onClick={() => onSelect(chain)}
-            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 whitespace-nowrap ${
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border backdrop-blur-sm whitespace-nowrap transition-all active:scale-95 ${
               isSelected
-                ? `${colors.bg} ${colors.text} ${colors.border} shadow-md`
-                : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                ? `${colors.bg} ${colors.text} ${colors.border} shadow-md shadow-black/5`
+                : 'bg-white/40 text-gray-600 border-gray-200 hover:border-gray-300 hover:bg-white/60'
             }`}
           >
             {chain === 'All' ? 'Semua Toko' : chain}
