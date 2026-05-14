@@ -5,13 +5,13 @@ interface Props {
 
 export function SearchModeToggle({ mode, onModeChange }: Props) {
   return (
-    <div className="inline-flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+    <div className="inline-flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-lg p-1 border border-white/10">
       <button
         onClick={() => onModeChange('product')}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium transition-all ${
           mode === 'product'
-            ? 'bg-white text-indigo-600 shadow-sm'
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+            ? 'bg-white/90 text-indigo-600 shadow-sm'
+            : 'text-white/70 hover:text-white hover:bg-white/10'
         }`}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,8 +24,8 @@ export function SearchModeToggle({ mode, onModeChange }: Props) {
         onClick={() => onModeChange('store')}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium transition-all ${
           mode === 'store'
-            ? 'bg-white text-indigo-600 shadow-sm'
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+            ? 'bg-white/90 text-indigo-600 shadow-sm'
+            : 'text-white/70 hover:text-white hover:bg-white/10'
         }`}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

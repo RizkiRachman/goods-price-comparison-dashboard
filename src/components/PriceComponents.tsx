@@ -1,5 +1,6 @@
 import type { PriceRecord } from '@/types/api'
 import { formatPrice } from '@/lib/utils'
+import { GlassCard } from '@/components/ui/GlassCard'
 
 function relativeDate(dateStr: string): string {
   const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 86_400_000)
@@ -35,9 +36,9 @@ export function PriceBar({ price, min, max }: PriceBarProps) {
   const pct = max === min ? 100 : ((price - min) / (max - min)) * 100
   const color = pct <= 33 ? 'bg-emerald-500' : pct <= 66 ? 'bg-amber-400' : 'bg-red-400'
   return (
-    <div className="w-full bg-slate-100 rounded-full h-1.5 mt-2">
+    <div className="w-full bg-slate-100/60 rounded-full h-1.5 mt-2">
       <div
-        className={`h-1.5 rounded-full ${color} transition-all duration-500`}
+        className={`h-1.5 rounded-full ${color}`}
         style={{ width: `${Math.max(8, pct)}%` }}
       />
     </div>
@@ -72,7 +73,10 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
   const storeInitial = item.storeName?.charAt(0).toUpperCase() ?? '?'
 
   return (
-    <div className="group relative bg-white rounded-3xl border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-0.5 transition-all duration-200">
+    <GlassCard
+      variant="interactive"
+      className="overflow-hidden relative hover:-translate-y-0.5 transition-transform duration-150"
+    >
       {/* Left accent bar */}
       <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${barColorClass}`} />
 
@@ -80,7 +84,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
         <div className="flex items-start justify-between gap-3">
           {/* Left: avatar + info */}
           <div className="flex items-start gap-3 min-w-0">
-            <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center text-white text-sm font-black shrink-0`}>
+            <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center text-white text-sm font-black shrink-0 shadow-sm`}>
               {storeInitial}
             </div>
             <div className="min-w-0">
@@ -142,13 +146,13 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
         </div>
 
         {/* Progress bar */}
-        <div className="mt-3 w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+        <div className="mt-3 w-full bg-slate-100/60 rounded-full h-1.5 overflow-hidden">
           <div
-            className={`h-full rounded-full ${progressBg} transition-all duration-500`}
+            className={`h-full rounded-full ${progressBg}`}
             style={{ width: `${Math.max(6, pct)}%` }}
           />
         </div>
       </div>
-    </div>
+    </GlassCard>
   )
 }
