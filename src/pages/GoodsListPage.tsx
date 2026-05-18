@@ -6,6 +6,7 @@ import { Pagination } from '@/components/Pagination'
 import { ReceiptUploadModal } from '@/components/ReceiptUploadModal'
 import { PendingReceiptsDrawer } from '@/components/PendingReceiptsDrawer'
 import { ReceiptHistoryDrawer } from '@/components/ReceiptHistoryDrawer'
+import { AboutDrawer } from '@/components/AboutDrawer'
 import { SkeletonCard, StoreSkeletonCard } from '@/components/SkeletonCard'
 import { StaggerGrid, StaggerItem } from '@/components/ui/StaggerGrid'
 import { useReceiptManager } from '@/hooks/useReceiptManager'
@@ -32,6 +33,7 @@ export default function GoodsListPage() {
   const [showHistory, setShowHistory] = useState(false)
   const [showAddMenu, setShowAddMenu] = useState(false)
   const [showMobileAddMenu, setShowMobileAddMenu] = useState(false)
+  const [showAbout, setShowAbout] = useState(false)
   const addMenuRef = useRef<HTMLDivElement>(null)
 
   const navigate = useNavigate()
@@ -170,6 +172,16 @@ export default function GoodsListPage() {
                   {processingCount}
                 </span>
               )}
+            </button>
+
+            <button
+              onClick={() => setShowAbout(true)}
+              className="flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-xl transition-colors"
+              aria-label="Tentang HargaKu"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </button>
 
             <NavLink
@@ -381,6 +393,7 @@ export default function GoodsListPage() {
       {showHistory && (
         <ReceiptHistoryDrawer receipts={history} onClose={() => setShowHistory(false)} />
       )}
+      <AboutDrawer open={showAbout} onClose={() => setShowAbout(false)} />
     </div>
   )
 }

@@ -587,3 +587,29 @@ export interface BillSplitResponse {
   participants: BillSplitParticipant[]
 }
 
+// ── Feedback / Question types ─────────────────────────────────────
+
+export type FeedbackType = 'feedback' | 'question'
+
+export interface FeedbackQuestion {
+  id: string
+  userName: string
+  userEmail: string
+  type: FeedbackType
+  message: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateFeedbackQuestionRequest {
+  userName: string
+  userEmail: string
+  type: FeedbackType
+  message: string
+}
+
+export interface FeedbackQuestionListResponse {
+  data: FeedbackQuestion[]
+  pagination: Pagination
+}
+

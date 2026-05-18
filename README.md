@@ -73,26 +73,32 @@ HargaKu is a personal grocery price tracking dashboard. Upload receipt photos or
 - Upload receipt images with auto-compression (< 6MB via Canvas API)
 - OCR-based item extraction with status polling
 - Approve, reject, or correct extracted receipt data
+- Manual receipt creation with dynamic item entry
 
 **Product & Store Search**
 - Dual-mode search: toggle between product and store browsing
 - Filter by category or store chain
 - Paginated results with price summaries
 
-**Price Tracking**
-- Per-product detail pages with price history (lowest, latest, highest)
-- Cross-store price comparison with promo badges
-- Subscribe to price drop alerts per product
+**Receipt History & Bill Split**
+- Receipt history with approve/reject status tracking
+- Bill split from receipt detail: equal split (RATIO) or item-based (SELECTION)
+- Expandable participant cards with item breakdown
 
 **Shopping Trip Optimizer**
 - Build a shopping list (up to 5 items)
 - Get optimized multi-store route recommendations with cost savings
 - Compare single-store vs multi-store scenarios
+- Download result as image
 
-**Data Management**
-- Manual receipt creation with dynamic item entry
-- Price correction modal for adjusting individual store prices
-- Receipt history persisted in localStorage
+**Feedback & Questions**
+- Submit feedback or questions via form (`/feedback`)
+- Admin view for all submissions (`/admin/feedback`)
+
+**Admin Panel**
+- Category management: list, create, edit, delete (`/admin/categories`)
+- Unit management: list, create, edit, delete (`/admin/units`)
+- Feedback management: list and sort submissions (`/admin/feedback`)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -105,10 +111,14 @@ HargaKu is a personal grocery price tracking dashboard. Upload receipt photos or
 | `/goods/:id` | `GoodsDetailPage` | Product price history and details |
 | `/stores/:storeId` | `StoreDetailPage` | Store details and product catalog |
 | `/tracker` | `GoodsTrackerPage` | Shopping trip optimizer |
+| `/feedback` | `FeedbackPage` | Submit feedback or questions |
 | `/receipts/pending` | `PendingReceiptsPage` | Pending uploads and approvals |
 | `/receipts/create` | `ReceiptCreatePage` | Manual receipt entry |
 | `/receipts/:receiptId` | `ReceiptDetailPage` | Single receipt view with approve/reject |
 | `/receipts/:receiptId/correct` | `ReceiptCorrectionPage` | Correct receipt data |
+| `/admin/categories` | `CategoryListPage` | Category CRUD (admin) |
+| `/admin/units` | `UnitListPage` | Unit CRUD (admin) |
+| `/admin/feedback` | `FeedbackListPage` | Feedback list (admin) |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -202,54 +212,53 @@ src/
 │   ├── receipts.ts     # Upload, status, approve/reject, correct, create
 │   ├── shopping.ts     # Shopping optimizer
 │   ├── alerts.ts       # Price drop alert subscriptions
+│   ├── feedback.ts     # Feedback & question submissions
 │   ├── admin.ts        # Admin job triggers
+│   ├── categories.ts   # Category CRUD
+│   ├── units.ts        # Unit CRUD
 │   └── system.ts       # Version, health, metrics
 ├── components/         # Reusable UI components
-│   ├── SearchBar.tsx
-│   ├── SearchModeToggle.tsx
-│   ├── CategoryChips.tsx
-│   ├── ChainFilterChips.tsx
-│   ├── GoodCard.tsx / StoreCard.tsx
-│   ├── Pagination.tsx
-│   ├── SkeletonCard.tsx
-│   ├── PriceComponents.tsx
-│   ├── PriceCorrectModal.tsx
-│   ├── ReceiptUploadModal.tsx
-│   ├── PendingReceiptsDrawer.tsx
-│   ├── ReceiptHistoryDrawer.tsx
-│   ├── ProductPickerModal.tsx
-│   ├── RecentUploadsStrip.tsx
-│   └── ContributionStats.tsx
-├── hooks/              # Custom React hooks (17 hooks)
+│   ├── ui/             # UI primitives (DrawerShell, ModalShell, GlassCard, etc.)
+│   ├── AboutDrawer.tsx # About Us transparent overlay
+│   ├── AdminLayout.tsx # Admin page layout with nav pills
+│   ├── DataTable.tsx   # Sortable, searchable table with pagination
+│   ├── SearchBar.tsx / SearchModeToggle.tsx / CategoryChips.tsx
+│   ├── GoodCard.tsx / StoreCard.tsx / SkeletonCard.tsx
+│   ├── ReceiptUploadModal.tsx / ReceiptHistoryDrawer.tsx
+│   ├── PendingReceiptsDrawer.tsx / ProductPickerModal.tsx
+│   ├── PriceComponents.tsx / PriceCorrectModal.tsx
+│   ├── BillSplitModal.tsx / FormModal.tsx / FormBanner.tsx
+│   └── Pagination.tsx / ContributionStats.tsx / RecentUploadsStrip.tsx
+├── hooks/              # Custom React hooks
 │   ├── useGoods.ts / useStores.ts / usePrices.ts
 │   ├── useReceiptManager.ts / useReceiptJobs.ts / useReceiptHistory.ts
 │   ├── useShopping.ts / useShoppingOptimizeMutation.ts
 │   ├── useReceiptCreate.ts / useReceiptCorrection.ts
+│   ├── useFeedbackSubmit.ts / useFeedbackList.ts
 │   ├── useAlerts.ts / useSystem.ts / usePriceCorrection.ts
-│   ├── useProductPricesCalculate.ts
-│   ├── useProductsByStore.ts
-│   ├── useDebounce.ts / usePagination.ts
-│   └── usePriceCorrection.ts
+│   ├── useCategories.ts / useUnits.ts
+│   ├── useProductPricesCalculate.ts / useProductsByStore.ts
+│   ├── useBillSplit.ts / useSyncFormData.ts
+│   └── useDebounce.ts / usePagination.ts
 ├── lib/                # Utilities
-│   ├── utils.ts        # Formatting (IDR, dates), image compression, cleanup
+│   ├── utils.ts        # Formatting (IDR, dates), image compression
 │   └── query-factory.ts # Standardized TanStack Query hook factory
 ├── mocks/              # MSW mock service worker
 │   ├── data.ts         # 6 stores × 10 products × prices
-│   └── handlers.ts     # 344 lines of API mock handlers
+│   └── handlers.ts     # API mock handlers
 ├── pages/              # Route-level page components
 │   ├── GoodsListPage.tsx + GoodsListPage.logic.ts
-│   ├── GoodsDetailPage.tsx
+│   ├── GoodsDetailPage.tsx / StoreDetailPage.tsx
 │   ├── GoodsTrackerPage.tsx
-│   ├── PendingReceiptsPage.tsx
-│   ├── ReceiptCreatePage.tsx
-│   ├── ReceiptDetailPage.tsx
-│   ├── ReceiptCorrectionPage.tsx
-│   ├── StoreDetailPage.tsx
-│   └── GoodsDetailPage.tsx
+│   ├── FeedbackPage.tsx
+│   ├── PendingReceiptsPage.tsx / ReceiptCreatePage.tsx
+│   ├── ReceiptDetailPage.tsx / ReceiptCorrectionPage.tsx
+│   └── admin/
+│       ├── CategoryListPage.tsx / CategoryFormPage.tsx
+│       ├── UnitListPage.tsx / UnitFormPage.tsx
+│       └── FeedbackListPage.tsx
 ├── types/              # TypeScript type definitions
-│   ├── api.ts          # 480 lines — full API contract types
-│   ├── goods.ts        # Frontend-specific types
-│   └── receipt.ts      # Receipt job types
+│   └── api.ts          # Full API contract types
 ├── test/               # Test files
 ├── App.tsx             # Router configuration
 └── main.tsx            # Entry point (QueryClient + BrowserRouter)
@@ -288,6 +297,9 @@ The backend exposes a REST API under `/v1/`. All requests go through the Axios c
 | | `/v1/receipts/:id/reject` | DELETE | Reject |
 | | `/v1/receipts/:id/correct` | POST | Correct data |
 | **Shopping** | `/v1/shopping/optimize` | POST | Optimize shopping trip |
+| **Feedback** | `/v1/feedback-questions` | POST | Submit feedback or question |
+| | `/v1/feedback-questions` | GET | List (paginated, sortable) |
+| | `/v1/feedback-questions/:id` | GET | Get by ID |
 | **Alerts** | `/v1/alerts/subscribe` | POST | Subscribe to price alerts |
 | **Admin** | `/v1/admin/jobs/product-prices-calculate` | POST | Recalculate prices |
 | **System** | `/v1/version` | GET | API version |
@@ -363,7 +375,9 @@ npm run test     # Must pass: 100% pass rate
 - [x] Product detail with price history and trends
 - [x] Shopping trip optimizer with multi-store routing
 - [x] Receipt approve/reject/correct workflow
-- [x] Price alert subscriptions
+- [x] Bill split (equal split + item-based)
+- [x] Admin panel (categories, units, feedback)
+- [x] About Us page with feedback submission
 - [ ] Dark mode (Tailwind dark variant ready)
 - [ ] Barcode scanning for quick product lookup
 - [ ] Price history charts (weekly/monthly granularity)
