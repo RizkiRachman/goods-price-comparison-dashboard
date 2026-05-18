@@ -9,12 +9,14 @@ import ReceiptCorrectionPage from '@/pages/ReceiptCorrectionPage'
 import ReceiptCreatePage from '@/pages/ReceiptCreatePage'
 import PendingReceiptsPage from '@/pages/PendingReceiptsPage'
 import GoodsTrackerPage from '@/pages/GoodsTrackerPage'
+import FeedbackPage from '@/pages/FeedbackPage'
 import { PageTransition } from '@/components/ui/PageTransition'
 import { AdminLayout } from '@/components/AdminLayout'
 import CategoryListPage from '@/pages/admin/CategoryListPage'
 import CategoryFormPage from '@/pages/admin/CategoryFormPage'
 import UnitListPage from '@/pages/admin/UnitListPage'
 import UnitFormPage from '@/pages/admin/UnitFormPage'
+import FeedbackListPage from '@/pages/admin/FeedbackListPage'
 
 export default function App() {
   const location = useLocation()
@@ -36,7 +38,9 @@ export default function App() {
             <Route path="units" element={<UnitListPage />} />
             <Route path="units/new" element={<UnitFormPage />} />
             <Route path="units/:unitId" element={<UnitFormPage />} />
+            <Route path="feedback" element={<FeedbackListPage />} />
           </Route>
+          <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/receipts/pending" element={<PendingReceiptsPage />} />
           <Route path="/receipts/create" element={<ReceiptCreatePage />} />
           <Route path="/receipts/:receiptId/correct" element={<ReceiptCorrectionPage />} />

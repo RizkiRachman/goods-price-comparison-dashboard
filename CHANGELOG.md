@@ -2,6 +2,37 @@
 
 All notable changes to this project are documented here.
 
+## [0.3.0] - 2026-05-18
+
+### Added
+- About Us overlay accessible from navbar info icon (`(i)` button)
+  - App overview with bullet-point feature list
+  - Admin preview section with links to Category and Unit management
+  - Source code links: API spec, backend service, frontend dashboard repos
+  - Feedback CTA button linking to feedback form
+- Feedback & Questions feature (`/feedback`)
+  - Full-page form with name, email, type toggle (Feedback / Pertanyaan), message
+  - Client-side validation with error states
+  - Success state with "Kirim Lagi" and "Kembali" buttons
+  - API integration via `POST /v1/feedback-questions`
+- Admin Feedback list page (`/admin/feedback`)
+  - DataTable with type, name, email, message, date columns
+  - Sortable by type and date
+  - "Buat Baru" button linking to feedback form
+  - New "Feedback" nav pill in AdminLayout
+- Transparent full-page overlay pattern for AboutDrawer and ReceiptHistoryDrawer
+  - `bg-black/30 backdrop-blur-md` backdrop
+  - `bg-white/80 backdrop-blur-xl` glass card container
+  - Scale + fade entrance animation
+- API layer: `src/api/feedback.ts` — create, list, getById
+- Hooks: `useFeedbackSubmit` (mutation), `useFeedbackList` (paginated query)
+- Types: `FeedbackQuestion`, `CreateFeedbackQuestionRequest`, `FeedbackQuestionListResponse`, `FeedbackType`
+
+### Changed
+- ReceiptHistoryDrawer: migrated from DrawerShell to transparent full-page overlay
+- AboutDrawer: migrated from DrawerShell to transparent full-page overlay
+- README.md updated with new routes, features, project structure, and API reference
+
 ## [1.1.0] - 2026-05-13
 
 ### Added
