@@ -17,6 +17,7 @@ import CategoryFormPage from '@/pages/admin/CategoryFormPage'
 import UnitListPage from '@/pages/admin/UnitListPage'
 import UnitFormPage from '@/pages/admin/UnitFormPage'
 import FeedbackListPage from '@/pages/admin/FeedbackListPage'
+import ActivityLogListPage from '@/pages/admin/ActivityLogListPage'
 
 export default function App() {
   const location = useLocation()
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="units/new" element={<UnitFormPage />} />
             <Route path="units/:unitId" element={<UnitFormPage />} />
             <Route path="feedback" element={<FeedbackListPage />} />
+            <Route path="activity-logs" element={<ActivityLogListPage />} />
           </Route>
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/receipts/pending" element={<PendingReceiptsPage />} />
