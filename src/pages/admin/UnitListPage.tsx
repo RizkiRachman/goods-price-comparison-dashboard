@@ -42,7 +42,7 @@ export default function UnitListPage() {
   const [sortBy, setSortBy] = useState<'id' | 'name' | 'type' | 'createdAt'>('name')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
-  const { data, isLoading, isError } = useUnitsList({
+  const { data, isError } = useUnitsList({
     page,
     pageSize: 20,
     search: search || undefined,
@@ -158,14 +158,7 @@ export default function UnitListPage() {
       </div>
 
       {/* Table */}
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <DataTable
+      <DataTable
           columns={columns}
           data={units}
           pagination={pagination}
@@ -200,7 +193,6 @@ export default function UnitListPage() {
           emptyMessage="Belum ada satuan"
           emptyIcon={'\u2696\uFE0F'}
         />
-      )}
     </div>
   )
 }

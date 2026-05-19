@@ -37,7 +37,7 @@ export default function ActivityLogListPage() {
   const [sortBy, setSortBy] = useState<'createdAt' | 'type' | 'action'>('createdAt')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
-  const { data, isLoading, isError } = useActivityLogsList({
+  const { data, isError } = useActivityLogsList({
     page,
     pageSize: 20,
     sortBy,
@@ -108,14 +108,7 @@ export default function ActivityLogListPage() {
       </div>
 
       {/* Table */}
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <DataTable
+      <DataTable
           columns={columns}
           data={items}
           pagination={pagination}
@@ -126,7 +119,6 @@ export default function ActivityLogListPage() {
           emptyMessage="Belum ada log aktivitas"
           emptyIcon={'\uD83D\uDCCB'}
         />
-      )}
     </div>
   )
 }

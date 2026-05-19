@@ -35,7 +35,7 @@ export default function CategoryListPage() {
   const [sortBy, setSortBy] = useState<'id' | 'name' | 'createdAt'>('name')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
-  const { data, isLoading, isError } = useCategoriesList({
+  const { data, isError } = useCategoriesList({
     page,
     pageSize: 20,
     search: search || undefined,
@@ -122,14 +122,7 @@ export default function CategoryListPage() {
       </div>
 
       {/* Table */}
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <DataTable
+      <DataTable
           columns={columns}
           data={categories}
           pagination={pagination}
@@ -164,7 +157,6 @@ export default function CategoryListPage() {
           emptyMessage="Belum ada kategori"
           emptyIcon={'\uD83C\uDFF7\uFE0F'}
         />
-      )}
     </div>
   )
 }
