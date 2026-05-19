@@ -11,9 +11,9 @@ import type { Category, CategoryListResponse, CreateCategoryRequest, UpdateCateg
 export const useCategoriesList = createListQueryHook<
   Parameters<typeof categoriesApi.list>[0],
   CategoryListResponse
->('categories', categoriesApi.list)
+>('categories', categoriesApi.list, { refetchOnMount: 'always' })
 
-export const useCategory = createDetailQueryHook<Category>('categories', categoriesApi.get)
+export const useCategory = createDetailQueryHook<Category>('categories', categoriesApi.get, { refetchOnMount: 'always' })
 
 export const useCreateCategory = createCreateMutationHook<CreateCategoryRequest, Category>(
   'categories',

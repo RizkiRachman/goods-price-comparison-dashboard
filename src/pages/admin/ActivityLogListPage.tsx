@@ -50,7 +50,7 @@ export default function ActivityLogListPage() {
       header: 'Tipe',
       sortable: true,
       render: (log) => {
-        const badge = typeBadge[log.type]
+        const badge = typeBadge[log.type] ?? { bg: 'bg-gray-100', text: 'text-gray-600', label: log.type }
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
@@ -63,7 +63,7 @@ export default function ActivityLogListPage() {
       header: 'Aksi',
       sortable: true,
       render: (log) => {
-        const badge = actionBadge[log.action]
+        const badge = actionBadge[log.action] ?? { bg: 'bg-gray-100', text: 'text-gray-600', label: log.action }
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}

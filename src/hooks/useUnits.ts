@@ -11,9 +11,9 @@ import type { Unit, UnitListResponse, CreateUnitRequest, UpdateUnitRequest } fro
 export const useUnitsList = createListQueryHook<
   Parameters<typeof unitsApi.list>[0],
   UnitListResponse
->('units', unitsApi.list)
+>('units', unitsApi.list, { refetchOnMount: 'always' })
 
-export const useUnit = createDetailQueryHook<Unit>('units', unitsApi.get)
+export const useUnit = createDetailQueryHook<Unit>('units', unitsApi.get, { refetchOnMount: 'always' })
 
 export const useCreateUnit = createCreateMutationHook<CreateUnitRequest, Unit>(
   'units',

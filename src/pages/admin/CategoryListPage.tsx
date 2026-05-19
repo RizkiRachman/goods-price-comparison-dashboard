@@ -68,10 +68,11 @@ export default function CategoryListPage() {
       key: 'status',
       header: 'Status',
       render: (c) => {
-        const s = statusPill[c.status]
+        const s = statusPill[c.status] ?? { bg: 'bg-gray-100', text: 'text-gray-600' }
+        const label = statusLabel[c.status] ?? c.status
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${s.bg} ${s.text}`}>
-            {statusLabel[c.status]}
+            {label}
           </span>
         )
       },

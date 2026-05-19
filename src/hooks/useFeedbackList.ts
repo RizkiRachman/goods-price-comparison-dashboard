@@ -12,5 +12,5 @@ export const useFeedbackList = (params?: UseFeedbackListParams) =>
   useQuery({
     queryKey: ['feedback', params],
     queryFn: () => feedbackApi.list(params),
-    staleTime: 30_000,
+    refetchOnMount: 'always',
   })

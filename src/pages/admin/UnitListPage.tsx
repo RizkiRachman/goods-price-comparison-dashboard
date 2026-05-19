@@ -87,10 +87,11 @@ export default function UnitListPage() {
       key: 'status',
       header: 'Status',
       render: (u) => {
-        const s = statusPill[u.status]
+        const s = statusPill[u.status] ?? { bg: 'bg-gray-100', text: 'text-gray-600' }
+        const label = statusLabel[u.status] ?? u.status
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${s.bg} ${s.text}`}>
-            {statusLabel[u.status]}
+            {label}
           </span>
         )
       },
