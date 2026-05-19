@@ -81,13 +81,6 @@ All notable changes to this project are documented here.
 
 ### Changed
 - DataTable column headers no longer forced uppercase (removed `uppercase` CSS class)
-- Admin routes now render without outer page transition wrapper (separate from non-admin routes) to eliminate nested AnimatePresence flicker
-- Admin list/detail hooks now use `refetchOnMount: 'always'` so data refreshes on every tab navigation
-- Removed unused `PageTransition` component (replaced by inline motion.div in App.tsx)
-
-### Fixed
-- Admin page flicker from double nested `AnimatePresence` (outer in App.tsx + inner in AdminLayout)
-- Badge `s.bg is undefined` crash when API returns unknown status/type/action values — added `??` fallback in CategoryListPage, UnitListPage, and ActivityLogListPage
 
 ## [0.2.0] - 2026-05-14
 

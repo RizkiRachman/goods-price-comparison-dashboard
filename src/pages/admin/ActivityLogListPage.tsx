@@ -37,7 +37,7 @@ export default function ActivityLogListPage() {
   const [sortBy, setSortBy] = useState<'createdAt' | 'type' | 'action'>('createdAt')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
-  const { data, isError } = useActivityLogsList({
+  const { data, isLoading, isError } = useActivityLogsList({
     page,
     pageSize: 20,
     sortBy,
@@ -50,7 +50,7 @@ export default function ActivityLogListPage() {
       header: 'Tipe',
       sortable: true,
       render: (log) => {
-        const badge = typeBadge[log.type] ?? { bg: 'bg-gray-100', text: 'text-gray-600', label: log.type }
+        const badge = typeBadge[log.type]
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
@@ -63,7 +63,7 @@ export default function ActivityLogListPage() {
       header: 'Aksi',
       sortable: true,
       render: (log) => {
-        const badge = actionBadge[log.action] ?? { bg: 'bg-gray-100', text: 'text-gray-600', label: log.action }
+        const badge = actionBadge[log.action]
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
@@ -108,7 +108,14 @@ export default function ActivityLogListPage() {
       </div>
 
       {/* Table */}
-      <DataTable
+      {isLoading ? (
+        <div className="space-y-3">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
+          ))}
+        </div>
+      ) : (
+        <DataTable
           columns={columns}
           data={items}
           pagination={pagination}
@@ -119,6 +126,7 @@ export default function ActivityLogListPage() {
           emptyMessage="Belum ada log aktivitas"
           emptyIcon={'\uD83D\uDCCB'}
         />
+      )}
     </div>
   )
 }
