@@ -613,3 +613,31 @@ export interface FeedbackQuestionListResponse {
   pagination: Pagination
 }
 
+// ── Activity Log types ────────────────────────────────────────────
+
+export type ActivityLogType =
+  | 'RECEIPT'
+  | 'PRODUCT'
+  | 'STORE'
+  | 'PRICE_RECORD'
+  | 'CATEGORY'
+  | 'UNIT'
+  | 'FEEDBACK_QUESTION'
+  | 'ALERT'
+
+export type ActivityLogAction = 'CREATE' | 'UPDATE' | 'DELETE'
+
+export interface ActivityLog {
+  id: string
+  type: ActivityLogType
+  action: ActivityLogAction
+  description: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ActivityLogListResponse {
+  data: ActivityLog[]
+  pagination: Pagination
+}
+

@@ -66,6 +66,29 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-05-19
+
+### Added
+- Admin Activity Logs page (`/admin/activity-logs`)
+  - Paginated table with type, action, description, and timestamp columns
+  - Sortable by created date, type, and action
+  - Color-coded type badges (Struk, Produk, Toko, Harga, Kategori, Satuan, Feedback, Alert)
+  - Color-coded action badges (Buat, Ubah, Hapus)
+  - "Aktivitas" nav pill in AdminLayout with clock icon
+- API layer: `src/api/activity-logs.ts` — list with pagination/sort/filter params, get by ID
+- Hooks: `useActivityLogsList`, `useActivityLog` (via query factory)
+- Types: `ActivityLog`, `ActivityLogType`, `ActivityLogAction`, `ActivityLogListResponse`
+
+### Changed
+- DataTable column headers no longer forced uppercase (removed `uppercase` CSS class)
+- Admin routes now render without outer page transition wrapper (separate from non-admin routes) to eliminate nested AnimatePresence flicker
+- Admin list/detail hooks now use `refetchOnMount: 'always'` so data refreshes on every tab navigation
+- Removed unused `PageTransition` component (replaced by inline motion.div in App.tsx)
+
+### Fixed
+- Admin page flicker from double nested `AnimatePresence` (outer in App.tsx + inner in AdminLayout)
+- Badge `s.bg is undefined` crash when API returns unknown status/type/action values — added `??` fallback in CategoryListPage, UnitListPage, and ActivityLogListPage
+
 ## [0.2.0] - 2026-05-14
 
 ### Added

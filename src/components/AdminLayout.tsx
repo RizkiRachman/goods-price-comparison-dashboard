@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'motion/react'
+import { NavLink, Outlet } from 'react-router-dom'
 import { useProductPricesCalculate } from '@/hooks/useProductPricesCalculate'
 
 const navItems = [
@@ -31,10 +30,18 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    to: '/admin/activity-logs',
+    label: 'Aktivitas',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
 ]
 
 export function AdminLayout() {
-  const location = useLocation()
   const sync = useProductPricesCalculate()
   const [syncMsg, setSyncMsg] = useState<string | null>(null)
 
@@ -106,17 +113,7 @@ export function AdminLayout() {
 
       {/* Page content */}
       <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl w-full mx-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        <Outlet />
       </main>
     </div>
   )

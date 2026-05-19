@@ -84,7 +84,7 @@ export function DataTable<T extends { id: string | number }>({
                 {columns.map((col) => (
                   <th
                     key={col.key}
-                    className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                    className="px-4 py-3 text-left text-xs font-semibold text-gray-500 tracking-wider"
                   >
                     {col.sortable && onSort ? (
                       <button

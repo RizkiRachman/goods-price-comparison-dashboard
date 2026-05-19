@@ -42,7 +42,7 @@ export default function UnitListPage() {
   const [sortBy, setSortBy] = useState<'id' | 'name' | 'type' | 'createdAt'>('name')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
-  const { data, isLoading, isError } = useUnitsList({
+  const { data, isError } = useUnitsList({
     page,
     pageSize: 20,
     search: search || undefined,
@@ -87,10 +87,11 @@ export default function UnitListPage() {
       key: 'status',
       header: 'Status',
       render: (u) => {
-        const s = statusPill[u.status]
+        const s = statusPill[u.status] ?? { bg: 'bg-gray-100', text: 'text-gray-600' }
+        const label = statusLabel[u.status] ?? u.status
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${s.bg} ${s.text}`}>
-            {statusLabel[u.status]}
+            {label}
           </span>
         )
       },
@@ -157,14 +158,7 @@ export default function UnitListPage() {
       </div>
 
       {/* Table */}
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <DataTable
+      <DataTable
           columns={columns}
           data={units}
           pagination={pagination}
@@ -199,7 +193,6 @@ export default function UnitListPage() {
           emptyMessage="Belum ada satuan"
           emptyIcon={'\u2696\uFE0F'}
         />
-      )}
     </div>
   )
 }

@@ -35,7 +35,7 @@ export default function CategoryListPage() {
   const [sortBy, setSortBy] = useState<'id' | 'name' | 'createdAt'>('name')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
-  const { data, isLoading, isError } = useCategoriesList({
+  const { data, isError } = useCategoriesList({
     page,
     pageSize: 20,
     search: search || undefined,
@@ -68,10 +68,11 @@ export default function CategoryListPage() {
       key: 'status',
       header: 'Status',
       render: (c) => {
-        const s = statusPill[c.status]
+        const s = statusPill[c.status] ?? { bg: 'bg-gray-100', text: 'text-gray-600' }
+        const label = statusLabel[c.status] ?? c.status
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${s.bg} ${s.text}`}>
-            {statusLabel[c.status]}
+            {label}
           </span>
         )
       },
@@ -121,14 +122,7 @@ export default function CategoryListPage() {
       </div>
 
       {/* Table */}
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <DataTable
+      <DataTable
           columns={columns}
           data={categories}
           pagination={pagination}
@@ -163,7 +157,6 @@ export default function CategoryListPage() {
           emptyMessage="Belum ada kategori"
           emptyIcon={'\uD83C\uDFF7\uFE0F'}
         />
-      )}
     </div>
   )
 }

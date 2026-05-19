@@ -26,7 +26,7 @@ export default function FeedbackListPage() {
   const [sortBy, setSortBy] = useState<'createdAt' | 'type'>('createdAt')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
-  const { data, isLoading, isError } = useFeedbackList({
+  const { data, isError } = useFeedbackList({
     page,
     pageSize: 20,
     sortBy,
@@ -107,14 +107,7 @@ export default function FeedbackListPage() {
       </div>
 
       {/* Table */}
-      {isLoading ? (
-        <div className="space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <DataTable
+      <DataTable
           columns={columns}
           data={items}
           pagination={pagination}
@@ -125,7 +118,6 @@ export default function FeedbackListPage() {
           emptyMessage="Belum ada feedback"
           emptyIcon={'\uD83D\uDCDD'}
         />
-      )}
     </div>
   )
 }
