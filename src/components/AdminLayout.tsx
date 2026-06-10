@@ -60,28 +60,28 @@ export function AdminLayout() {
   }, [syncMsg])
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="retro-admin min-h-screen bg-retro-bg text-retro-body flex flex-col">
       {/* Top bar */}
-      <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
+      <header className="bg-retro-surface border-b-[3px] border-retro-border [border-style:ridge] px-4 py-3 flex items-center gap-3">
         <NavLink
           to="/goods"
-          className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-gray-900 transition"
+          className="flex items-center gap-2 text-sm font-semibold text-retro-body hover:text-retro-text transition"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Beranda
         </NavLink>
-        <span className="text-xs text-gray-400">{'/'}</span>
-        <span className="text-sm font-bold text-gray-900">Admin</span>
+        <span className="text-xs text-retro-muted">{'/'}</span>
+        <span className="text-sm font-bold text-retro-text">Admin</span>
         <div className="ml-auto flex items-center gap-2">
           {syncMsg && (
-            <span className="text-xs text-green-600 font-medium">{syncMsg}</span>
+            <span className="text-xs text-retro-success font-medium">{syncMsg}</span>
           )}
           <button
             onClick={handleSync}
             disabled={sync.isPending}
-            className="flex items-center justify-center w-8 h-8 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-xl transition-colors disabled:opacity-50"
+            className="flex items-center justify-center w-8 h-8 bg-retro-surface-alt hover:bg-retro-border text-retro-body rounded-none border-[3px] border-retro-border [border-style:outset] transition-colors disabled:opacity-50"
             aria-label="Sinkronisasi harga"
           >
             <svg className={`w-4 h-4 ${sync.isPending ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,16 +92,16 @@ export function AdminLayout() {
       </header>
 
       {/* Nav pills */}
-      <div className="bg-white border-b border-gray-100 px-4 py-2 flex gap-2 overflow-x-auto">
+      <div className="bg-retro-surface border-b-[3px] border-retro-border [border-style:ridge] px-4 py-2 flex gap-2 overflow-x-auto">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
+              `flex items-center gap-2 px-3 py-1.5 rounded-none text-xs font-semibold whitespace-nowrap transition ${
                 isActive
-                  ? 'bg-indigo-100 text-indigo-700'
-                  : 'bg-gray-100 text-gray-600'
+                  ? 'bg-retro-primary/30 text-retro-gold border-[3px] border-retro-gold/40 [border-style:inset]'
+                  : 'bg-retro-surface-alt text-retro-body border-[3px] border-retro-border [border-style:ridge]'
               }`
             }
           >
