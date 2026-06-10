@@ -74,12 +74,12 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
       {/* Header */}
       <div className="flex items-start justify-between px-6 pt-4 pb-2 sm:pt-6">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Upload Struk Belanja</h2>
-          <p className="text-sm text-gray-400 mt-0.5">Pantau harga belanjaanmu dengan mudah</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-retro-text">Upload Struk Belanja</h2>
+          <p className="text-sm text-retro-muted mt-0.5">Pantau harga belanjaanmu dengan mudah</p>
         </div>
         <button
           onClick={onClose}
-          className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-400 hover:bg-white/80 transition flex-shrink-0"
+          className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:bg-retro-surface/80 transition flex-shrink-0"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -95,7 +95,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
           onDragLeave={() => setDragging(false)}
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
-          className={`border-2 border-dashed rounded-2xl p-8 sm:p-10 text-center cursor-pointer transition-colors ${
+          className={`border-2 border-dashed rounded-none p-8 sm:p-10 text-center cursor-pointer transition-colors ${
             dragging
               ? 'bg-indigo-50'
               : file
@@ -112,12 +112,12 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
           />
           {file ? (
             <div className="flex flex-col items-center gap-2">
-              <div className="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-3xl">📄</div>
-              <p className="font-semibold text-gray-800 text-sm">{file.name}</p>
-              <p className="text-xs text-gray-400">
+              <div className="w-14 h-14 bg-emerald-100 rounded-none flex items-center justify-center text-3xl">📄</div>
+              <p className="font-semibold text-retro-text text-sm">{file.name}</p>
+              <p className="text-xs text-retro-muted">
                 {formatSize(file.size)}
                 {compressedInfo && (
-                  <span className="text-emerald-600 ml-1">
+                  <span className="text-retro-success ml-1">
                     (dikompres dari {formatSize(compressedInfo.from)})
                   </span>
                 )}
@@ -126,12 +126,12 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3">
-              <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center text-3xl">🧾</div>
+              <div className="w-16 h-16 bg-indigo-100 rounded-none flex items-center justify-center text-3xl">🧾</div>
               <div>
-                <p className="font-semibold text-gray-700">
-                  Drag & drop atau <span className="text-indigo-600">pilih file</span>
+                <p className="font-semibold text-retro-body">
+                  Drag & drop atau <span className="text-retro-brand">pilih file</span>
                 </p>
-                <p className="text-xs text-gray-400 mt-1">Foto struk supermarket · JPG, PNG, PDF · Maks 6 MB</p>
+                <p className="text-xs text-retro-muted mt-1">Foto struk supermarket · JPG, PNG, PDF · Maks 6 MB</p>
               </div>
             </div>
           )}
@@ -139,7 +139,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
 
         {/* Error */}
         {error && (
-          <div className="flex items-start gap-2 text-sm text-rose-600 bg-rose-50 rounded-xl px-3 py-2">
+          <div className="flex items-start gap-2 text-sm text-rose-600 bg-rose-50 rounded-none px-3 py-2">
             <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -148,7 +148,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
         )}
 
         {/* Info */}
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        <div className="flex items-center gap-2 text-xs text-retro-muted">
           <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -158,7 +158,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
         <button
           onClick={handleUpload}
           disabled={!file || uploading || !!error}
-          className="w-full py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-indigo-200 active:scale-[0.98] flex items-center justify-center gap-2 text-base"
+          className="w-full py-4 rounded-none font-bold text-retro-text bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 text-base"
         >
           {uploading ? (
             <>

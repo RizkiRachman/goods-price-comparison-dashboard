@@ -39,15 +39,15 @@ export function StoreCard({ store }: Props) {
         <div className="p-4 flex flex-col gap-3">
           {/* Avatar + name */}
           <div className="flex items-start gap-3">
-            <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center text-white text-sm font-black flex-shrink-0 shadow-sm`}>
+            <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-none flex items-center justify-center text-white text-sm font-black flex-shrink-0`}>
               {initial}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-slate-800 text-sm leading-snug line-clamp-2 group-hover:text-indigo-600 transition-colors">
+              <p className="font-bold text-retro-text text-sm leading-snug line-clamp-2 group-hover:text-retro-gold transition-colors">
                 {store.name}
               </p>
               {store.chain && (
-                <span className="inline-block mt-1 text-[10px] font-semibold text-slate-400 bg-white/70 backdrop-blur px-2 py-0.5 rounded-full border border-slate-200/50">
+                <span className="inline-block mt-1 text-[10px] font-semibold text-retro-muted bg-retro-surface/70 backdrop-blur px-2 py-0.5 rounded-none border border-retro-border/50">
                   {store.chain}
                 </span>
               )}
@@ -56,8 +56,8 @@ export function StoreCard({ store }: Props) {
 
           {/* Location */}
           {store.location && (
-            <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-              <svg className="w-3 h-3 flex-shrink-0 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-1.5 text-[11px] text-retro-muted">
+              <svg className="w-3 h-3 flex-shrink-0 text-retro-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
@@ -69,12 +69,12 @@ export function StoreCard({ store }: Props) {
           {store.totalProducts !== undefined && (
             <div className="flex items-center justify-between mt-auto">
               <div className="flex items-center gap-1.5">
-                <span className={`w-2 h-2 rounded-full ${store.totalProducts > 100 ? 'bg-emerald-400' : 'bg-amber-400'}`} />
-                <span className="text-xs font-semibold text-slate-600">
+                <span className={`w-2 h-2 rounded-none ${store.totalProducts > 100 ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+                <span className="text-xs font-semibold text-retro-body">
                   {store.totalProducts} produk
                 </span>
               </div>
-              <svg className="w-4 h-4 text-slate-200 group-hover:text-indigo-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-retro-muted group-hover:text-retro-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>

@@ -46,8 +46,8 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
       <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 px-6 pt-5 pb-8">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-white/60 text-xs font-medium uppercase tracking-wide mb-1">Koreksi Harga</p>
-            <p className="text-white font-bold text-base leading-snug line-clamp-2">{productName}</p>
+            <p className="text-retro-text/60 text-xs font-medium uppercase tracking-wide mb-1">Koreksi Harga</p>
+            <p className="text-retro-text font-bold text-base leading-snug line-clamp-2">{productName}</p>
             {currentPrice && currentPrice > 0 && (
               <p className="text-indigo-200 text-xs mt-1">Harga saat ini: {fmt(currentPrice)}/{unit ?? 'pcs'}</p>
             )}
@@ -55,7 +55,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-xl text-white/60 hover:text-white hover:bg-white/20 transition flex-shrink-0"
+            className="w-8 h-8 flex items-center justify-center rounded-none text-retro-text/60 hover:text-retro-text hover:bg-white/20 transition flex-shrink-0"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -82,11 +82,11 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
 
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-white/20 shadow-sm px-4 py-4 space-y-4 mt-0">
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            <label className="text-xs font-semibold text-retro-muted uppercase tracking-wide">
               Harga Baru ({unit ?? 'pcs'}) <span className="text-red-400">*</span>
             </label>
             <div className="relative mt-1.5">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium">Rp</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-retro-muted font-medium">Rp</span>
               <input
                 ref={inputRef}
                 type="number"
@@ -95,7 +95,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
                 value={price || ''}
                 onChange={(e) => setPrice(Math.max(0, Number(e.target.value)))}
                 placeholder="0"
-                className={`w-full rounded-xl border pl-9 pr-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+                className={`w-full rounded-none border pl-9 pr-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
                   price <= 0 ? 'border-red-300 focus:ring-red-400' : 'border-gray-200 focus:ring-indigo-500'
                 }`}
               />
@@ -106,7 +106,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            <label className="text-xs font-semibold text-retro-muted uppercase tracking-wide">
               Tanggal Tercatat <span className="text-red-400">*</span>
             </label>
             <input
@@ -114,7 +114,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
               value={date}
               max={today}
               onChange={(e) => setDate(e.target.value)}
-              className="mt-1.5 w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="mt-1.5 w-full rounded-none border border-gray-200 px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
             />
           </div>
 
@@ -127,14 +127,14 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
             >
               <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all ${isPromo ? 'left-5' : 'left-1'}`} />
             </div>
-            <span className="text-sm font-medium text-gray-700">Harga promo</span>
+            <span className="text-sm font-medium text-retro-body">Harga promo</span>
           </label>
         </div>
 
         <button
           type="submit"
           disabled={!isValid || mutation.isPending || done}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-none font-bold text-sm text-retro-text bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           {mutation.isPending ? (
             <>

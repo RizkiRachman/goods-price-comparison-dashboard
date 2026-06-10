@@ -217,17 +217,17 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
           <motion.div key="mode" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-3 mt-2">
             <button
               onClick={() => { setMode('SELECTION'); setView('max') }}
-              className={`w-full text-left p-4 rounded-2xl border-2 transition ${mode === 'SELECTION' ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'}`}
+              className={`w-full text-left p-4 rounded-none border-2 transition ${mode === 'SELECTION' ? 'border-indigo-500 bg-indigo-50' : 'border-retro-border hover:border-indigo-300'}`}
             >
-              <p className="font-bold text-gray-900">Pilih Barang</p>
-              <p className="text-sm text-gray-500 mt-1">Setiap peserta memilih barang yang dibeli. Cocok untuk belanja bersama dimana tiap orang belanja berbeda.</p>
+              <p className="font-bold text-retro-text">Pilih Barang</p>
+              <p className="text-sm text-retro-muted mt-1">Setiap peserta memilih barang yang dibeli. Cocok untuk belanja bersama dimana tiap orang belanja berbeda.</p>
             </button>
             <button
               onClick={() => { setMode('RATIO'); setView('max') }}
-              className={`w-full text-left p-4 rounded-2xl border-2 transition ${mode === 'RATIO' ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'}`}
+              className={`w-full text-left p-4 rounded-none border-2 transition ${mode === 'RATIO' ? 'border-indigo-500 bg-indigo-50' : 'border-retro-border hover:border-indigo-300'}`}
             >
-              <p className="font-bold text-gray-900">Bagi Rata</p>
-              <p className="text-sm text-gray-500 mt-1">Total dibagi sama rata ke seluruh peserta. Cocok untuk biaya bersama seperti traktiran atau patungan.</p>
+              <p className="font-bold text-retro-text">Bagi Rata</p>
+              <p className="text-sm text-retro-muted mt-1">Total dibagi sama rata ke seluruh peserta. Cocok untuk biaya bersama seperti traktiran atau patungan.</p>
             </button>
           </motion.div>
         )}
@@ -237,7 +237,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
           <motion.div key="max" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4 mt-2">
             <button
               onClick={() => setView('mode')}
-              className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 transition"
+              className="w-8 h-8 flex items-center justify-center rounded-none bg-retro-surface hover:bg-retro-surface-alt text-retro-muted hover:text-retro-body transition"
               aria-label="Kembali ke pilih mode"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,33 +245,33 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
               </svg>
             </button>
             <div className="text-center py-4">
-              <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">{'\uD83D\uDC65'}</div>
-              <p className="text-lg font-bold text-gray-900 mb-1">Berapa orang?</p>
-              <p className="text-sm text-gray-500">Masukkan jumlah maksimal peserta</p>
+              <div className="w-16 h-16 bg-indigo-50 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">{'\uD83D\uDC65'}</div>
+              <p className="text-lg font-bold text-retro-text mb-1">Berapa orang?</p>
+              <p className="text-sm text-retro-muted">Masukkan jumlah maksimal peserta</p>
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-5 space-y-4">
+            <div className="bg-retro-surface rounded-none border border-gray-100  px-5 py-5 space-y-4">
               <div className="flex items-center justify-center gap-4">
                 <button
                   onClick={() => setMaxParticipants(Math.max(2, maxParticipants - 1))}
-                  className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition text-xl font-bold"
+                  className="w-12 h-12 rounded-none bg-retro-surface flex items-center justify-center text-retro-body hover:bg-retro-surface-alt transition text-xl font-bold"
                 >
                   {'\u2212'}
                 </button>
-                <span className="w-16 text-center text-4xl font-extrabold text-gray-900">{maxParticipants}</span>
+                <span className="w-16 text-center text-4xl font-extrabold text-retro-text">{maxParticipants}</span>
                 <button
                   onClick={() => setMaxParticipants(maxParticipants + 1)}
-                  className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition text-xl font-bold"
+                  className="w-12 h-12 rounded-none bg-retro-surface flex items-center justify-center text-retro-body hover:bg-retro-surface-alt transition text-xl font-bold"
                 >
                   +
                 </button>
               </div>
-              <p className="text-center text-xs text-gray-400">Minimal 2 orang</p>
+              <p className="text-center text-xs text-retro-muted">Minimal 2 orang</p>
             </div>
 
             <button
               onClick={() => mode === 'RATIO' ? handleCompute() : setView('list')}
-              className="w-full py-3 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition"
+              className="w-full py-3 rounded-none font-bold text-sm text-retro-text bg-retro-primary hover:bg-indigo-700 transition"
             >
               {mode === 'RATIO' ? 'Hitung' : 'Lanjut'}
             </button>
@@ -288,19 +288,19 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setView('max')}
-                  className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 transition"
+                  className="w-8 h-8 flex items-center justify-center rounded-none bg-retro-surface hover:bg-retro-surface-alt text-retro-muted hover:text-retro-body transition"
                   aria-label="Ubah jumlah peserta"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-                <p className="text-sm font-bold text-gray-900">Peserta ({details.length}/{maxParticipants})</p>
+                <p className="text-sm font-bold text-retro-text">Peserta ({details.length}/{maxParticipants})</p>
               </div>
               <button
                 onClick={openAddForm}
                 disabled={details.length >= maxParticipants}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-retro-primary text-retro-text text-xs font-semibold rounded-none hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -312,9 +312,9 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
             {/* Empty state */}
             {details.length === 0 && (
               <div className="py-8 text-center">
-                <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">{'\uD83D\uDC65'}</div>
-                <p className="text-sm font-medium text-gray-500">Belum ada peserta</p>
-                <p className="text-xs text-gray-400 mt-1">Maksimal {maxParticipants} peserta</p>
+                <div className="w-14 h-14 bg-retro-bg rounded-none flex items-center justify-center text-3xl mx-auto mb-3">{'\uD83D\uDC65'}</div>
+                <p className="text-sm font-medium text-retro-muted">Belum ada peserta</p>
+                <p className="text-xs text-retro-muted mt-1">Maksimal {maxParticipants} peserta</p>
               </div>
             )}
 
@@ -329,30 +329,30 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                     key={detail.id}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gray-50 rounded-xl overflow-hidden"
+                    className="bg-retro-bg rounded-none overflow-hidden"
                   >
                     {/* Collapsed header — clickable */}
                     <button
                       onClick={() => setExpandedId(isExpanded ? null : detail.id)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-100/50 transition"
+                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-retro-surface-alt/50 transition"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center text-xs font-bold text-indigo-600 flex-shrink-0">
+                        <div className="w-8 h-8 bg-indigo-100 rounded-none flex items-center justify-center text-xs font-bold text-retro-brand flex-shrink-0">
                           {detail.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-bold text-gray-900 truncate">{detail.name}</p>
-                          <p className="text-xs text-gray-400">{itemCount} barang</p>
+                          <p className="text-sm font-bold text-retro-text truncate">{detail.name}</p>
+                          <p className="text-xs text-retro-muted">{itemCount} barang</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-sm font-bold text-gray-900">{formatPrice(subtotal)}</span>
-                        <button onClick={(e) => { e.stopPropagation(); openEditForm(detail.id) }} className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-200 text-gray-400 hover:text-gray-600 transition">
+                        <span className="text-sm font-bold text-retro-text">{formatPrice(subtotal)}</span>
+                        <button onClick={(e) => { e.stopPropagation(); openEditForm(detail.id) }} className="w-7 h-7 flex items-center justify-center rounded-none hover:bg-retro-surface-alt text-retro-muted hover:text-retro-body transition">
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
                         </button>
-                        <button onClick={(e) => { e.stopPropagation(); handleDeleteDetail(detail.id) }} className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition">
+                        <button onClick={(e) => { e.stopPropagation(); handleDeleteDetail(detail.id) }} className="w-7 h-7 flex items-center justify-center rounded-none hover:bg-red-50 text-retro-muted hover:text-retro-danger transition">
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
@@ -366,10 +366,10 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-gray-200 px-4 py-2 space-y-1"
+                        className="border-t border-retro-border px-4 py-2 space-y-1"
                       >
                         {detail.selections.length === 0 ? (
-                          <p className="text-xs text-gray-400 italic py-1">Belum memilih barang</p>
+                          <p className="text-xs text-retro-muted italic py-1">Belum memilih barang</p>
                         ) : (
                           detail.selections.map((s, j) => {
                             const item = items[s.productIndex]
@@ -377,7 +377,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                             const total = Math.ceil(item.quantity)
                             const lineTotal = (s.quantity / total) * (item.totalPrice ?? item.quantity * item.unitPrice)
                             return (
-                              <div key={j} className="flex justify-between text-xs text-gray-500">
+                              <div key={j} className="flex justify-between text-xs text-retro-muted">
                                 <span>{item.productName} {'\u00D7'}{s.quantity}</span>
                                 <span>{formatPrice(lineTotal)}</span>
                               </div>
@@ -393,7 +393,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
 
             {/* Unassigned summary */}
             {details.length > 0 && unassignedItems().length > 0 && (
-              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 flex items-center justify-between">
+              <div className="bg-amber-50 border border-amber-100 rounded-none px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-amber-700">{'\u26A0\uFE0F'}</span>
                   <p className="text-sm font-medium text-amber-800">
@@ -408,7 +408,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
 
             {/* Summary */}
             {details.length > 0 && (
-              <div className="bg-indigo-50 rounded-xl px-4 py-3 flex justify-between items-center">
+              <div className="bg-indigo-50 rounded-none px-4 py-3 flex justify-between items-center">
                 <span className="text-sm font-semibold text-indigo-800">Total Struk</span>
                 <span className="text-lg font-extrabold text-indigo-700">{formatPrice(totalAmount)}</span>
               </div>
@@ -418,13 +418,13 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
             <button
               onClick={handleCompute}
               disabled={!canProcess || splitMutation.isPending}
-              className="w-full py-3 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-none font-bold text-sm text-retro-text bg-retro-primary hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
             >
               {splitMutation.isPending ? <Spinner /> : null}
               {splitMutation.isPending ? 'Memproses\u2026' : 'Proses Split Bill'}
             </button>
             {!canProcess && details.length > 0 && (
-              <p className="text-xs text-center text-gray-400">Minimal 2 peserta dengan nama untuk memproses</p>
+              <p className="text-xs text-center text-retro-muted">Minimal 2 peserta dengan nama untuk memproses</p>
             )}
 
             {/* ═══════ FORM OVERLAY (add/edit detail) ═══════ */}
@@ -443,17 +443,17 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 60 }}
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                    className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[80vh] flex flex-col"
+                    className="relative w-full sm:max-w-md bg-retro-surface rounded-none  max-h-[80vh] flex flex-col"
                   >
                     {/* Drag handle */}
                     <div className="flex justify-center pt-3 pb-1 sm:hidden">
-                      <div className="w-10 h-1 bg-gray-300 rounded-full" />
+                      <div className="w-10 h-1 bg-gray-300 rounded-none" />
                     </div>
 
                     {/* Form header */}
                     <div className="flex items-center justify-between px-5 pt-3 pb-2">
-                      <h3 className="text-lg font-bold text-gray-900">{editingId ? 'Edit Peserta' : 'Tambah Peserta'}</h3>
-                      <button onClick={closeForm} className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 transition">
+                      <h3 className="text-lg font-bold text-retro-text">{editingId ? 'Edit Peserta' : 'Tambah Peserta'}</h3>
+                      <button onClick={closeForm} className="w-8 h-8 flex items-center justify-center rounded-none bg-retro-surface hover:bg-retro-surface-alt text-retro-muted transition">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -465,21 +465,21 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                       {/* Name + Save (sticky top) */}
                       <div className="flex gap-2">
                         <div className="flex-1">
-                          <label className="block text-sm font-semibold text-gray-700 mb-1">Nama</label>
+                          <label className="block text-sm font-semibold text-retro-body mb-1">Nama</label>
                           <input
                             type="text"
                             value={formName}
                             onChange={(e) => setFormName(e.target.value)}
                             placeholder="Nama peserta"
                             autoFocus
-                            className="w-full h-10 rounded-xl border border-gray-200 px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full h-10 rounded-none border border-retro-border px-4 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                           />
                         </div>
                         <div className="flex flex-col justify-end">
                           <button
                             onClick={handleSaveForm}
                             disabled={!formName.trim() || !formQty.some((q) => q > 0)}
-                            className="h-10 px-5 rounded-xl font-semibold text-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition whitespace-nowrap"
+                            className="h-10 px-5 rounded-none font-semibold text-sm text-retro-text bg-retro-primary hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition whitespace-nowrap"
                           >
                             Simpan
                           </button>
@@ -488,10 +488,10 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
 
                       {/* Items */}
                       <div>
-                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Pilih Barang</p>
-                        <div className="border border-gray-100 rounded-xl divide-y divide-gray-100">
+                        <p className="text-xs font-semibold text-retro-muted uppercase tracking-wider mb-2">Pilih Barang</p>
+                        <div className="border border-gray-100 rounded-none divide-y divide-gray-100">
                           {items.length === 0 ? (
-                            <div className="py-6 text-center text-sm text-gray-400">Tidak ada barang</div>
+                            <div className="py-6 text-center text-sm text-retro-muted">Tidak ada barang</div>
                           ) : (
                             items
                               .map((item, i) => ({ item, i, available: getAvailable(i, editingId ?? undefined), myQty: formQty[i] }))
@@ -503,7 +503,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                                 <div key={origIndex} className={`px-4 py-3 ${isFullyTaken ? 'opacity-40' : ''}`}>
                                   <div className="flex items-center justify-between">
                                     <div className="flex-1 min-w-0 mr-3">
-                                      <p className={`text-sm font-medium truncate ${isFullyTaken ? 'text-gray-400 line-through' : 'text-gray-900'}`}>
+                                      <p className={`text-sm font-medium truncate ${isFullyTaken ? 'text-retro-muted line-through' : 'text-retro-text'}`}>
                                         {item.productName}
                                       </p>
                                     </div>
@@ -511,15 +511,15 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                                       <button
                                         onClick={() => handleFormQtyChange(origIndex, -1)}
                                         disabled={myQty <= 0}
-                                        className="w-7 h-7 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-bold"
+                                        className="w-7 h-7 rounded-none bg-retro-surface border border-retro-border flex items-center justify-center text-retro-muted hover:bg-retro-surface-alt disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-bold"
                                       >
                                         {'\u2212'}
                                       </button>
-                                      <span className="w-8 text-center text-sm font-bold text-gray-900">{myQty}</span>
+                                      <span className="w-8 text-center text-sm font-bold text-retro-text">{myQty}</span>
                                       <button
                                         onClick={() => handleFormQtyChange(origIndex, 1)}
                                         disabled={myQty >= available}
-                                        className="w-7 h-7 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-bold"
+                                        className="w-7 h-7 rounded-none bg-retro-surface border border-retro-border flex items-center justify-center text-retro-muted hover:bg-retro-surface-alt disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-bold"
                                       >
                                         +
                                       </button>
@@ -529,13 +529,13 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                                   {/* Quantity bar */}
                                   {totalQty > 0 && (
                                     <div className="flex items-center gap-2 mt-1.5">
-                                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                      <div className="flex-1 h-1.5 bg-retro-surface rounded-none overflow-hidden">
                                         <div
-                                          className="h-full bg-indigo-500 rounded-full transition-all duration-200"
+                                          className="h-full bg-indigo-500 rounded-none transition-all duration-200"
                                           style={{ width: `${Math.min(((myQty + (totalQty - available)) / totalQty) * 100, 100)}%` }}
                                         />
                                       </div>
-                                      <span className={`text-xs font-medium flex-shrink-0 w-14 text-right ${available <= 0 ? 'text-red-400' : 'text-gray-400'}`}>
+                                      <span className={`text-xs font-medium flex-shrink-0 w-14 text-right ${available <= 0 ? 'text-red-400' : 'text-retro-muted'}`}>
                                         {available <= 0 && myQty === 0 ? 'habis' : `sisa ${available}`}
                                       </span>
                                     </div>
@@ -558,7 +558,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
         {view === 'result' && result && (
           <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-4 mt-2">
             {/* Summary */}
-            <div className="bg-indigo-50 rounded-2xl px-4 py-4">
+            <div className="bg-indigo-50 rounded-none px-4 py-4">
               <div className="flex justify-between items-center">
                 <p className="text-sm font-semibold text-indigo-800">Total</p>
                 <p className="text-xl font-extrabold text-indigo-700">{formatPrice(result.totalAmount)}</p>
@@ -566,7 +566,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
               {result.unassignedTotal > 0 && (
                 <div className="flex justify-between items-center mt-1.5">
                   <p className="text-xs text-indigo-500">Tidak terbagi</p>
-                  <p className="text-sm font-semibold text-indigo-600">{formatPrice(result.unassignedTotal)}</p>
+                  <p className="text-sm font-semibold text-retro-brand">{formatPrice(result.unassignedTotal)}</p>
                 </div>
               )}
             </div>
@@ -577,38 +577,38 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                 const itemCount = p.items.reduce((s, item) => s + item.quantity, 0)
                 const isExpanded = expandedResultIdx === i
                 return (
-                  <div key={i} className="bg-gray-50 rounded-xl overflow-hidden">
+                  <div key={i} className="bg-retro-bg rounded-none overflow-hidden">
                     <button
                       onClick={() => setExpandedResultIdx(isExpanded ? null : i)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-100/50 transition"
+                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-retro-surface-alt/50 transition"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center text-xs font-bold text-indigo-600 flex-shrink-0">
+                        <div className="w-8 h-8 bg-indigo-100 rounded-none flex items-center justify-center text-xs font-bold text-retro-brand flex-shrink-0">
                           {p.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-bold text-gray-900 truncate">{p.name}</p>
-                          <p className="text-xs text-gray-400">{itemCount} barang</p>
+                          <p className="text-sm font-bold text-retro-text truncate">{p.name}</p>
+                          <p className="text-xs text-retro-muted">{itemCount} barang</p>
                         </div>
                       </div>
-                      <span className="text-sm font-bold text-gray-900">{formatPrice(p.subtotal)}</span>
+                      <span className="text-sm font-bold text-retro-text">{formatPrice(p.subtotal)}</span>
                     </button>
 
                     {isExpanded && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
-                        className="border-t border-gray-200 px-4 py-2 space-y-1"
+                        className="border-t border-retro-border px-4 py-2 space-y-1"
                       >
                         {p.items.length > 0 ? (
                           p.items.map((item, j) => (
-                            <div key={j} className="flex justify-between text-xs text-gray-500">
+                            <div key={j} className="flex justify-between text-xs text-retro-muted">
                               <span>{item.productName} {'\u00D7'}{item.quantity}</span>
                               <span>{formatPrice(item.subtotal)}</span>
                             </div>
                           ))
                         ) : (
-                          <p className="text-xs text-gray-400 italic py-1">Tidak memilih barang</p>
+                          <p className="text-xs text-retro-muted italic py-1">Tidak memilih barang</p>
                         )}
                       </motion.div>
                     )}
@@ -618,10 +618,10 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
             </div>
 
             <div className="flex gap-3 pt-2">
-              <button onClick={reset} className="flex-1 py-2.5 rounded-xl font-semibold text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 transition">
+              <button onClick={reset} className="flex-1 py-2.5 rounded-none font-semibold text-sm text-retro-body bg-retro-surface hover:bg-retro-surface-alt transition">
                 Hitung Ulang
               </button>
-              <button onClick={handleClose} className="flex-1 py-2.5 rounded-xl font-semibold text-sm text-white bg-emerald-600 hover:bg-emerald-700 transition">
+              <button onClick={handleClose} className="flex-1 py-2.5 rounded-none font-semibold text-sm text-retro-text bg-emerald-600 hover:bg-emerald-700 transition">
                 Selesai
               </button>
             </div>

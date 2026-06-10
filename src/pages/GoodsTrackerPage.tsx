@@ -11,23 +11,23 @@ function StoreResultCard({ result }: { result: ShoppingOptimizeResponse }) {
     <div className="space-y-4">
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Total Barang</p>
-          <p className="text-2xl font-black text-slate-900 mt-1">{result.totalItems}</p>
+        <div className="bg-retro-surface rounded-none border border-retro-border p-4">
+          <p className="text-xs text-retro-muted font-medium uppercase tracking-wider">Total Barang</p>
+          <p className="text-2xl font-black text-retro-text mt-1">{result.totalItems}</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Total Biaya</p>
-          <p className="text-2xl font-black text-emerald-600 mt-1">
+        <div className="bg-retro-surface rounded-none border border-retro-border p-4">
+          <p className="text-xs text-retro-muted font-medium uppercase tracking-wider">Total Biaya</p>
+          <p className="text-2xl font-black text-retro-success mt-1">
             Rp {result.totalCost.toLocaleString('id-ID')}
           </p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Toko Dikunjungi</p>
-          <p className="text-2xl font-black text-slate-900 mt-1">{result.storesToVisit}</p>
+        <div className="bg-retro-surface rounded-none border border-retro-border p-4">
+          <p className="text-xs text-retro-muted font-medium uppercase tracking-wider">Toko Dikunjungi</p>
+          <p className="text-2xl font-black text-retro-text mt-1">{result.storesToVisit}</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Penghematan</p>
-          <p className="text-2xl font-black text-emerald-600 mt-1">
+        <div className="bg-retro-surface rounded-none border border-retro-border p-4">
+          <p className="text-xs text-retro-muted font-medium uppercase tracking-wider">Penghematan</p>
+          <p className="text-2xl font-black text-retro-success mt-1">
             Rp {result.savings.comparedToSingleStore.toLocaleString('id-ID')}
           </p>
         </div>
@@ -35,41 +35,41 @@ function StoreResultCard({ result }: { result: ShoppingOptimizeResponse }) {
 
       {/* Route per store */}
       <div className="space-y-3">
-        <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">Rute Belanja</h3>
+        <h3 className="text-sm font-bold text-retro-body uppercase tracking-wider">Rute Belanja</h3>
         {result.route.map((store, si) => (
           <div
             key={store.storeId}
-            className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm"
+            className="bg-retro-surface rounded-none border border-retro-border p-4"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold text-indigo-600">
+                <div className="w-8 h-8 bg-retro-surface rounded-none flex items-center justify-center text-sm font-bold text-retro-brand">
                   {si + 1}
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-800">{store.storeName}</p>
-                  <p className="text-xs text-slate-400">{store.storeLocation}</p>
+                  <p className="font-semibold text-retro-text">{store.storeName}</p>
+                  <p className="text-xs text-retro-muted">{store.storeLocation}</p>
                 </div>
               </div>
-              <p className="font-bold text-emerald-600">
+              <p className="font-bold text-retro-success">
                 Rp {store.subtotal.toLocaleString('id-ID')}
               </p>
             </div>
             <div className="space-y-1.5 pl-10">
               {store.items.map((item, ii) => (
                 <div key={ii} className="flex items-center justify-between text-sm">
-                  <span className="text-slate-600">{item.productName}</span>
+                  <span className="text-retro-body">{item.productName}</span>
                   <div className="text-right">
-                    <span className="font-medium text-slate-800">
+                    <span className="font-medium text-retro-text">
                       Rp {item.price.toLocaleString('id-ID')}
                       {item.unit && (
-                        <span className="text-xs text-slate-400 font-normal ml-0.5">
+                        <span className="text-xs text-retro-muted font-normal ml-0.5">
                           /{item.unit.toLowerCase()}
                         </span>
                       )}
                     </span>
                     {item.quantity != null && item.quantity > 1 && (
-                      <p className="text-xs text-slate-400">x{item.quantity}</p>
+                      <p className="text-xs text-retro-muted">x{item.quantity}</p>
                     )}
                   </div>
                 </div>
@@ -80,7 +80,7 @@ function StoreResultCard({ result }: { result: ShoppingOptimizeResponse }) {
       </div>
 
       {/* Result note */}
-      <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-sm text-indigo-700 text-center">
+      <div className="bg-retro-surface border border-indigo-100 rounded-none p-4 text-sm text-retro-body text-center">
         Ini hasil optimum berdasarkan data / catatan harga kami.
       </div>
     </div>
@@ -140,24 +140,24 @@ export default function GoodsTrackerPage() {
     beverage:  { tint: 'bg-sky-50',      emoji: '\uD83E\uDD64' },
     household: { tint: 'bg-violet-50',   emoji: '\uD83C\uDFE0' },
   }
-  const DEFAULT_COLOR = { tint: 'bg-slate-50', emoji: '\uD83D\uDCE6' }
+  const DEFAULT_COLOR = { tint: 'bg-retro-bg', emoji: '\uD83D\uDCE6' }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-retro-bg">
       {/* ── Sticky Navbar ── */}
-      <header className="sticky top-0 z-30 h-14 flex items-center bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-30 h-14 flex items-center bg-retro-surface/80 backdrop-blur-xl border-b border-retro-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigate('/goods')}
-              className="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-xl flex items-center justify-center transition-colors"
+              className="w-8 h-8 bg-retro-surface hover:bg-retro-surface-alt rounded-none flex items-center justify-center transition-colors"
               aria-label="Kembali"
             >
-              <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-retro-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <span className="font-black text-slate-900 text-lg tracking-tight">Tracker Belanja</span>
+            <span className="font-black text-retro-text text-lg tracking-tight">Tracker Belanja</span>
           </div>
         </div>
       </header>
@@ -165,13 +165,13 @@ export default function GoodsTrackerPage() {
       {/* ── Hero ── */}
       <section className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute top-16 -left-16 w-56 h-56 bg-purple-400/20 rounded-full blur-3xl" />
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-retro-surface/10 rounded-none blur-3xl" />
+          <div className="absolute top-16 -left-16 w-56 h-56 bg-purple-400/20 rounded-none blur-3xl" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-14">
-          <div className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur text-white/90 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
-            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-1.5 bg-retro-surface/15 backdrop-blur text-white/90 text-xs font-medium px-3 py-1.5 rounded-none mb-5">
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-none animate-pulse" />
             Optimasi belanja lintas toko
           </div>
 
@@ -188,10 +188,10 @@ export default function GoodsTrackerPage() {
       {/* ── Main Content ── */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 pb-24">
         {/* Input section */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+        <div className="bg-retro-surface rounded-none border border-retro-border p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-slate-800">Daftar Belanja</h2>
-            <span className="text-xs text-slate-400">
+            <h2 className="font-bold text-retro-text">Daftar Belanja</h2>
+            <span className="text-xs text-retro-muted">
               {selected.length}/{MAX_ITEMS}
             </span>
           </div>
@@ -204,21 +204,21 @@ export default function GoodsTrackerPage() {
                 return (
                   <div
                     key={product.id}
-                    className="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-2xl border border-slate-200"
+                    className="flex items-center gap-3 px-4 py-3 bg-retro-bg rounded-none border border-retro-border"
                   >
-                    <span className="w-6 text-xs font-semibold text-slate-400 text-center shrink-0">
+                    <span className="w-6 text-xs font-semibold text-retro-muted text-center shrink-0">
                       {idx + 1}.
                     </span>
-                    <div className={`w-8 h-8 ${color.tint} rounded-xl flex items-center justify-center text-base flex-shrink-0`}>
+                    <div className={`w-8 h-8 ${color.tint} rounded-none flex items-center justify-center text-base flex-shrink-0`}>
                       {color.emoji}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-800 text-sm truncate">{product.name}</p>
-                      <p className="text-[10px] text-slate-400">{product.category ?? 'uncategorized'}</p>
+                      <p className="font-semibold text-retro-text text-sm truncate">{product.name}</p>
+                      <p className="text-[10px] text-retro-muted">{product.category ?? 'uncategorized'}</p>
                     </div>
                     <button
                       onClick={() => handleRemove(idx)}
-                      className="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-500 hover:border-rose-200 text-slate-400 rounded-xl transition-colors flex-shrink-0"
+                      className="w-8 h-8 flex items-center justify-center bg-retro-surface border border-retro-border hover:bg-rose-50 hover:text-retro-danger hover:border-rose-200 text-retro-muted rounded-none transition-colors flex-shrink-0"
                       aria-label={`Hapus ${product.name}`}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +236,7 @@ export default function GoodsTrackerPage() {
             {canAdd ? (
               <button
                 onClick={() => setShowPicker(true)}
-                className="flex items-center gap-1.5 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-medium rounded-xl transition-colors"
+                className="flex items-center gap-1.5 px-4 py-2 bg-retro-surface hover:bg-retro-surface text-retro-body text-sm font-medium rounded-none transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -244,7 +244,7 @@ export default function GoodsTrackerPage() {
                 Tambah Barang
               </button>
             ) : (
-              <p className="text-xs text-slate-400">Maksimal {MAX_ITEMS} barang</p>
+              <p className="text-xs text-retro-muted">Maksimal {MAX_ITEMS} barang</p>
             )}
 
             <div className="flex-1" />
@@ -252,7 +252,7 @@ export default function GoodsTrackerPage() {
             <button
               onClick={handleOptimize}
               disabled={!canOptimize}
-              className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-bold rounded-xl shadow shadow-indigo-300/40 hover:shadow-md hover:shadow-indigo-400/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 flex items-center gap-2"
+              className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-bold rounded-none disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 flex items-center gap-2"
             >
               {mutation.isPending ? (
                 <>
@@ -276,13 +276,13 @@ export default function GoodsTrackerPage() {
 
         {/* Error state */}
         {mutation.isError && (
-          <div className="mt-6 bg-rose-50 border border-rose-200 rounded-2xl p-4 text-sm text-rose-700 flex items-start gap-3">
+          <div className="mt-6 bg-rose-50 border border-rose-200 rounded-none p-4 text-sm text-rose-700 flex items-start gap-3">
             <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div>
               <p className="font-semibold">Gagal mengoptimalkan</p>
-              <p className="text-rose-500 mt-0.5">{mutation.error.message}</p>
+              <p className="text-retro-danger mt-0.5">{mutation.error.message}</p>
             </div>
           </div>
         )}
@@ -291,21 +291,21 @@ export default function GoodsTrackerPage() {
         {result && (
           <div className="mt-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-slate-800">Hasil Optimasi</h3>
+              <h3 className="font-bold text-retro-text">Hasil Optimasi</h3>
               <button
                 onClick={handleDownloadImage}
                 disabled={downloading}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-medium rounded-xl transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-retro-surface border border-retro-border hover:bg-retro-bg text-retro-body text-xs font-medium rounded-none transition-colors disabled:opacity-50"
               >
                 {downloading ? (
-                  <span className="w-3.5 h-3.5 inline-block animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" />
+                  <span className="w-3.5 h-3.5 inline-block animate-spin rounded-none border-2 border-retro-border border-t-retro-brand" />
                 ) : (
                   <span>&#x2193;</span>
                 )}
                 {downloading ? 'Membuat gambar...' : 'Unduh Gambar'}
               </button>
             </div>
-            <div ref={resultRef} className="p-4 rounded-2xl">
+            <div ref={resultRef} className="p-4 rounded-none">
               <StoreResultCard result={result} />
             </div>
           </div>
@@ -314,13 +314,13 @@ export default function GoodsTrackerPage() {
         {/* Empty state */}
         {!result && !mutation.isPending && (
           <div className="mt-12 text-center">
-            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-retro-surface rounded-none flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-retro-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            <p className="text-slate-600 font-semibold">Belum ada hasil optimasi</p>
-            <p className="text-slate-400 text-sm mt-1">
+            <p className="text-retro-body font-semibold">Belum ada hasil optimasi</p>
+            <p className="text-retro-muted text-sm mt-1">
               Pilih barang dari katalog, lalu klik Optimalkan
             </p>
           </div>

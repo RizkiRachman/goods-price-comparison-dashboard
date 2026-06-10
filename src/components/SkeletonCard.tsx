@@ -10,16 +10,16 @@ const shimmerVariants = {
 }
 
 function ShimmerBlock({ className }: { className: string }) {
-  return <motion.div variants={shimmerVariants} animate="animate" className={`bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200 rounded-lg ${className}`} />
+  return <motion.div variants={shimmerVariants} animate="animate" className={`bg-gradient-to-r from-retro-surface-alt via-retro-surface to-retro-surface-alt rounded-none ${className}`} />
 }
 
 export function SkeletonCard() {
   return (
-    <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden shadow-lg shadow-black/5">
-      <div className="h-1 bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200" />
+    <div className="bg-retro-surface/80 border border-retro-border/30 rounded-none overflow-hidden">
+      <div className="h-1 bg-gradient-to-r from-retro-surface-alt via-retro-surface to-retro-surface-alt" />
       <div className="p-4 space-y-3">
         <div className="flex items-start gap-3">
-          <ShimmerBlock className="w-10 h-10 rounded-2xl flex-shrink-0" />
+          <ShimmerBlock className="w-10 h-10 rounded-none flex-shrink-0" />
           <div className="flex-1 space-y-2">
             <ShimmerBlock className="h-3.5 w-3/4" />
             <ShimmerBlock className="h-2.5 w-1/2" />
@@ -37,11 +37,11 @@ export function SkeletonCard() {
 
 export function StoreSkeletonCard() {
   return (
-    <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden shadow-lg shadow-black/5">
-      <div className="h-1 bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200" />
+    <div className="bg-retro-surface/80 border border-retro-border/30 rounded-none overflow-hidden">
+      <div className="h-1 bg-gradient-to-r from-retro-surface-alt via-retro-surface to-retro-surface-alt" />
       <div className="p-4 space-y-3">
         <div className="flex items-start gap-3">
-          <ShimmerBlock className="w-10 h-10 rounded-2xl flex-shrink-0" />
+          <ShimmerBlock className="w-10 h-10 rounded-none flex-shrink-0" />
           <div className="flex-1 space-y-2">
             <ShimmerBlock className="h-3.5 w-3/4" />
             <ShimmerBlock className="h-2.5 w-1/3" />
