@@ -11,3 +11,79 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8fafc;
 }
+
+/* ── Slate & Steel design tokens ── */
+@theme {
+  --color-retro-bg: #1a1e24;
+  --color-retro-surface: #14181c;
+  --color-retro-surface-alt: #202830;
+  --color-retro-border: #3a4a5a;
+  --color-retro-text: #c8dce8;
+  --color-retro-body: #a8bcc8;
+  --color-retro-muted: #8098a8;
+  --color-retro-placeholder: #4a5a68;
+  --color-retro-gold: #e0c080;
+  --color-retro-brand: #88b8d8;
+  --color-retro-primary: #4a6a88;
+  --color-retro-success: #70a870;
+  --color-retro-danger: #d87070;
+  --color-retro-warning: #c8a840;
+}
+
+/* ── Retro admin scoped styles ── */
+.retro-admin {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* CRT vignette overlay */
+.retro-admin::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+/* Scanlines overlay */
+.retro-admin::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(26, 30, 36, 0.12) 3px,
+    rgba(26, 30, 36, 0.12) 4px
+  );
+}
+
+/* Focus ring for interactive elements inside retro-admin */
+.retro-admin a:focus-visible,
+.retro-admin button:focus-visible,
+.retro-admin input:focus-visible,
+.retro-admin textarea:focus-visible,
+.retro-admin select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(224, 192, 128, 0.5);
+}
+
+/* Heading letter-spacing bump */
+.retro-admin h1,
+.retro-admin h2,
+.retro-admin h3 {
+  letter-spacing: 2px;
+}
+
+/* Print: hide CRT overlays */
+@media print {
+  .retro-admin::before,
+  .retro-admin::after {
+    display: none;
+  }
+}
