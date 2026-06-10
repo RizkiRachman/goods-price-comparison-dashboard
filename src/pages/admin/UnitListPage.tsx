@@ -75,7 +75,7 @@ export default function UnitListPage() {
       header: 'Tipe',
       sortable: true,
       render: (u) => {
-        const badge = unitTypeBadge[u.type]
+        const badge = unitTypeBadge[u.type] ?? { bg: 'bg-retro-surface-alt', text: 'text-retro-muted', label: u.type }
         return (
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
