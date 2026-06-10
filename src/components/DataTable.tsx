@@ -62,7 +62,7 @@ export function DataTable<T extends { id: string | number }>({
       {/* Search */}
       {onSearch && (
         <div className="relative">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-retro-muted pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input
@@ -70,30 +70,30 @@ export function DataTable<T extends { id: string | number }>({
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full h-10 pl-10 pr-4 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            className="w-full h-10 pl-10 pr-4 rounded-none border-[3px] border-retro-border [border-style:inset] bg-retro-surface text-sm text-retro-text placeholder:text-retro-placeholder focus:outline-none focus:[border-style:ridge] transition"
           />
         </div>
       )}
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-retro-surface rounded-none border-[3px] border-retro-border [border-style:ridge] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
+              <tr>
                 {columns.map((col) => (
                   <th
                     key={col.key}
-                    className="px-4 py-3 text-left text-xs font-semibold text-gray-500 tracking-wider"
+                    className="px-4 py-3 text-left text-xs font-semibold text-retro-gold tracking-[2px] bg-retro-surface-alt border-[3px] border-retro-border [border-style:inset]"
                   >
                     {col.sortable && onSort ? (
                       <button
                         onClick={() => handleSort(col.key)}
-                        className="flex items-center gap-1 hover:text-gray-700 transition"
+                        className="flex items-center gap-1 hover:text-retro-text transition"
                       >
                         {col.header}
                         {sortBy === col.key && (
-                          <span className="text-indigo-500">{sortOrder === 'asc' ? '\u2191' : '\u2193'}</span>
+                          <span className="text-retro-gold">{sortOrder === 'asc' ? '\u2191' : '\u2193'}</span>
                         )}
                       </button>
                     ) : (
@@ -102,7 +102,7 @@ export function DataTable<T extends { id: string | number }>({
                   </th>
                 ))}
                 {actions && (
-                  <th className="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-right text-xs font-semibold text-retro-gold tracking-[2px] bg-retro-surface-alt border-[3px] border-retro-border [border-style:inset]">
                     Aksi
                   </th>
                 )}
@@ -115,7 +115,7 @@ export function DataTable<T extends { id: string | number }>({
                     <td colSpan={columns.length + (actions ? 1 : 0)} className="py-12 text-center">
                       <div className="flex flex-col items-center gap-2">
                         <span className="text-3xl">{emptyIcon}</span>
-                        <p className="text-sm font-medium text-gray-500">{emptyMessage}</p>
+                        <p className="text-sm font-medium text-retro-muted">{emptyMessage}</p>
                       </div>
                     </td>
                   </tr>
@@ -128,15 +128,15 @@ export function DataTable<T extends { id: string | number }>({
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ delay: i * 0.03 }}
                       onClick={() => onRowClick?.(row)}
-                      className={`border-b border-gray-50 last:border-b-0 hover:bg-gray-50/50 transition ${onRowClick ? 'cursor-pointer' : ''}`}
+                      className={`border-b-[3px] border-retro-border last:border-b-0 [border-style:inset] hover:bg-retro-border/30 transition ${onRowClick ? 'cursor-pointer' : ''}`}
                     >
                       {columns.map((col) => (
-                        <td key={col.key} className="px-4 py-3">
+                        <td key={col.key} className="px-4 py-3 border-[3px] border-retro-border [border-style:inset]">
                           {col.render(row)}
                         </td>
                       ))}
                       {actions && (
-                        <td className="px-4 py-3 text-right">
+                        <td className="px-4 py-3 text-right border-[3px] border-retro-border [border-style:inset]">
                           {actions(row)}
                         </td>
                       )}
