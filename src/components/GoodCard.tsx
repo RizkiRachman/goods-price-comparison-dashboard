@@ -4,17 +4,17 @@ import { formatPrice } from '@/lib/utils'
 import { GlassCard } from '@/components/ui/GlassCard'
 
 const CATEGORY_COLORS: Record<string, { accent: string; tint: string; emoji: string }> = {
-  Sayuran:         { accent: 'from-emerald-400 to-green-500',  tint: 'bg-emerald-50',  emoji: '🥬' },
-  'Daging & Ikan': { accent: 'from-rose-400 to-red-500',       tint: 'bg-rose-50',     emoji: '🥩' },
-  'Frozen Food':   { accent: 'from-cyan-400 to-blue-500',      tint: 'bg-cyan-50',     emoji: '🧊' },
-  Minuman:         { accent: 'from-retro-brand to-retro-gold',     tint: 'bg-retro-bg/50',      emoji: '🥤' },
-  'Dapur & Bumbu': { accent: 'from-amber-400 to-orange-500',   tint: 'bg-amber-50',    emoji: '🧂' },
-  'Rumah Tangga':  { accent: 'from-amber-400 to-retro-gold',  tint: 'bg-amber-50/30',   emoji: '🏠' },
-  Makanan:         { accent: 'from-orange-400 to-amber-500',   tint: 'bg-orange-50',   emoji: '🍽️' },
-  Snack:           { accent: 'from-pink-400 to-rose-500',      tint: 'bg-pink-50',     emoji: '🍿' },
-  Buah:            { accent: 'from-lime-400 to-green-500',     tint: 'bg-lime-50',     emoji: '🍎' },
+  Sayuran: { accent: 'from-emerald-400 to-green-500', tint: 'bg-retro-surface', emoji: '🥬' },
+  'Daging & Ikan': { accent: 'from-rose-400 to-red-500', tint: 'bg-retro-surface', emoji: '🥩' },
+  'Frozen Food': { accent: 'from-cyan-400 to-blue-500', tint: 'bg-retro-surface', emoji: '🧊' },
+  Minuman: { accent: 'from-retro-brand to-retro-gold', tint: 'bg-retro-bg/50', emoji: '🥤' },
+  'Dapur & Bumbu': { accent: 'from-amber-400 to-orange-500', tint: 'bg-retro-surface', emoji: '🧂' },
+  'Rumah Tangga': { accent: 'from-amber-400 to-retro-gold', tint: 'bg-retro-surface', emoji: '🏠' },
+  Makanan: { accent: 'from-orange-400 to-amber-500', tint: 'bg-retro-surface', emoji: '🍽️' },
+  Snack: { accent: 'from-pink-400 to-rose-500', tint: 'bg-retro-surface', emoji: '🍿' },
+  Buah: { accent: 'from-lime-400 to-green-500', tint: 'bg-retro-surface', emoji: '🍎' },
 }
-const DEFAULT_COLOR = { accent: 'from-amber-400 to-retro-gold', tint: 'bg-amber-50/30', emoji: '📦' }
+const DEFAULT_COLOR = { accent: 'from-amber-400 to-retro-gold', tint: 'bg-retro-surface', emoji: '📦' }
 
 interface Props {
   good: GoodPriceSummary

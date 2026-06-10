@@ -91,7 +91,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
               <div className="flex items-center gap-2 flex-wrap">
                 <p className="font-semibold text-retro-text text-sm sm:text-base leading-tight">{item.storeName}</p>
                 {isLowest && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-100 text-retro-success text-[10px] font-semibold rounded-none">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-retro-success/15 text-retro-success border border-retro-success/30 text-[10px] font-semibold rounded-none">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -99,7 +99,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
                   </span>
                 )}
                 {item.isPromo && (
-                  <span className="inline-flex items-center px-2 py-0.5 bg-rose-100 text-retro-danger text-[10px] font-semibold rounded-none">
+                  <span className="inline-flex items-center px-2 py-0.5 bg-retro-danger/15 text-retro-danger border border-retro-danger/30 text-[10px] font-semibold rounded-none">
                     Promo
                   </span>
                 )}
@@ -121,7 +121,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
                 {onEdit && (
                   <button
                     onClick={() => onEdit(item)}
-                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-gold hover:bg-amber-50/30 active:bg-amber-100/30 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-gold hover:bg-retro-surface-alt/80 active:bg-retro-surface-alt transition-colors"
                     aria-label="Edit"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
                 {onDelete && (
                   <button
                     onClick={() => onDelete(item)}
-                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-danger hover:bg-rose-50 active:bg-rose-100 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-danger hover:bg-retro-danger/10 active:bg-retro-danger/15 transition-colors"
                     aria-label="Hapus"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -85,7 +85,7 @@ export default function FeedbackPage() {
         {isSuccess ? (
           /* ── Success State ── */
           <div className="bg-retro-surface rounded-none border border-retro-border p-8 text-center">
-            <div className="w-16 h-16 bg-emerald-100 rounded-none flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-retro-surface-alt rounded-none flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-retro-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
@@ -99,7 +99,7 @@ export default function FeedbackPage() {
             <div className="flex items-center justify-center gap-3">
               <button
                 onClick={handleReset}
-                className="px-5 py-2.5 bg-amber-50/30 hover:bg-amber-100/30 text-retro-brand text-sm font-semibold rounded-none transition-colors"
+                className="px-5 py-2.5 bg-retro-surface-alt hover:bg-retro-surface-alt/80 text-retro-brand text-sm font-semibold rounded-none transition-colors"
               >
                 Kirim Lagi
               </button>
@@ -126,9 +126,9 @@ export default function FeedbackPage() {
                     className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-none text-sm font-semibold transition ${
                       form.type === t
                         ? t === 'feedback'
-                          ? 'bg-amber-100/30 text-retro-brand border-2 border-retro-gold/70'
-                          : 'bg-emerald-100 text-retro-success border-2 border-emerald-300'
-                        : 'bg-retro-bg text-retro-body border-2 border-transparent hover:bg-retro-surface-alt'
+? 'bg-retro-surface-alt text-retro-brand border border-retro-gold/60'
+: 'bg-retro-surface-alt text-retro-success border border-retro-success/50'
+                        : 'bg-retro-bg text-retro-body border border-transparent hover:bg-retro-surface-alt'
                     }`}
                   >
                     <span>{t === 'feedback' ? '\uD83D\uDCDD' : '\u2753'}</span>
@@ -141,7 +141,7 @@ export default function FeedbackPage() {
             {/* Name */}
             <div>
               <label htmlFor="userName" className="block text-sm font-semibold text-retro-body mb-1.5">
-                Nama <span className="text-rose-500">*</span>
+                Nama <span className="text-retro-danger">*</span>
               </label>
               <input
                 id="userName"
@@ -150,16 +150,16 @@ export default function FeedbackPage() {
                 onChange={(e) => setForm((f) => ({ ...f, userName: e.target.value }))}
                 placeholder="Nama Anda"
                 className={`w-full px-4 py-2.5 rounded-none border text-sm transition ${
-                  errors.userName ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
+                  errors.userName ? 'border-retro-danger/50 bg-retro-danger/10' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
                 } outline-none focus:ring-2 focus:ring-retro-gold/50`}
               />
-              {errors.userName && <p className="text-xs text-rose-500 mt-1">{errors.userName}</p>}
+              {errors.userName && <p className="text-xs text-retro-danger mt-1">{errors.userName}</p>}
             </div>
 
             {/* Email */}
             <div>
               <label htmlFor="userEmail" className="block text-sm font-semibold text-retro-body mb-1.5">
-                Email <span className="text-rose-500">*</span>
+                Email <span className="text-retro-danger">*</span>
               </label>
               <input
                 id="userEmail"
@@ -168,16 +168,16 @@ export default function FeedbackPage() {
                 onChange={(e) => setForm((f) => ({ ...f, userEmail: e.target.value }))}
                 placeholder="email@contoh.com"
                 className={`w-full px-4 py-2.5 rounded-none border text-sm transition ${
-                  errors.userEmail ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
+                  errors.userEmail ? 'border-retro-danger/50 bg-retro-danger/10' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
                 } outline-none focus:ring-2 focus:ring-retro-gold/50`}
               />
-              {errors.userEmail && <p className="text-xs text-rose-500 mt-1">{errors.userEmail}</p>}
+              {errors.userEmail && <p className="text-xs text-retro-danger mt-1">{errors.userEmail}</p>}
             </div>
 
             {/* Message */}
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-retro-body mb-1.5">
-                Pesan <span className="text-rose-500">*</span>
+                Pesan <span className="text-retro-danger">*</span>
               </label>
               <textarea
                 id="message"
@@ -186,18 +186,18 @@ export default function FeedbackPage() {
                 placeholder={form.type === 'feedback' ? 'Ceritakan pengalaman Anda menggunakan HargaKu...' : 'Tulis pertanyaan Anda di sini...'}
                 rows={5}
                 className={`w-full px-4 py-2.5 rounded-none border text-sm transition resize-none ${
-                  errors.message ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
+                  errors.message ? 'border-retro-danger/50 bg-retro-danger/10' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
                 } outline-none focus:ring-2 focus:ring-retro-gold/50`}
               />
               <div className="flex items-center justify-between mt-1">
-                {errors.message && <p className="text-xs text-rose-500">{errors.message}</p>}
+                {errors.message && <p className="text-xs text-retro-danger">{errors.message}</p>}
                 <p className="text-xs text-retro-muted ml-auto">{form.message.length}/5000</p>
               </div>
             </div>
 
             {/* Error banner */}
             {mutation.isError && (
-              <div className="bg-rose-50 border border-rose-200 rounded-none px-4 py-3 text-sm text-rose-700 flex items-start gap-2">
+              <div className="bg-retro-surface border-l-4 border-l-retro-danger/60 border border-retro-border/50 rounded-none px-4 py-3 text-sm text-retro-danger flex items-start gap-2">
                 <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>

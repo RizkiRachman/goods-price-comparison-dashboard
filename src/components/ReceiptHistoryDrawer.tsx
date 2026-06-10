@@ -40,8 +40,8 @@ function ReceiptCard({
     <div
       className={`w-full rounded-none overflow-hidden transition ${
         isApproved
-          ? 'bg-emerald-50/80 backdrop-blur-sm border border-emerald-100 hover:border-emerald-200'
-          : 'bg-red-50/80 backdrop-blur-sm border border-red-100 hover:border-red-200 opacity-75'
+? 'bg-retro-surface border-l-4 border-l-retro-success/60 border border-retro-border/50 hover:border-retro-success/80'
+            : 'bg-retro-surface border-l-4 border-l-retro-danger/60 border border-retro-border/50 hover:border-retro-danger/80 opacity-75'
       }`}
     >
       <button onClick={onClick} className="w-full text-left p-4">
@@ -80,7 +80,7 @@ function ReceiptCard({
               </div>
             )}
           </div>
-          <svg className="w-5 h-5 text-gray-300 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-retro-muted flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </div>
@@ -112,7 +112,7 @@ function ReceiptCard({
         <div className="px-4 pb-3">
           <button
             onClick={(e) => { e.stopPropagation(); onCorrect() }}
-            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-none text-xs font-semibold text-retro-brand bg-amber-50/30/80 backdrop-blur-sm hover:bg-amber-100/30 border border-retro-gold/30 transition"
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-none text-xs font-semibold text-retro-brand bg-retro-surface-alt/80 hover:bg-retro-surface-alt border border-retro-gold/30 transition"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

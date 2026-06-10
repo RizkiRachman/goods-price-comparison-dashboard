@@ -55,7 +55,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-none text-retro-text/60 hover:text-retro-text hover:bg-white/20 transition flex-shrink-0"
+            className="w-8 h-8 flex items-center justify-center rounded-none text-retro-text/60 hover:text-retro-text hover:bg-retro-surface-alt transition flex-shrink-0"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -65,22 +65,22 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="px-6 -mt-4 pb-6 space-y-4 bg-white/90 backdrop-blur-2xl">
+      <form onSubmit={handleSubmit} className="px-6 -mt-4 pb-6 space-y-4 bg-retro-surface/95 backdrop-blur-2xl">
         {done && (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl px-4 py-3 flex items-center gap-3">
+          <div className="bg-retro-surface border-l-4 border-l-retro-success/60 border border-retro-border/50 rounded-none px-4 py-3 flex items-center gap-3">
             <span className="text-lg">✅</span>
             <p className="text-sm font-semibold text-emerald-800">Harga berhasil diperbarui</p>
           </div>
         )}
 
         {mutation.isError && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-4 py-3 flex items-center gap-3">
+          <div className="bg-retro-surface border-l-4 border-l-retro-danger/60 border border-retro-border/50 rounded-none px-4 py-3 flex items-center gap-3">
             <span className="text-lg">❌</span>
             <p className="text-sm font-semibold text-red-700">Gagal menyimpan. Coba lagi.</p>
           </div>
         )}
 
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-white/20 shadow-sm px-4 py-4 space-y-4 mt-0">
+        <div className="bg-retro-surface-alt/80 backdrop-blur-sm rounded-none border border-retro-border/30 shadow-sm px-4 py-4 space-y-4 mt-0">
           <div>
             <label className="text-xs font-semibold text-retro-muted uppercase tracking-wide">
               Harga Baru ({unit ?? 'pcs'}) <span className="text-red-400">*</span>
@@ -96,7 +96,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
                 onChange={(e) => setPrice(Math.max(0, Number(e.target.value)))}
                 placeholder="0"
                 className={`w-full rounded-none border pl-9 pr-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                  price <= 0 ? 'border-red-300 focus:ring-red-400' : 'border-gray-200 focus:ring-retro-gold'
+                  price <= 0 ? 'border-retro-danger/50 focus:ring-retro-danger/50' : 'border-retro-border focus:ring-retro-gold'
                 }`}
               />
             </div>
@@ -114,7 +114,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
               value={date}
               max={today}
               onChange={(e) => setDate(e.target.value)}
-              className="mt-1.5 w-full rounded-none border border-gray-200 px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
+              className="mt-1.5 w-full rounded-none border border-retro-border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
             />
           </div>
 
@@ -123,9 +123,9 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
               role="checkbox"
               aria-checked={isPromo}
               onClick={() => setIsPromo((v) => !v)}
-              className={`w-10 h-6 rounded-full relative transition-colors ${isPromo ? 'bg-amber-50/300' : 'bg-gray-200'}`}
-            >
-              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all ${isPromo ? 'left-5' : 'left-1'}`} />
+className={`w-10 h-6 rounded-none relative transition-colors ${isPromo ? 'bg-retro-warning/60' : 'bg-retro-border'}`}
+>
+        <span className={`absolute top-1 w-4 h-4 bg-retro-text rounded-none shadow transition-all ${isPromo ? 'left-5' : 'left-1'}`} />
             </div>
             <span className="text-sm font-medium text-retro-body">Harga promo</span>
           </label>

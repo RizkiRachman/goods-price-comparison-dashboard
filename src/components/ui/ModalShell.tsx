@@ -78,11 +78,11 @@ export function ModalShell({ open, onClose, children, variant = 'sheet' }: Modal
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden max-h-[85vh] sm:max-h-[600px] bg-white/90 backdrop-blur-2xl border border-white/20"
+            className="relative w-full sm:max-w-lg rounded-none shadow-2xl flex flex-col overflow-hidden max-h-[85vh] sm:max-h-[600px] bg-retro-surface/95 backdrop-blur-2xl border border-retro-border/30"
           >
             {/* Drag handle (mobile) */}
             <div className="flex justify-center pt-3 pb-1 sm:hidden">
-              <div className="w-10 h-1 rounded-full bg-white/40" />
+              <div className="w-10 h-1 rounded-none bg-retro-muted/40" />
             </div>
             {children}
           </motion.div>

@@ -56,8 +56,8 @@ export default function ReceiptDetailPage() {
   if (!job && fetchState.type === 'loading') {
     return (
       <div className="min-h-screen bg-retro-bg flex flex-col items-center justify-center gap-4">
-        <div className="w-20 h-20 bg-amber-50/30 rounded-none flex items-center justify-center text-4xl animate-pulse">📤</div>
-        <p className="text-lg font-semibold text-retro-body">Memuat struk…</p>
+<div className="w-20 h-20 bg-retro-surface-alt rounded-none flex items-center justify-center text-4xl animate-pulse">📤</div>
+          <p className="text-lg font-semibold text-retro-body">Memuat struk…</p>
         <button onClick={() => navigate(-1)} className="text-sm text-retro-brand font-semibold hover:underline">Kembali</button>
       </div>
     )
@@ -78,8 +78,8 @@ export default function ReceiptDetailPage() {
   if (job?.status === 'PENDING') {
     return (
       <div className="min-h-screen bg-retro-bg flex flex-col items-center justify-center gap-4">
-        <div className="w-20 h-20 bg-amber-50/30 rounded-none flex items-center justify-center text-4xl animate-pulse">📤</div>
-        <p className="text-lg font-semibold text-retro-body">Mengunggah struk…</p>
+<div className="w-20 h-20 bg-retro-surface-alt rounded-none flex items-center justify-center text-4xl animate-pulse">📤</div>
+          <p className="text-lg font-semibold text-retro-body">Mengunggah struk…</p>
         <p className="text-sm text-retro-muted">Struk sedang diupload dan dianalisis</p>
         <button onClick={() => navigate(-1)} className="text-sm text-retro-brand font-semibold hover:underline">Kembali</button>
       </div>
@@ -90,7 +90,7 @@ export default function ReceiptDetailPage() {
   if (job?.status === 'FAILED') {
     return (
       <div className="min-h-screen bg-retro-bg flex flex-col items-center justify-center gap-4">
-        <div className="w-20 h-20 bg-red-50 rounded-none flex items-center justify-center text-4xl">❌</div>
+        <div className="w-20 h-20 bg-retro-surface-alt border border-retro-danger/30 rounded-none flex items-center justify-center text-4xl">❌</div>
         <p className="text-lg font-semibold text-retro-body">Gagal memproses struk</p>
         <p className="text-sm text-retro-muted">Terjadi kesalahan saat menganalisis struk</p>
         <button onClick={() => navigate(-1)} className="text-sm text-retro-brand font-semibold hover:underline">Kembali</button>
@@ -162,9 +162,9 @@ export default function ReceiptDetailPage() {
 
         {/* PENDING_REVIEW — approve / reject */}
         {showApproveReject && (
-          <div className="bg-retro-surface rounded-none border border-gray-100 px-5 py-4">
+          <div className="bg-retro-surface rounded-none border border-retro-border/50 px-5 py-4">
             {job?.status === 'INGESTION_FAILED' && (
-              <div className="flex items-center gap-2 mb-3 text-retro-warning bg-amber-50 rounded-none px-3 py-2">
+              <div className="flex items-center gap-2 mb-3 text-retro-warning bg-retro-surface-alt border-l-4 border-l-retro-warning/60 rounded-none px-3 py-2">
                 <span className="text-base">⚠️</span>
                 <p className="text-xs font-semibold">Gagal menyimpan data. Coba setujui atau tolak kembali.</p>
               </div>
@@ -203,8 +203,8 @@ export default function ReceiptDetailPage() {
 
         {/* INGESTING — ingestion in progress banner */}
         {job?.status === 'INGESTING' && (
-          <div className="bg-amber-50/30 border border-retro-gold/50 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-amber-100/30 rounded-none flex items-center justify-center flex-shrink-0">
+          <div className="bg-retro-surface-alt/80 border border-retro-gold/40 border-l-4 border-l-retro-gold/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-retro-brand animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
@@ -219,34 +219,34 @@ export default function ReceiptDetailPage() {
 
         {/* COMPLETED — LLM response ready, waiting for approval */}
         {job?.status === 'COMPLETED' && !showApproveReject && (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-emerald-100 rounded-none flex items-center justify-center flex-shrink-0 text-lg">✅</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-success/40 border-l-4 border-l-retro-success/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center flex-shrink-0 text-lg">✅</div>
             <div>
-              <p className="text-sm font-semibold text-emerald-800">Data berhasil disimpan</p>
-              <p className="text-xs text-emerald-600 mt-0.5">Semua data struk sudah tersimpan di sistem</p>
+              <p className="text-sm font-semibold text-retro-success">Data berhasil disimpan</p>
+              <p className="text-xs text-retro-success/80 mt-0.5">Semua data struk sudah tersimpan di sistem</p>
             </div>
           </div>
         )}
 
         {/* REJECTED — rejected banner */}
         {job?.status === 'REJECTED' && (
-          <div className="bg-red-50 border border-red-200 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-red-100 rounded-none flex items-center justify-center flex-shrink-0 text-lg">🚫</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-danger/40 border-l-4 border-l-retro-danger/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center flex-shrink-0 text-lg">🚫</div>
             <div>
-              <p className="text-sm font-semibold text-red-800">Struk ditolak</p>
-              <p className="text-xs text-red-500 mt-0.5">Struk ini tidak disetujui untuk disimpan</p>
+              <p className="text-sm font-semibold text-retro-danger">Struk ditolak</p>
+              <p className="text-xs text-retro-danger/80 mt-0.5">Struk ini tidak disetujui untuk disimpan</p>
             </div>
           </div>
         )}
 
         {/* Receipt detail card */}
-        <div className="bg-retro-surface rounded-none border border-gray-100 overflow-hidden">
+        <div className="bg-retro-surface rounded-none border border-retro-border/30 overflow-hidden">
           {/* File info - clickable to toggle items */}
           <button
             onClick={() => setShowAllItems(!showAllItems)}
-            className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-retro-bg/50 transition border-b border-gray-50"
+            className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-retro-surface-alt/60 transition border-b border-retro-border/20"
           >
-            <div className="w-9 h-9 bg-amber-50/30 rounded-none flex items-center justify-center text-lg flex-shrink-0">🧾</div>
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg flex-shrink-0">🧾</div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-retro-text">{job?.fileName ?? 'Struk'}</p>
               {job && (
@@ -269,7 +269,7 @@ export default function ReceiptDetailPage() {
 
           {/* Items (collapsible) */}
           {showAllItems && (
-            <div className="divide-y divide-gray-50 max-h-80 overflow-y-auto">
+            <div className="divide-y divide-retro-border/20 max-h-80 overflow-y-auto">
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-10 text-center">
                   <div className="w-14 h-14 bg-retro-bg rounded-none flex items-center justify-center text-3xl mb-3">📦</div>
@@ -291,7 +291,7 @@ export default function ReceiptDetailPage() {
                         <p className="text-sm font-semibold text-retro-text leading-snug">{item.productName}</p>
                         <div className="flex items-center gap-2 mt-1">
                           {item.category && (
-                            <span className="text-xs text-retro-brand bg-amber-50/30 px-2 py-0.5 rounded-none font-medium">
+                            <span className="text-xs text-retro-brand bg-retro-bg/50 px-2 py-0.5 rounded-none font-medium">
                               {item.category}
                             </span>
                           )}
@@ -320,10 +320,10 @@ export default function ReceiptDetailPage() {
                         {item.category && (
                           <div className="flex justify-between text-xs text-retro-body pl-11">
                             <span>Kategori</span>
-                            <span className="text-retro-brand bg-amber-50/30 px-2 py-0.5 rounded-none font-medium">{item.category}</span>
+                            <span className="text-retro-brand bg-retro-bg/50 px-2 py-0.5 rounded-none font-medium">{item.category}</span>
                           </div>
                         )}
-                        <div className="flex justify-between text-xs font-semibold text-retro-body pl-11 pt-1.5 border-t border-gray-100">
+                        <div className="flex justify-between text-xs font-semibold text-retro-body pl-11 pt-1.5 border-t border-retro-border/30">
                           <span>Subtotal</span>
                           <span>{fmt(item.totalPrice)}</span>
                         </div>
@@ -336,7 +336,7 @@ export default function ReceiptDetailPage() {
           )}
 
           {/* Summary */}
-          <div className="border-t border-gray-100 px-5 py-4 bg-retro-bg space-y-2">
+          <div className="border-t border-retro-border/30 px-5 py-4 bg-retro-bg space-y-2">
             <div className="flex justify-between text-sm text-retro-body">
               <span>Subtotal ({items.length} barang)</span>
               <span>{fmt(subtotal)}</span>
@@ -358,7 +358,7 @@ export default function ReceiptDetailPage() {
         {items.length > 0 && (
           <button
             onClick={() => setShowSplit(true)}
-            className="w-full flex items-center justify-center gap-2 py-3 px-5 bg-retro-surface rounded-none border border-gray-100 text-sm font-semibold text-retro-brand hover:bg-amber-50/30 transition"
+            className="w-full flex items-center justify-center gap-2 py-3 px-5 bg-retro-surface rounded-none border border-retro-border/30 text-sm font-semibold text-retro-brand hover:bg-retro-surface-alt/60 transition"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />

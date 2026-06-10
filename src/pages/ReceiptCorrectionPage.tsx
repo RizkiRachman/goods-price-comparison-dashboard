@@ -150,8 +150,8 @@ export default function ReceiptCorrectionPage() {
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 -mt-4 pb-12 space-y-4">
         {correction.isError && (
-          <div className="bg-red-50 border border-red-200 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-red-100 rounded-none flex items-center justify-center text-lg">✗</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-danger/40 border-l-4 border-l-retro-danger/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg">✗</div>
             <div>
               <p className="text-sm font-semibold text-red-800">Gagal menyimpan</p>
               <p className="text-xs text-red-600 mt-0.5">Coba lagi atau hubungi admin</p>
@@ -160,8 +160,8 @@ export default function ReceiptCorrectionPage() {
         )}
 
         {saved && (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-emerald-100 rounded-none flex items-center justify-center text-lg">✅</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-success/40 border-l-4 border-l-retro-success/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg">✅</div>
             <div>
               <p className="text-sm font-semibold text-emerald-800">Data tersimpan</p>
               <p className="text-xs text-emerald-600 mt-0.5">Kembali…</p>
@@ -170,8 +170,8 @@ export default function ReceiptCorrectionPage() {
         )}
 
         {issueCount > 0 && !saved && (
-          <div className="bg-amber-50 border border-amber-200 rounded-none px-5 py-4 flex items-start gap-3">
-            <div className="w-9 h-9 bg-amber-100 rounded-none flex items-center justify-center text-lg flex-shrink-0">⚠️</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-warning/40 border-l-4 border-l-retro-warning/60 rounded-none px-5 py-4 flex items-start gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg flex-shrink-0">⚠️</div>
             <div>
               <p className="text-sm font-semibold text-amber-800">{issueCount} masalah perlu diperbaiki</p>
               <p className="text-xs text-amber-600 mt-0.5">Perbaiki data yang ditandai merah sebelum menyimpan</p>
@@ -179,7 +179,7 @@ export default function ReceiptCorrectionPage() {
           </div>
         )}
 
-        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.store ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-100'}`}>
+        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.store ? 'border-retro-danger/50 ring-1 ring-retro-danger/30' : 'border-retro-border/30'}`}>
           <label className={`text-xs font-semibold uppercase tracking-wide flex items-center gap-1.5 ${issues.store ? 'text-retro-danger' : 'text-retro-body'}`}>
             Nama Toko
             {issues.store && <span className="text-retro-danger text-xs font-normal">(wajib diisi)</span>}
@@ -190,12 +190,12 @@ export default function ReceiptCorrectionPage() {
             onChange={(e) => setStoreName(e.target.value)}
             placeholder="Nama toko…"
             className={`mt-1.5 w-full rounded-none border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.store ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-retro-gold'
+              issues.store ? 'border-retro-danger/50 focus:ring-retro-danger/50' : 'border-retro-border focus:ring-retro-gold'
             }`}
           />
         </div>
 
-        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.date ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-100'}`}>
+        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.date ? 'border-retro-danger/50 ring-1 ring-retro-danger/30' : 'border-retro-border/30'}`}>
           <label className="text-xs font-semibold uppercase tracking-wide flex items-center gap-1.5">
             <span className={issues.date ? 'text-retro-danger' : 'text-retro-body'}>Tanggal Struk</span>
             {issues.date && <span className="text-retro-danger text-xs font-normal">(wajib diisi)</span>}
@@ -205,26 +205,26 @@ export default function ReceiptCorrectionPage() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className={`mt-1.5 w-full rounded-none border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.date ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-retro-gold'
+              issues.date ? 'border-retro-danger/50 focus:ring-retro-danger/50' : 'border-retro-border focus:ring-retro-gold'
             }`}
           />
         </div>
 
-        <div className="bg-retro-surface rounded-none border border-gray-100 overflow-hidden">
-          <div className="px-5 py-3 border-b border-gray-50">
+        <div className="bg-retro-surface rounded-none border border-retro-border/30 overflow-hidden">
+          <div className="px-5 py-3 border-b border-retro-border/20">
             <p className="text-xs font-semibold text-retro-body uppercase tracking-wide">Daftar Barang</p>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-retro-border/20">
             {items.map((item, i) => {
               const badPrice = issues.itemsMissingPrice[i]
               const badQty = issues.itemsMissingQty[i]
               const hasIssue = badPrice || badQty
               return (
-                <div key={i} className={`px-5 py-4 ${hasIssue ? 'bg-red-50/40' : ''}`}>
+                <div key={i} className={`px-5 py-4 ${hasIssue ? 'bg-retro-danger/10' : ''}`}>
                   <div className="flex items-start justify-between gap-2">
                     <p className="text-sm font-semibold text-retro-text mb-2">{item.productName}</p>
                     {hasIssue && (
-                      <span className="text-xs font-medium text-retro-danger bg-red-100 px-2 py-0.5 rounded-none flex-shrink-0">
+                      <span className="text-xs font-medium text-retro-danger bg-retro-danger/20 px-2 py-0.5 rounded-none flex-shrink-0">
                         Data kurang
                       </span>
                     )}
@@ -259,7 +259,7 @@ export default function ReceiptCorrectionPage() {
                         value={item.quantity}
                         onChange={(e) => updateItem(i, 'quantity', Math.max(0, Number(e.target.value)))}
                         className={`mt-1 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-retro-gold'
+                          badQty ? 'border-retro-danger/50 focus:ring-retro-danger/50 bg-retro-danger/10' : 'border-retro-border focus:ring-retro-gold'
                         }`}
                       />
                     </div>
@@ -292,7 +292,7 @@ export default function ReceiptCorrectionPage() {
                         value={item.unitPrice}
                         onChange={(e) => updateItem(i, 'unitPrice', Math.max(0, Number(e.target.value)))}
                         className={`mt-1 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badPrice ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-retro-gold'
+                          badPrice ? 'border-retro-danger/50 focus:ring-retro-danger/50 bg-retro-danger/10' : 'border-retro-border focus:ring-retro-gold'
                         }`}
                       />
                     </div>
@@ -305,7 +305,7 @@ export default function ReceiptCorrectionPage() {
             })}
           </div>
 
-          <div className="border-t border-gray-100 px-5 py-4 bg-retro-bg">
+          <div className="border-t border-retro-border/30 px-5 py-4 bg-retro-bg">
             <div className="flex justify-between text-base font-extrabold text-retro-text">
               <span>Total ({items.length} barang)</span>
               <span className="text-retro-brand">{fmt(totalAmount)}</span>

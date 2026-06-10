@@ -66,6 +66,12 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+### Changed
+- UI: unified retro-gaming styling across all pages — replaced all light backgrounds (`amber-50`/`emerald-50`/`red-50`) and gray borders (`gray-100`/`gray-50`) with dark "Slate & Steel" retro surface tokens
+  - Status banners now use `bg-retro-surface-alt/80` with colored left-border indicators
+  - 21 files modified across components and pages for consistent dark retro aesthetic
+  - Zero remaining light-gray border references in the codebase
+
 ## [0.4.0] - 2026-05-19
 
 ### Added

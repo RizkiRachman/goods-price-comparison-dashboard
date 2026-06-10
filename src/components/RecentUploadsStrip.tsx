@@ -29,11 +29,11 @@ export function RecentUploadsStrip({ receipts, onShowMore }: Props) {
   return (
     <div className="mt-6">
       <div className="flex items-center justify-between mb-3">
-        <p className="text-sm font-medium text-white/80">Upload Terbaru Kamu</p>
+        <p className="text-sm font-medium text-retro-text">Upload Terbaru Kamu</p>
         {receipts.length > 5 && (
           <button
             onClick={onShowMore}
-            className="text-xs text-white/70 hover:text-white underline"
+            className="text-xs text-retro-muted hover:text-retro-text underline"
           >
             Lihat semua ({receipts.length})
           </button>
@@ -47,11 +47,11 @@ export function RecentUploadsStrip({ receipts, onShowMore }: Props) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, type: 'spring', stiffness: 250, damping: 20 }}
-            className={`flex-shrink-0 p-3 rounded-xl min-w-[140px] backdrop-blur-sm border ${
-              receipt.status === 'APPROVED' || receipt.status === 'COMPLETED'
-                ? 'bg-white/20 border-white/30'
-                : 'bg-red-500/20 border-red-400/30'
-            }`}
+className={`flex-shrink-0 p-3 rounded-none min-w-[140px] backdrop-blur-sm border ${
+                  receipt.status === 'APPROVED' || receipt.status === 'COMPLETED'
+                    ? 'bg-retro-surface-alt/60 border-retro-border/30'
+                    : 'bg-retro-danger/15 border-retro-danger/30'
+                }`}
           >
             <div className="flex items-center gap-2">
               <span className="text-lg">
@@ -60,10 +60,10 @@ export function RecentUploadsStrip({ receipts, onShowMore }: Props) {
                   : '❌'}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">
+                <p className="text-sm font-medium text-retro-text truncate">
                   {receipt.fileName?.slice(0, 15) ?? 'Struk'}...
                 </p>
-                <p className="text-xs text-white/60">
+                <p className="text-xs text-retro-muted">
                   {formatDate(receipt.completedAt)} • {receipt.totalItems} item
                 </p>
               </div>

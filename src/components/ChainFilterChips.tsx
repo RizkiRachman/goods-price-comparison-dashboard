@@ -5,15 +5,15 @@ interface Props {
 }
 
 const CHAIN_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  All: { bg: 'bg-white/60', text: 'text-gray-700', border: 'border-gray-200' },
-  Indomaret: { bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-blue-200' },
-  Alfamart: { bg: 'bg-red-50/80', text: 'text-red-700', border: 'border-red-200' },
-  Alfamidi: { bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-orange-200' },
-  Superindo: { bg: 'bg-green-50/80', text: 'text-green-700', border: 'border-green-200' },
-  Hypermart: { bg: 'bg-amber-50/30', text: 'text-retro-gold', border: 'border-retro-gold/50' },
+  All: { bg: 'bg-retro-surface-alt', text: 'text-retro-text', border: 'border-retro-border' },
+  Indomaret: { bg: 'bg-retro-surface', text: 'text-retro-brand', border: 'border-retro-brand/40' },
+  Alfamart: { bg: 'bg-retro-surface', text: 'text-retro-danger', border: 'border-retro-danger/40' },
+  Alfamidi: { bg: 'bg-retro-surface', text: 'text-retro-warning', border: 'border-retro-warning/40' },
+  Superindo: { bg: 'bg-retro-surface', text: 'text-retro-success', border: 'border-retro-success/40' },
+  Hypermart: { bg: 'bg-retro-surface', text: 'text-retro-gold', border: 'border-retro-gold/50' },
 }
 
-const DEFAULT_COLOR = { bg: 'bg-white/60', text: 'text-gray-700', border: 'border-gray-200' }
+const DEFAULT_COLOR = { bg: 'bg-retro-surface-alt', text: 'text-retro-text', border: 'border-retro-border' }
 
 export function ChainFilterChips({ chains, selected, onSelect }: Props) {
   const allChains = ['All', ...chains]
@@ -28,10 +28,10 @@ export function ChainFilterChips({ chains, selected, onSelect }: Props) {
           <button
             key={chain}
             onClick={() => onSelect(chain)}
-            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border backdrop-blur-sm whitespace-nowrap transition-all active:scale-95 ${
+            className={`flex-shrink-0 px-4 py-2 rounded-none text-sm font-medium border backdrop-blur-sm whitespace-nowrap transition-all active:scale-95 ${
               isSelected
                 ? `${colors.bg} ${colors.text} ${colors.border} shadow-md shadow-black/5`
-                : 'bg-white/40 text-gray-600 border-gray-200 hover:border-gray-300 hover:bg-white/60'
+                : 'bg-retro-surface/60 text-retro-muted border-retro-border/40 hover:border-retro-border hover:bg-retro-surface-alt'
             }`}
           >
             {chain === 'All' ? 'Semua Toko' : chain}

@@ -1,13 +1,13 @@
 const CATEGORY_META: Record<string, { emoji: string; color: string; active: string }> = {
-  All:             { emoji: '🛒', color: 'bg-white/60 text-gray-600 border-gray-200 hover:border-gray-400',             active: 'bg-gray-800 text-white border-gray-800 shadow-lg shadow-black/10' },
-  Sayuran:         { emoji: '🥬', color: 'bg-green-50/80 text-green-700 border-green-200 hover:border-green-400',      active: 'bg-green-600 text-white border-green-600 shadow-lg shadow-green-200' },
-  'Daging & Ikan': { emoji: '🥩', color: 'bg-red-50/80 text-red-700 border-red-200 hover:border-red-400',             active: 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-200' },
-  'Frozen Food':   { emoji: '🧊', color: 'bg-cyan-50/80 text-cyan-700 border-cyan-200 hover:border-cyan-400',         active: 'bg-cyan-500 text-white border-cyan-500 shadow-lg shadow-cyan-200' },
-  Minuman:         { emoji: '🥛', color: 'bg-sky-50/80 text-sky-700 border-sky-200 hover:border-sky-400',             active: 'bg-sky-500 text-white border-sky-500 shadow-lg shadow-sky-200' },
-  'Dapur & Bumbu': { emoji: '🧂', color: 'bg-amber-50/80 text-amber-700 border-amber-200 hover:border-amber-400',     active: 'bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-200' },
-  'Rumah Tangga':  { emoji: '🏠', color: 'bg-amber-50/30 text-retro-gold border-retro-gold/50 hover:border-retro-gold', active: 'bg-retro-warning text-retro-text border-retro-gold' },
+  All: { emoji: '🛒', color: 'bg-retro-surface-alt text-retro-muted border-retro-border/40 hover:border-retro-border', active: 'bg-retro-surface border-retro-gold/70 text-retro-gold shadow-lg shadow-black/20' },
+  Sayuran: { emoji: '🥬', color: 'bg-retro-surface-alt/80 text-retro-success border-retro-border/40 hover:border-retro-success/40', active: 'bg-retro-surface border-retro-success/60 text-retro-success' },
+  'Daging & Ikan': { emoji: '🥩', color: 'bg-retro-surface-alt/80 text-retro-danger border-retro-border/40 hover:border-retro-danger/40', active: 'bg-retro-surface border-retro-danger/60 text-retro-danger' },
+  'Frozen Food': { emoji: '🧊', color: 'bg-retro-surface-alt/80 text-retro-brand border-retro-border/40 hover:border-retro-brand/40', active: 'bg-retro-surface border-retro-brand/60 text-retro-brand' },
+  Minuman: { emoji: '🥛', color: 'bg-retro-surface-alt/80 text-retro-brand border-retro-border/40 hover:border-retro-brand/40', active: 'bg-retro-surface border-retro-brand/60 text-retro-brand' },
+  'Dapur & Bumbu': { emoji: '🧂', color: 'bg-retro-surface-alt/80 text-retro-warning border-retro-border/40 hover:border-retro-warning/40', active: 'bg-retro-surface border-retro-warning/60 text-retro-warning' },
+  'Rumah Tangga': { emoji: '🏠', color: 'bg-retro-surface-alt/80 text-retro-gold border-retro-border/40 hover:border-retro-gold/50', active: 'bg-retro-surface border-retro-gold/60 text-retro-gold' },
 }
-const DEFAULT_META = { emoji: '📦', color: 'bg-white/60 text-gray-600 border-gray-200', active: 'bg-gray-800 text-white border-gray-800 shadow-lg shadow-black/10' }
+const DEFAULT_META = { emoji: '📦', color: 'bg-retro-surface-alt text-retro-muted border-retro-border/40', active: 'bg-retro-surface border-retro-gold/70 text-retro-gold' }
 
 interface Props {
   categories: string[]
@@ -26,7 +26,7 @@ export function CategoryChips({ categories, selected, onSelect }: Props) {
           <button
             key={cat}
             onClick={() => onSelect(cat)}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold border backdrop-blur-sm transition-all active:scale-95 ${isActive ? meta.active : meta.color}`}
+            className={`px-4 py-2 rounded-none text-sm font-semibold border backdrop-blur-sm transition-all active:scale-95 ${isActive ? meta.active : meta.color}`}
           >
             {meta.emoji} {cat}
           </button>

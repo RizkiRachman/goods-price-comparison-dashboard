@@ -141,9 +141,9 @@ export default function PendingReceiptsPage() {
             </h2>
             <div className="space-y-3">
               {pendingJobs.map((job) => (
-                <div key={job.receiptId} className="bg-retro-surface rounded-none border border-gray-100 overflow-hidden">
+                <div key={job.receiptId} className="bg-retro-surface rounded-none border border-retro-border/30 overflow-hidden">
                   <div className="flex items-center gap-3 px-4 py-3">
-                    <div className="w-9 h-9 rounded-none flex items-center justify-center text-lg bg-amber-50">
+                    <div className="w-9 h-9 rounded-none flex items-center justify-center text-lg bg-retro-bg/50">
                       {STATUS_ICON[job.status] ?? '📄'}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -155,7 +155,7 @@ export default function PendingReceiptsPage() {
                   </div>
 
                   {job.result && (
-                    <div className="border-t border-gray-50 px-4 py-3 space-y-3">
+                    <div className="border-t border-retro-border/20 px-4 py-3 space-y-3">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-semibold text-retro-body uppercase">{job.result.storeName}</span>
                         <span className="font-bold text-retro-brand">{fmt(job.result.totalAmount)}</span>
@@ -182,7 +182,7 @@ export default function PendingReceiptsPage() {
 
                       <button
                         onClick={() => { navigate(`/receipts/${job.receiptId}`) }}
-                        className="w-full py-2 text-xs font-medium text-retro-brand bg-amber-50/30 hover:bg-amber-100/30 rounded-none transition"
+                        className="w-full py-2 text-xs font-medium text-retro-brand bg-retro-bg/50 hover:bg-retro-surface-alt/60 rounded-none transition"
                       >
                         Lihat Detail Struk
                       </button>
@@ -223,9 +223,9 @@ export default function PendingReceiptsPage() {
             </h2>
             <div className="space-y-3">
               {activeJobs.map((job) => (
-                <div key={job.receiptId} className="bg-retro-surface rounded-none border border-gray-100 overflow-hidden">
+                <div key={job.receiptId} className="bg-retro-surface rounded-none border border-retro-border/30 overflow-hidden">
                   <div className="flex items-center gap-3 px-4 py-3">
-                    <div className="w-9 h-9 rounded-none flex items-center justify-center text-lg bg-amber-50/30">
+                    <div className="w-9 h-9 rounded-none flex items-center justify-center text-lg bg-retro-bg/50">
                       {STATUS_ICON[job.status] ?? '⏳'}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -255,7 +255,7 @@ export default function PendingReceiptsPage() {
         {/* ── EMPTY STATE ── */}
         {pendingJobs.length === 0 && activeJobs.length === 0 && (
           <div className="text-center py-20">
-            <div className="w-16 h-16 bg-amber-50/30 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">🧾</div>
+            <div className="w-16 h-16 bg-retro-bg/50 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">🧾</div>
             <p className="text-lg font-semibold text-retro-body">Tidak ada struk yang perlu diproses</p>
             <p className="text-sm text-retro-muted mt-1">Upload struk untuk memulai</p>
             <button
@@ -277,7 +277,7 @@ export default function PendingReceiptsPage() {
               {terminalJobs.map((job) => (
                 <div
                   key={job.receiptId}
-                  className="bg-retro-surface rounded-none border border-gray-100 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-retro-surface-alt transition"
+                  className="bg-retro-surface rounded-none border border-retro-border/30 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-retro-surface-alt transition"
                   onClick={() => navigate(`/receipts/${job.receiptId}`)}
                 >
                   <span className="text-base">{STATUS_ICON[job.status] ?? '📄'}</span>
