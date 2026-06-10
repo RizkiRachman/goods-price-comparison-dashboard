@@ -63,8 +63,8 @@ export default function CategoryFormPage() {
   if (isEdit && isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-3">
-        <div className="w-16 h-16 bg-gray-100 rounded-2xl animate-pulse" />
-        <p className="text-gray-500 text-sm">{'Memuat kategori\u2026'}</p>
+        <div className="w-16 h-16 bg-retro-surface-alt rounded-none animate-pulse" />
+        <p className="text-retro-muted text-sm">{'Memuat kategori\u2026'}</p>
       </div>
     )
   }
@@ -73,7 +73,7 @@ export default function CategoryFormPage() {
     <div className="max-w-lg mx-auto space-y-4">
       <button
         onClick={() => navigate('/admin/categories')}
-        className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition"
+        className="flex items-center gap-2 text-sm text-retro-muted hover:text-retro-body transition"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -81,7 +81,7 @@ export default function CategoryFormPage() {
         Kembali
       </button>
 
-      <h1 className="text-2xl font-extrabold text-gray-900">
+      <h1 className="text-2xl font-extrabold text-retro-text">
         {isEdit ? 'Edit Kategori' : 'Tambah Kategori'}
       </h1>
 
@@ -91,11 +91,11 @@ export default function CategoryFormPage() {
         <FormBanner type="warning" message={`${issueCount} masalah perlu diperbaiki`} visible />
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-5 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-retro-surface border-[3px] border-retro-border [border-style:ridge] rounded-none px-5 py-5 space-y-4">
         {/* ID field */}
         <div>
-          <label className={`block text-sm font-semibold mb-1.5 ${issues.id ? 'text-red-500' : 'text-gray-700'}`}>
-            ID <span className="text-red-400">*</span>
+          <label className={`block text-sm font-semibold mb-1.5 ${issues.id ? 'text-retro-danger' : 'text-retro-body'}`}>
+            ID <span className="text-retro-danger/70">*</span>
           </label>
           <input
             type="text"
@@ -103,55 +103,55 @@ export default function CategoryFormPage() {
             onChange={(e) => setId(e.target.value.toUpperCase())}
             disabled={isEdit}
             placeholder="FOOD, DAIRY, BEVERAGE"
-            className={`w-full h-10 rounded-xl border px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.id ? 'border-red-300 focus:ring-red-400' : 'border-gray-200 focus:ring-indigo-500'
-            } ${isEdit ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : ''}`}
+            className={`w-full h-10 rounded-none border px-4 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition [border-style:inset] ${
+              issues.id ? 'border-retro-danger focus:ring-retro-danger/50' : 'border-retro-border focus:ring-retro-brand/50'
+            } ${isEdit ? 'bg-retro-surface-alt text-retro-muted cursor-not-allowed' : ''}`}
           />
-          {issues.id && <p className="text-xs text-red-500 mt-1">ID harus huruf besar, diawali huruf, tanpa spasi (contoh: FOOD)</p>}
+          {issues.id && <p className="text-xs text-retro-danger mt-1">ID harus huruf besar, diawali huruf, tanpa spasi (contoh: FOOD)</p>}
         </div>
 
         {/* Name field */}
         <div>
-          <label className={`block text-sm font-semibold mb-1.5 ${issues.name ? 'text-red-500' : 'text-gray-700'}`}>
-            Nama <span className="text-red-400">*</span>
+          <label className={`block text-sm font-semibold mb-1.5 ${issues.name ? 'text-retro-danger' : 'text-retro-body'}`}>
+            Nama <span className="text-retro-danger/70">*</span>
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Makanan"
-            className={`w-full h-10 rounded-xl border px-4 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.name ? 'border-red-300 focus:ring-red-400' : 'border-gray-200 focus:ring-indigo-500'
+            className={`w-full h-10 rounded-none border px-4 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition [border-style:inset] ${
+              issues.name ? 'border-retro-danger focus:ring-retro-danger/50' : 'border-retro-border focus:ring-retro-brand/50'
             }`}
           />
         </div>
 
         {/* Description field */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">Deskripsi</label>
+          <label className="block text-sm font-semibold text-retro-body mb-1.5">Deskripsi</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Opsional"
             rows={3}
-            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"
+            className="w-full rounded-none border border-retro-border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-brand/50 focus:border-transparent transition resize-none [border-style:inset]"
           />
         </div>
 
         {/* Status field */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">Status</label>
+          <label className="block text-sm font-semibold text-retro-body mb-1.5">Status</label>
           <div className="relative">
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as EntityStatus)}
-              className="h-10 w-full appearance-none rounded-xl border border-gray-200 px-4 pr-8 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="h-10 w-full appearance-none rounded-none border border-retro-border px-4 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-brand/50 focus:border-transparent transition [border-style:inset]"
             >
               {STATUS_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
               ))}
             </select>
-            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-retro-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>

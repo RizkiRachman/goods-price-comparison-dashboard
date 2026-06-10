@@ -5,12 +5,12 @@ interface Props {
 
 export function SearchModeToggle({ mode, onModeChange }: Props) {
   return (
-    <div className="inline-flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-lg p-1 border border-white/10">
+    <div className="inline-flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-none p-1 border border-retro-border/10">
       <button
         onClick={() => onModeChange('product')}
-        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium transition-all ${
+        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-none text-sm font-medium transition-all ${
           mode === 'product'
-            ? 'bg-white/90 text-indigo-600 shadow-sm'
+            ? 'bg-white/90 text-retro-brand'
             : 'text-white/70 hover:text-white hover:bg-white/10'
         }`}
       >
@@ -22,9 +22,9 @@ export function SearchModeToggle({ mode, onModeChange }: Props) {
 
       <button
         onClick={() => onModeChange('store')}
-        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium transition-all ${
+        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-none text-sm font-medium transition-all ${
           mode === 'store'
-            ? 'bg-white/90 text-indigo-600 shadow-sm'
+            ? 'bg-white/90 text-retro-brand'
             : 'text-white/70 hover:text-white hover:bg-white/10'
         }`}
       >

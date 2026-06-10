@@ -1,0 +1,101 @@
+<h2>Which retro game aesthetic speaks to you?</h2>
+<p class="subtitle">These set the entire design direction — pick the vibe that feels right for a price comparison dashboard.</p>
+
+<div class="cards">
+  <div class="card" data-choice="8bit" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0a0a2e;border:4px solid #4a4aff;border-radius:0;padding:20px;font-family:monospace;image-rendering:pixelated;min-height:180px;display:flex;flex-direction:column;gap:12px">
+        <div style="color:#4af;font-size:14px;letter-spacing:4px;text-shadow:2px 2px #000">★ HARGAKU ★</div>
+        <div style="border:3px solid #4a4aff;background:#000020;padding:12px;box-shadow:inset 0 0 8px #4af">
+          <div style="color:#ff4;font-size:12px;margin-bottom:8px">⚔ BERAS PREMIUM</div>
+          <div style="display:flex;gap:16px;align-items:end">
+            <div style="color:#4f4;font-size:22px;font-weight:bold;text-shadow:2px 2px #000">Rp 14.500</div>
+            <div style="color:#f44;font-size:11px">↑ Rp 16.000</div>
+          </div>
+          <div style="color:#88f;font-size:10px;margin-top:6px">🏪 Indomaret</div>
+        </div>
+        <div style="display:flex;gap:45px;justify-content:center">
+          <div style="color:#ff4;font-size:10px;border:2px solid #ff4;padding:4px 8px">▶ SEARCH</div>
+          <div style="color:#4f4;font-size:10px;border:2px solid #4f4;padding:4px 8px">▶ TRACKER</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>8-Bit Classic</h3>
+      <p>NES-era pixel art, sharp edges, limited palette, monospace font, chunky borders. Like Dragon Quest menus or early Final Fantasy.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="16bit" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0d1117;border:3px solid #58a6ff;border-radius:6px;padding:20px;font-family:'Courier New',monospace;min-height:180px;display:flex;flex-direction:column;gap:12px">
+        <div style="background:linear-gradient(90deg,#1a5fb4,#3584e4);padding:8px 14px;border-radius:4px;color:#fff;font-size:13px;font-weight:bold;text-shadow:1px 1px #000;box-shadow:0 0 12px #3584e4">◆ HARGAKU — Goods Price Dashboard</div>
+        <div style="background:#161b22;border:2px solid #30363d;border-radius:4px;padding:14px;box-shadow:0 0 6px #1f6feb33">
+          <div style="color:#d2a8ff;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🥩 Daging Sapi</div>
+          <div style="display:flex;gap:20px;align-items:baseline">
+            <div style="color:#7ee787;font-size:24px;font-weight:bold;text-shadow:1px 1px #000">Rp 120.000</div>
+            <div style="color:#f85149;font-size:12px">+Rp 135.000</div>
+          </div>
+          <div style="color:#8b949e;font-size:10px;margin-top:8px;display:flex;gap:12px">
+            <span>🏪 Superindo</span>
+            <span>📅 2 hari lalu</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:flex-end">
+          <div style="color:#58a6ff;font-size:11px;border:1px solid #30363d;padding:4px 12px;border-radius:4px;background:#21262d">Search</div>
+          <div style="color:#3fb950;font-size:11px;border:1px solid #238636;padding:4px 12px;border-radius:4px;background:#21262d">Optimize</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>16-Bit SNES / Genesis</h3>
+      <p>Smoother, richer palette, metallic accents, rounded corners, gradient headers, glowing neon highlights. Like Chrono Trigger or Phantasy Star menus.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="cyberpunk" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0a0a0a;border:2px solid #ff00ff;box-shadow:0 0 20px #ff00ff44,inset 0 0 40px #000;padding:20px;font-family:'Courier New',monospace;min-height:180px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,transparent,transparent 3px,#ff00ff22 3px,#ff00ff22 6px)"></div>
+        <div style="color:#0ff;font-size:13px;border:1px solid #f0f;padding:6px 12px;text-shadow:0 0 8px #0ff;letter-spacing:3px">[ HARGA_KU // v2.0 ]</div>
+        <div style="border:1px solid #0ff;background:#000000;padding:12px;box-shadow:0 0 10px #0ff22">
+          <div style="color:#f0f;font-size:11px;margin-bottom:6px;text-shadow:0 0 4px #f0f">ITEM: MINYAK GORENG 2L</div>
+          <div style="display:flex;gap:16px;align-items:end">
+            <div style="color:#0f0;font-size:20px;font-weight:bold;text-shadow:0 0 6px #0f0">Rp 28.500</div>
+            <div style="color:#f00;font-size:11px;text-shadow:0 0 4px #f00">HIGH: 32.000</div>
+          </div>
+          <div style="color:#0ff;font-size:10px;margin-top:6px">▸ ALFAMART // 1d ago</div>
+        </div>
+        <div style="display:flex;gap:60px;justify-content:center">
+          <div style="color:#ff0;font-size:10px;border:1px solid #ff0;padding:4px 12px">[SCAN]</div>
+          <div style="color:#0ff;font-size:10px;border:1px solid #0ff;padding:4px 12px">[TRACK]</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Cyberpunk Terminal</h3>
+      <p>Neon on black, scanlines, monospaced type, glowing borders, hacker aesthetic. Like System Shock, Deus Ex, or retro-futuristic dashboards.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="arcade" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a0033;border:5px solid #ff8800;border-style:outset;padding:20px;font-family:'Impact',sans-serif;min-height:180px;display:flex;flex-direction:column;gap:12px">
+        <div style="background:#ff8800;color:#000;font-size:16px;font-weight:900;text-align:center;padding:6px;letter-spacing:2px;box-shadow:0 4px 0 #663300">🏆 HARGAKU ARCADE 🏆</div>
+        <div style="background:#0d0d3d;border:3px solid #ffcc00;padding:14px;text-align:center">
+          <div style="color:#fff;font-size:12px;letter-spacing:1px;margin-bottom:4px">TERENDAH · BERAS 5KG</div>
+          <div style="color:#ffcc00;font-size:28px;font-weight:900;text-shadow:3px 3px 0 #000,-1px -1px 0 #ff4400">Rp 62.000</div>
+          <div style="color:#ff8800;font-size:10px;margin-top:4px">🏪 Hypermart · ★ BEST DEAL ★</div>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center">
+          <div style="background:#ff0044;color:#fff;font-size:12px;font-weight:bold;padding:8px 16px;box-shadow:0 3px 0 #800022;letter-spacing:1px">SEARCH</div>
+          <div style="background:#00cc44;color:#fff;font-size:12px;font-weight:bold;padding:8px 16px;box-shadow:0 3px 0 #006622;letter-spacing:1px">COMPARE</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Arcade / Street Fighter</h3>
+      <p>Bold, punchy, high-contrast. Thick borders, vibrant yellows/oranges/reds, 3D button effects, big impact typography. Like Street Fighter II or NBA Jam.</p>
+    </div>
+  </div>
+</div>

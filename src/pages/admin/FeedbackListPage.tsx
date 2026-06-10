@@ -6,8 +6,8 @@ import { DataTable, type Column } from '@/components/DataTable'
 import type { FeedbackQuestion, FeedbackType } from '@/types/api'
 
 const typePill: Record<FeedbackType, { bg: string; text: string; label: string }> = {
-  feedback: { bg: 'bg-indigo-50', text: 'text-indigo-600', label: 'Feedback' },
-  question: { bg: 'bg-emerald-50', text: 'text-emerald-600', label: 'Pertanyaan' },
+  feedback: { bg: 'bg-retro-brand/15', text: 'text-retro-brand', label: 'Feedback' },
+  question: { bg: 'bg-retro-success/15', text: 'text-retro-success', label: 'Pertanyaan' },
 }
 
 function formatDate(iso: string): string {
@@ -41,7 +41,7 @@ export default function FeedbackListPage() {
       render: (f) => {
         const t = typePill[f.type]
         return (
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${t.bg} ${t.text}`}>
+          <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${t.bg} ${t.text}`}>
             {t.label}
           </span>
         )
@@ -50,23 +50,23 @@ export default function FeedbackListPage() {
     {
       key: 'userName',
       header: 'Nama',
-      render: (f) => <span className="font-semibold text-gray-900">{f.userName}</span>,
+      render: (f) => <span className="font-semibold text-retro-body">{f.userName}</span>,
     },
     {
       key: 'userEmail',
       header: 'Email',
-      render: (f) => <span className="text-gray-500 text-sm">{f.userEmail}</span>,
+      render: (f) => <span className="text-retro-muted text-sm">{f.userEmail}</span>,
     },
     {
       key: 'message',
       header: 'Pesan',
-      render: (f) => <span className="text-gray-500 text-sm line-clamp-2">{f.message}</span>,
+      render: (f) => <span className="text-retro-muted text-sm line-clamp-2">{f.message}</span>,
     },
     {
       key: 'createdAt',
       header: 'Tanggal',
       sortable: true,
-      render: (f) => <span className="text-gray-400 text-sm">{formatDate(f.createdAt)}</span>,
+      render: (f) => <span className="text-retro-muted text-sm">{formatDate(f.createdAt)}</span>,
     },
   ]
 
@@ -74,8 +74,8 @@ export default function FeedbackListPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-3">
         <span className="text-4xl">{'\u26A0\uFE0F'}</span>
-        <p className="text-lg font-semibold text-gray-700">Gagal memuat feedback</p>
-        <button onClick={() => navigate('/goods')} className="text-sm text-indigo-600 font-semibold hover:underline">
+        <p className="text-lg font-semibold text-retro-body">Gagal memuat feedback</p>
+        <button onClick={() => navigate('/goods')} className="text-sm text-retro-brand font-semibold hover:underline">
           Kembali
         </button>
       </div>
@@ -90,14 +90,14 @@ export default function FeedbackListPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Feedback & Pertanyaan</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Kelola masukan dari pengguna</p>
+          <h1 className="text-2xl font-extrabold text-retro-text">Feedback & Pertanyaan</h1>
+          <p className="text-sm text-retro-muted mt-0.5">Kelola masukan dari pengguna</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/feedback')}
-          className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition"
+          className="flex items-center gap-2 px-4 py-2.5 bg-retro-primary text-retro-text rounded-none text-sm font-semibold hover:brightness-110 transition border-[3px] border-retro-primary [border-style:outset] shadow-[0_4px_0_#2a4a68] active:shadow-none active:translate-y-1 focus-visible:ring-2 focus-visible:ring-retro-gold/50 focus-visible:outline-none"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -107,8 +107,7 @@ export default function FeedbackListPage() {
       </div>
 
       {/* Table */}
-      <DataTable
-          columns={columns}
+      <DataTable          columns={columns}
           data={items}
           pagination={pagination}
           onPageChange={setPage}

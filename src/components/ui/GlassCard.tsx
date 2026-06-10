@@ -9,10 +9,10 @@ interface GlassCardProps {
 }
 
 const styles: Record<string, string> = {
-  default: 'bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg shadow-black/5',
+  default: 'bg-retro-surface/80 border border-retro-border/30',
   interactive:
-    'bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 cursor-pointer transition-shadow duration-200',
-  frosted: 'bg-white/30 backdrop-blur-2xl border border-white/10 shadow-md shadow-black/5',
+    'bg-retro-surface/70 border border-retro-border/30 cursor-pointer transition-shadow duration-200',
+  frosted: 'bg-retro-surface/50 border border-retro-border/20',
 }
 
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
@@ -20,7 +20,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
     return (
       <div
         ref={ref}
-        className={`rounded-2xl ${styles[variant]} ${className}`}
+        className={`rounded-none ${styles[variant]} ${className}`}
         style={{ willChange: 'transform', ...style }}
         onClick={onClick}
       >

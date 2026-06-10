@@ -17,12 +17,12 @@ export function SearchBar({ value, onChange, placeholder = 'Cari barang kebutuha
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full pl-14 pr-14 py-4 sm:py-5 rounded-2xl bg-white/15 backdrop-blur-xl border border-white/20 text-white placeholder-white/40 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/20 transition-all duration-200 shadow-xl"
+        className="w-full pl-14 pr-14 py-4 sm:py-5 rounded-none bg-white/15 backdrop-blur-xl border border-retro-border/20 text-white placeholder-white/40 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/20 transition-all duration-200 shadow-xl"
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          className="absolute right-5 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white/70 hover:text-white transition"
+          className="absolute right-5 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-none bg-white/20 hover:bg-white/30 text-white/70 hover:text-white transition"
         >
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />

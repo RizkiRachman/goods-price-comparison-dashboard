@@ -70,19 +70,19 @@ export default function GoodsListPage() {
   const isEmpty = searchMode === 'product' ? goods.length === 0 : (storesData?.data.length ?? 0) === 0
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-retro-bg">
       {/* ── Sticky Navbar ── */}
-      <header className="sticky top-0 z-30 h-14 flex items-center bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-30 h-14 flex items-center bg-retro-surface/80 backdrop-blur-xl border-b border-retro-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow">
+            <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-retro-gold rounded-none flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <span className="font-black text-slate-900 text-lg tracking-tight">HargaKu</span>
-            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 bg-slate-100 text-slate-500 text-xs font-semibold rounded-full">
+            <span className="font-black text-retro-text text-lg tracking-tight">HargaKu</span>
+            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 bg-retro-surface text-retro-muted text-xs font-semibold rounded-none">
               {totalItems.toLocaleString()} {searchMode === 'product' ? 'barang' : 'toko'}
             </span>
           </div>
@@ -93,7 +93,7 @@ export default function GoodsListPage() {
             <div className="relative hidden sm:block" ref={addMenuRef}>
               <button
                 onClick={() => setShowAddMenu((v) => !v)}
-                className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-semibold rounded-xl shadow shadow-emerald-300/40 hover:shadow-md hover:shadow-emerald-400/40 transition-all active:scale-95"
+                className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-semibold rounded-none transition-all active:scale-95"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -104,30 +104,30 @@ export default function GoodsListPage() {
                 </svg>
               </button>
               {showAddMenu && (
-                <div className="absolute right-0 mt-1.5 w-48 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-50">
+                <div className="absolute right-0 mt-1.5 w-48 bg-retro-surface rounded-none border border-retro-border overflow-hidden z-50">
                   <button
                     onClick={() => { setShowAddMenu(false); navigate('/receipts/create') }}
-                    className="flex items-center gap-3 w-full px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition text-left"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm text-retro-body hover:bg-retro-bg transition text-left"
                   >
-                    <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-retro-success flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                     <div>
                       <p className="font-medium">Input Manual</p>
-                      <p className="text-xs text-slate-400">Isi data struk langsung</p>
+                      <p className="text-xs text-retro-muted">Isi data struk langsung</p>
                     </div>
                   </button>
-                  <div className="border-t border-slate-100" />
+                  <div className="border-t border-retro-border" />
                   <button
                     onClick={() => { setShowAddMenu(false); setShowUpload(true) }}
-                    className="flex items-center gap-3 w-full px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition text-left"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm text-retro-body hover:bg-retro-bg transition text-left"
                   >
-                    <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-retro-success flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                     <div>
                       <p className="font-medium">Upload Foto</p>
-                      <p className="text-xs text-slate-400">Foto struk untuk diproses</p>
+                      <p className="text-xs text-retro-muted">Foto struk untuk diproses</p>
                     </div>
                   </button>
                 </div>
@@ -136,14 +136,14 @@ export default function GoodsListPage() {
 
             <button
               onClick={() => setShowHistory(true)}
-              className="relative flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors"
+              className="relative flex items-center gap-2 px-4 py-2 bg-retro-surface hover:bg-retro-surface-alt text-retro-body text-sm font-medium rounded-none transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span className="hidden sm:inline">Riwayat</span>
               {stats.total > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-rose-500 text-white text-[10px] font-bold rounded-full px-1">
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-retro-danger text-white text-[10px] font-bold rounded-none px-1">
                   {stats.total}
                 </span>
               )}
@@ -151,7 +151,7 @@ export default function GoodsListPage() {
 
             <button
               onClick={() => navigate('/tracker')}
-              className="relative flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-medium rounded-xl transition-colors"
+              className="relative flex items-center gap-2 px-4 py-2 bg-retro-surface hover:bg-retro-surface-alt text-retro-body text-sm font-medium rounded-none transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19V5m4 14v-6m4 6v-8m4 8v-4" />
@@ -161,14 +161,14 @@ export default function GoodsListPage() {
 
             <button
               onClick={() => navigate('/receipts/pending')}
-              className="relative flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors"
+              className="relative flex items-center gap-2 px-4 py-2 bg-retro-surface hover:bg-retro-surface-alt text-retro-body text-sm font-medium rounded-none transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
               </svg>
               <span className="hidden sm:inline">Proses</span>
               {processingCount > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-amber-500 text-white text-[10px] font-bold rounded-full px-1">
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-retro-warning text-white text-[10px] font-bold rounded-none px-1">
                   {processingCount}
                 </span>
               )}
@@ -176,7 +176,7 @@ export default function GoodsListPage() {
 
             <button
               onClick={() => setShowAbout(true)}
-              className="flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-xl transition-colors"
+              className="flex items-center justify-center w-9 h-9 bg-retro-surface hover:bg-retro-surface-alt text-retro-muted rounded-none transition-colors"
               aria-label="Tentang HargaKu"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,7 +186,7 @@ export default function GoodsListPage() {
 
             <NavLink
               to="/admin/categories"
-              className="flex items-center justify-center w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-xl transition-colors"
+              className="flex items-center justify-center w-9 h-9 bg-retro-surface hover:bg-retro-surface-alt text-retro-muted rounded-none transition-colors"
               aria-label="Admin Panel"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,18 +201,18 @@ export default function GoodsListPage() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold relative overflow-hidden">
         {/* decorative blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute top-16 -left-16 w-56 h-56 bg-purple-400/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/3 w-80 h-48 bg-amber-400/10 rounded-full blur-3xl" />
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-retro-surface/10 rounded-none blur-3xl" />
+          <div className="absolute top-16 -left-16 w-56 h-56 bg-retro-gold/10 rounded-none blur-3xl" />
+          <div className="absolute bottom-0 right-1/3 w-80 h-48 bg-amber-400/10 rounded-none blur-3xl" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-14">
           {/* Live pill */}
-          <div className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur text-white/90 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
-            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-1.5 bg-retro-surface/15 backdrop-blur text-white/90 text-xs font-medium px-3 py-1.5 rounded-none mb-5">
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-none animate-pulse" />
             Pantau harga belanjaan harian
           </div>
 
@@ -255,30 +255,30 @@ export default function GoodsListPage() {
 
         {isError && (
           <div className="text-center py-20">
-            <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-retro-surface rounded-none flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-retro-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
             </div>
-            <p className="text-slate-600 font-semibold">Gagal memuat data</p>
-            <p className="text-slate-400 text-sm mt-1">Periksa koneksi atau coba lagi</p>
+            <p className="text-retro-body font-semibold">Gagal memuat data</p>
+            <p className="text-retro-muted text-sm mt-1">Periksa koneksi atau coba lagi</p>
           </div>
         )}
 
         {!isLoading && !isError && isEmpty && (
           <div className="text-center py-20">
-            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-retro-surface-alt rounded-none flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-retro-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <p className="text-slate-600 font-semibold">
+            <p className="text-retro-body font-semibold">
               {searchMode === 'product' ? 'Barang tidak ditemukan' : 'Toko tidak ditemukan'}
             </p>
-            <p className="text-slate-400 text-sm mt-1">Coba kata kunci yang berbeda</p>
+            <p className="text-retro-muted text-sm mt-1">Coba kata kunci yang berbeda</p>
             <button
               onClick={() => searchMode === 'product' ? productSearch.setSearch('') : storeSearch.setSearch('')}
-              className="mt-4 px-5 py-2 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition"
+              className="mt-4 px-5 py-2 text-sm font-semibold text-retro-brand bg-retro-surface hover:bg-retro-surface-alt rounded-none transition"
             >
               Reset
             </button>
@@ -288,15 +288,15 @@ export default function GoodsListPage() {
         {!isLoading && !isError && !isEmpty && (
           <>
             {pagination && (
-              <p className="text-sm text-slate-400 mb-4">
+              <p className="text-sm text-retro-muted mb-4">
                 Menampilkan{' '}
-                <span className="font-semibold text-slate-700">
+                <span className="font-semibold text-retro-body">
                   {(page - 1) * 10 + 1}–{Math.min(page * 10, totalItems)}
                 </span>{' '}
                 dari{' '}
-                <span className="font-semibold text-slate-700">{totalItems}</span> {itemLabel}
+                <span className="font-semibold text-retro-body">{totalItems}</span> {itemLabel}
                 {(productSearch.search || storeSearch.search) && (
-                  <> untuk &ldquo;<span className="text-indigo-600 font-semibold">{searchMode === 'product' ? productSearch.search : storeSearch.search}</span>&rdquo;</>
+                  <> untuk &ldquo;<span className="text-retro-brand font-semibold">{searchMode === 'product' ? productSearch.search : storeSearch.search}</span>&rdquo;</>
                 )}
               </p>
             )}
@@ -339,18 +339,18 @@ export default function GoodsListPage() {
           <div className="flex flex-col items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <button
               onClick={() => { setShowMobileAddMenu(false); navigate('/receipts/create') }}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white text-slate-700 text-sm font-semibold rounded-xl shadow-lg border border-slate-200 active:scale-95 transition-transform"
+              className="flex items-center gap-2 px-4 py-2.5 bg-retro-surface text-retro-body text-sm font-semibold rounded-none border border-retro-border active:scale-95 transition-transform"
             >
-              <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-retro-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
               Input Manual
             </button>
             <button
               onClick={() => { setShowMobileAddMenu(false); setShowUpload(true) }}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white text-slate-700 text-sm font-semibold rounded-xl shadow-lg border border-slate-200 active:scale-95 transition-transform"
+              className="flex items-center gap-2 px-4 py-2.5 bg-retro-surface text-retro-body text-sm font-semibold rounded-none border border-retro-border active:scale-95 transition-transform"
             >
-              <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-retro-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
               </svg>
               Upload Foto
@@ -359,7 +359,7 @@ export default function GoodsListPage() {
         )}
         <button
           onClick={() => setShowMobileAddMenu((v) => !v)}
-          className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl shadow-lg shadow-emerald-400/40 flex items-center justify-center active:scale-90 transition-transform"
+          className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-none flex items-center justify-center active:scale-90 transition-transform"
           aria-label="Tambah struk"
         >
           <svg

@@ -5,7 +5,7 @@ const CATEGORY_META: Record<string, { emoji: string; color: string; active: stri
   'Frozen Food':   { emoji: '🧊', color: 'bg-cyan-50/80 text-cyan-700 border-cyan-200 hover:border-cyan-400',         active: 'bg-cyan-500 text-white border-cyan-500 shadow-lg shadow-cyan-200' },
   Minuman:         { emoji: '🥛', color: 'bg-sky-50/80 text-sky-700 border-sky-200 hover:border-sky-400',             active: 'bg-sky-500 text-white border-sky-500 shadow-lg shadow-sky-200' },
   'Dapur & Bumbu': { emoji: '🧂', color: 'bg-amber-50/80 text-amber-700 border-amber-200 hover:border-amber-400',     active: 'bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-200' },
-  'Rumah Tangga':  { emoji: '🏠', color: 'bg-purple-50/80 text-purple-700 border-purple-200 hover:border-purple-400', active: 'bg-purple-500 text-white border-purple-500 shadow-lg shadow-purple-200' },
+  'Rumah Tangga':  { emoji: '🏠', color: 'bg-amber-50/30 text-retro-gold border-retro-gold/50 hover:border-retro-gold', active: 'bg-retro-warning text-retro-text border-retro-gold' },
 }
 const DEFAULT_META = { emoji: '📦', color: 'bg-white/60 text-gray-600 border-gray-200', active: 'bg-gray-800 text-white border-gray-800 shadow-lg shadow-black/10' }
 

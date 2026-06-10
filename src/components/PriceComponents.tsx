@@ -13,12 +13,12 @@ function relativeDate(dateStr: string): string {
 }
 
 const STORE_GRADIENTS = [
-  'from-indigo-500 to-violet-600',
+  'from-amber-500 to-retro-gold',
   'from-emerald-500 to-teal-600',
   'from-rose-500 to-pink-600',
   'from-amber-500 to-orange-600',
   'from-sky-500 to-blue-600',
-  'from-purple-500 to-fuchsia-600',
+  'from-amber-500 to-retro-gold',
 ]
 
 function storeGradient(name: string): string {
@@ -34,11 +34,11 @@ interface PriceBarProps {
 
 export function PriceBar({ price, min, max }: PriceBarProps) {
   const pct = max === min ? 100 : ((price - min) / (max - min)) * 100
-  const color = pct <= 33 ? 'bg-emerald-500' : pct <= 66 ? 'bg-amber-400' : 'bg-red-400'
+  const color = pct <= 33 ? 'bg-retro-success' : pct <= 66 ? 'bg-retro-warning' : 'bg-retro-danger'
   return (
-    <div className="w-full bg-slate-100/60 rounded-full h-1.5 mt-2">
+    <div className="w-full bg-retro-surface/60 rounded-none h-1.5 mt-2">
       <div
-        className={`h-1.5 rounded-full ${color}`}
+        className={`h-1.5 rounded-none ${color}`}
         style={{ width: `${Math.max(8, pct)}%` }}
       />
     </div>
@@ -84,14 +84,14 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
         <div className="flex items-start justify-between gap-3">
           {/* Left: avatar + info */}
           <div className="flex items-start gap-3 min-w-0">
-            <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center text-white text-sm font-black shrink-0 shadow-sm`}>
+            <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-none flex items-center justify-center text-white text-sm font-black shrink-0`}>
               {storeInitial}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="font-semibold text-slate-900 text-sm sm:text-base leading-tight">{item.storeName}</p>
+                <p className="font-semibold text-retro-text text-sm sm:text-base leading-tight">{item.storeName}</p>
                 {isLowest && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-semibold rounded-full">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-100 text-retro-success text-[10px] font-semibold rounded-none">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -99,29 +99,29 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
                   </span>
                 )}
                 {item.isPromo && (
-                  <span className="inline-flex items-center px-2 py-0.5 bg-rose-100 text-rose-600 text-[10px] font-semibold rounded-full">
+                  <span className="inline-flex items-center px-2 py-0.5 bg-rose-100 text-retro-danger text-[10px] font-semibold rounded-none">
                     Promo
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">{relativeDate(item.dateRecorded)}</p>
+              <p className="text-[11px] text-retro-muted mt-0.5">{relativeDate(item.dateRecorded)}</p>
             </div>
           </div>
 
           {/* Right: price + actions */}
           <div className="text-right shrink-0">
-            <p className="text-xl font-black text-slate-900 tracking-tight group-hover:text-indigo-600 transition-colors">
+            <p className="text-xl font-black text-retro-text tracking-tight group-hover:text-retro-gold transition-colors">
               {formatPrice(displayPrice)}
             </p>
             {!showUnitPrice && item.unitPrice != null && item.unitPrice !== item.price && (
-              <p className="text-[11px] text-slate-400 mt-0.5">{formatPrice(item.unitPrice)}/unit</p>
+              <p className="text-[11px] text-retro-muted mt-0.5">{formatPrice(item.unitPrice)}/unit</p>
             )}
             {(onEdit || onDelete) && (
               <div className="flex items-center justify-end gap-1 mt-1.5">
                 {onEdit && (
                   <button
                     onClick={() => onEdit(item)}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 active:bg-indigo-100 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-gold hover:bg-amber-50/30 active:bg-amber-100/30 transition-colors"
                     aria-label="Edit"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
                 {onDelete && (
                   <button
                     onClick={() => onDelete(item)}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 active:bg-rose-100 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-danger hover:bg-rose-50 active:bg-rose-100 transition-colors"
                     aria-label="Hapus"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,9 +146,9 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
         </div>
 
         {/* Progress bar */}
-        <div className="mt-3 w-full bg-slate-100/60 rounded-full h-1.5 overflow-hidden">
+        <div className="mt-3 w-full bg-retro-surface/60 rounded-none h-1.5 overflow-hidden">
           <div
-            className={`h-full rounded-full ${progressBg}`}
+            className={`h-full rounded-none ${progressBg}`}
             style={{ width: `${Math.max(6, pct)}%` }}
           />
         </div>
