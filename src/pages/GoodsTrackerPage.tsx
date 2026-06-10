@@ -80,7 +80,7 @@ function StoreResultCard({ result }: { result: ShoppingOptimizeResponse }) {
       </div>
 
       {/* Result note */}
-      <div className="bg-retro-surface border border-indigo-100 rounded-none p-4 text-sm text-retro-body text-center">
+      <div className="bg-retro-surface border border-retro-gold/30 rounded-none p-4 text-sm text-retro-body text-center">
         Ini hasil optimum berdasarkan data / catatan harga kami.
       </div>
     </div>
@@ -137,8 +137,8 @@ export default function GoodsTrackerPage() {
 
   const CATEGORY_COLORS: Record<string, { tint: string; emoji: string }> = {
     food:      { tint: 'bg-emerald-50',  emoji: '\uD83C\uDF7D\uFE0F' },
-    beverage:  { tint: 'bg-sky-50',      emoji: '\uD83E\uDD64' },
-    household: { tint: 'bg-violet-50',   emoji: '\uD83C\uDFE0' },
+    beverage:  { tint: 'bg-retro-bg/50',      emoji: '\uD83E\uDD64' },
+    household: { tint: 'bg-amber-50/30',   emoji: '\uD83C\uDFE0' },
   }
   const DEFAULT_COLOR = { tint: 'bg-retro-bg', emoji: '\uD83D\uDCE6' }
 
@@ -163,10 +163,10 @@ export default function GoodsTrackerPage() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-retro-surface/10 rounded-none blur-3xl" />
-          <div className="absolute top-16 -left-16 w-56 h-56 bg-purple-400/20 rounded-none blur-3xl" />
+          <div className="absolute top-16 -left-16 w-56 h-56 bg-retro-gold/10 rounded-none blur-3xl" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-14">
@@ -252,7 +252,7 @@ export default function GoodsTrackerPage() {
             <button
               onClick={handleOptimize}
               disabled={!canOptimize}
-              className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-bold rounded-none disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 flex items-center gap-2"
+              className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-retro-gold text-white text-sm font-bold rounded-none disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 flex items-center gap-2"
             >
               {mutation.isPending ? (
                 <>

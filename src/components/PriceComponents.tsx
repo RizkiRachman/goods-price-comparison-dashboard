@@ -13,12 +13,12 @@ function relativeDate(dateStr: string): string {
 }
 
 const STORE_GRADIENTS = [
-  'from-indigo-500 to-violet-600',
+  'from-amber-500 to-retro-gold',
   'from-emerald-500 to-teal-600',
   'from-rose-500 to-pink-600',
   'from-amber-500 to-orange-600',
   'from-sky-500 to-blue-600',
-  'from-purple-500 to-fuchsia-600',
+  'from-amber-500 to-retro-gold',
 ]
 
 function storeGradient(name: string): string {
@@ -121,7 +121,7 @@ export function ReceiptRow({ item, min, max, isLowest, showUnitPrice, onEdit, on
                 {onEdit && (
                   <button
                     onClick={() => onEdit(item)}
-                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-gold hover:bg-indigo-50 active:bg-indigo-100 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-none text-retro-muted hover:text-retro-gold hover:bg-amber-50/30 active:bg-amber-100/30 transition-colors"
                     aria-label="Edit"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

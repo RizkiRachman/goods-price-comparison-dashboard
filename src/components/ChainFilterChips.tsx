@@ -10,7 +10,7 @@ const CHAIN_COLORS: Record<string, { bg: string; text: string; border: string }>
   Alfamart: { bg: 'bg-red-50/80', text: 'text-red-700', border: 'border-red-200' },
   Alfamidi: { bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-orange-200' },
   Superindo: { bg: 'bg-green-50/80', text: 'text-green-700', border: 'border-green-200' },
-  Hypermart: { bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-purple-200' },
+  Hypermart: { bg: 'bg-amber-50/30', text: 'text-retro-gold', border: 'border-retro-gold/50' },
 }
 
 const DEFAULT_COLOR = { bg: 'bg-white/60', text: 'text-gray-700', border: 'border-gray-200' }

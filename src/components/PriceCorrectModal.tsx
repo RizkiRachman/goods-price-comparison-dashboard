@@ -43,13 +43,13 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
   return (
     <ModalShell open={true} onClose={onClose} variant="center">
       {/* Header */}
-      <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 px-6 pt-5 pb-8">
+      <div className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold px-6 pt-5 pb-8">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-retro-text/60 text-xs font-medium uppercase tracking-wide mb-1">Koreksi Harga</p>
             <p className="text-retro-text font-bold text-base leading-snug line-clamp-2">{productName}</p>
             {currentPrice && currentPrice > 0 && (
-              <p className="text-indigo-200 text-xs mt-1">Harga saat ini: {fmt(currentPrice)}/{unit ?? 'pcs'}</p>
+              <p className="text-retro-gold/80 text-xs mt-1">Harga saat ini: {fmt(currentPrice)}/{unit ?? 'pcs'}</p>
             )}
           </div>
           <button
@@ -96,12 +96,12 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
                 onChange={(e) => setPrice(Math.max(0, Number(e.target.value)))}
                 placeholder="0"
                 className={`w-full rounded-none border pl-9 pr-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                  price <= 0 ? 'border-red-300 focus:ring-red-400' : 'border-gray-200 focus:ring-indigo-500'
+                  price <= 0 ? 'border-red-300 focus:ring-red-400' : 'border-gray-200 focus:ring-retro-gold'
                 }`}
               />
             </div>
             {price > 0 && (
-              <p className="text-xs text-indigo-500 mt-1 font-medium">{fmt(price)}</p>
+              <p className="text-xs text-retro-gold mt-1 font-medium">{fmt(price)}</p>
             )}
           </div>
 
@@ -114,7 +114,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
               value={date}
               max={today}
               onChange={(e) => setDate(e.target.value)}
-              className="mt-1.5 w-full rounded-none border border-gray-200 px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="mt-1.5 w-full rounded-none border border-gray-200 px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
             />
           </div>
 
@@ -123,7 +123,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
               role="checkbox"
               aria-checked={isPromo}
               onClick={() => setIsPromo((v) => !v)}
-              className={`w-10 h-6 rounded-full relative transition-colors ${isPromo ? 'bg-indigo-500' : 'bg-gray-200'}`}
+              className={`w-10 h-6 rounded-full relative transition-colors ${isPromo ? 'bg-amber-50/300' : 'bg-gray-200'}`}
             >
               <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all ${isPromo ? 'left-5' : 'left-1'}`} />
             </div>
@@ -134,7 +134,7 @@ export function PriceCorrectModal({ productId, productName, storeId, currentPric
         <button
           type="submit"
           disabled={!isValid || mutation.isPending || done}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-none font-bold text-sm text-retro-text bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-none font-bold text-sm text-retro-text bg-retro-warning hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           {mutation.isPending ? (
             <>

@@ -68,7 +68,7 @@ export function AboutDrawer({ open, onClose }: AboutDrawerProps) {
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-retro-border/20">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-none flex items-center justify-center">
+                <div className="w-9 h-9 bg-gradient-to-br from-amber-500 to-retro-gold rounded-none flex items-center justify-center">
                   <svg className="w-4.5 h-4.5 text-retro-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -89,7 +89,7 @@ export function AboutDrawer({ open, onClose }: AboutDrawerProps) {
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
               {/* Hero card */}
-              <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 rounded-none p-6 relative overflow-hidden">
+              <div className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold rounded-none p-6 relative overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
                 <div className="absolute bottom-0 left-0 w-32 h-24 bg-amber-400/10 rounded-full blur-xl" />
                 <div className="relative">
@@ -188,7 +188,7 @@ export function AboutDrawer({ open, onClose }: AboutDrawerProps) {
               <section>
                 <button
                   onClick={() => { onClose(); navigate('/feedback') }}
-                  className="w-full flex items-center gap-3 px-4 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-retro-text rounded-none transition-all active:scale-[0.98]"
+                  className="w-full flex items-center gap-3 px-4 py-3.5 bg-gradient-to-r from-amber-600 to-retro-gold text-retro-text rounded-none transition-all active:scale-[0.98]"
                 >
                   <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

@@ -76,7 +76,7 @@ export default function GoodsListPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-none flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-retro-gold rounded-none flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -201,11 +201,11 @@ export default function GoodsListPage() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold relative overflow-hidden">
         {/* decorative blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-retro-surface/10 rounded-none blur-3xl" />
-          <div className="absolute top-16 -left-16 w-56 h-56 bg-purple-400/20 rounded-none blur-3xl" />
+          <div className="absolute top-16 -left-16 w-56 h-56 bg-retro-gold/10 rounded-none blur-3xl" />
           <div className="absolute bottom-0 right-1/3 w-80 h-48 bg-amber-400/10 rounded-none blur-3xl" />
         </div>
 

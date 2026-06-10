@@ -98,7 +98,7 @@ function ReceiptCard({
                 </div>
               ))}
               {receipt.result.items.length > 3 && (
-                <p className="text-xs text-indigo-500 font-medium">
+                <p className="text-xs text-retro-gold font-medium">
                   +{receipt.result.items.length - 3} item lainnya →
                 </p>
               )}
@@ -112,7 +112,7 @@ function ReceiptCard({
         <div className="px-4 pb-3">
           <button
             onClick={(e) => { e.stopPropagation(); onCorrect() }}
-            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-none text-xs font-semibold text-retro-brand bg-indigo-50/80 backdrop-blur-sm hover:bg-indigo-100 border border-indigo-100 transition"
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-none text-xs font-semibold text-retro-brand bg-amber-50/30/80 backdrop-blur-sm hover:bg-amber-100/30 border border-retro-gold/30 transition"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -176,11 +176,11 @@ export function ReceiptHistoryDrawer({ receipts, onClose }: Props) {
           className="relative w-full max-w-2xl max-h-[90vh] bg-retro-surface/80 backdrop-blur-xl border border-retro-border/30 rounded-none flex flex-col overflow-hidden"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-600 to-violet-600 p-6">
+          <div className="bg-gradient-to-r from-amber-600 to-retro-gold p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-bold text-retro-text">Riwayat Struk</h2>
-                <p className="text-indigo-100 text-sm mt-1">{receipts.length} struk tersimpan</p>
+                <p className="text-retro-body text-sm mt-1">{receipts.length} struk tersimpan</p>
               </div>
               <button
                 onClick={onClose}

@@ -68,7 +68,7 @@ export default function PendingReceiptsPage() {
   return (
     <div className="min-h-screen bg-retro-bg">
       {/* Header */}
-      <header className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700">
+      <header className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-4 pb-8">
           <div className="flex items-center justify-between mb-6">
             <button
@@ -127,7 +127,7 @@ export default function PendingReceiptsPage() {
           </div>
           </div>
           <h1 className="text-2xl font-extrabold text-white">Proses Struk</h1>
-          <p className="text-indigo-200 text-sm mt-1">{jobs.length} struk diproses</p>
+          <p className="text-retro-gold/80 text-sm mt-1">{jobs.length} struk diproses</p>
         </div>
       </header>
 
@@ -182,7 +182,7 @@ export default function PendingReceiptsPage() {
 
                       <button
                         onClick={() => { navigate(`/receipts/${job.receiptId}`) }}
-                        className="w-full py-2 text-xs font-medium text-retro-brand bg-indigo-50 hover:bg-indigo-100 rounded-none transition"
+                        className="w-full py-2 text-xs font-medium text-retro-brand bg-amber-50/30 hover:bg-amber-100/30 rounded-none transition"
                       >
                         Lihat Detail Struk
                       </button>
@@ -225,7 +225,7 @@ export default function PendingReceiptsPage() {
               {activeJobs.map((job) => (
                 <div key={job.receiptId} className="bg-retro-surface rounded-none border border-gray-100 overflow-hidden">
                   <div className="flex items-center gap-3 px-4 py-3">
-                    <div className="w-9 h-9 rounded-none flex items-center justify-center text-lg bg-indigo-50">
+                    <div className="w-9 h-9 rounded-none flex items-center justify-center text-lg bg-amber-50/30">
                       {STATUS_ICON[job.status] ?? '⏳'}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -233,7 +233,7 @@ export default function PendingReceiptsPage() {
                         {job.fileName ?? 'struk.jpg'}
                       </p>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-retro-gold animate-pulse" />
                         <span className="text-xs font-medium text-retro-brand">{STATUS_LABEL[job.status]}</span>
                       </div>
                     </div>
@@ -255,7 +255,7 @@ export default function PendingReceiptsPage() {
         {/* ── EMPTY STATE ── */}
         {pendingJobs.length === 0 && activeJobs.length === 0 && (
           <div className="text-center py-20">
-            <div className="w-16 h-16 bg-indigo-50 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">🧾</div>
+            <div className="w-16 h-16 bg-amber-50/30 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">🧾</div>
             <p className="text-lg font-semibold text-retro-body">Tidak ada struk yang perlu diproses</p>
             <p className="text-sm text-retro-muted mt-1">Upload struk untuk memulai</p>
             <button

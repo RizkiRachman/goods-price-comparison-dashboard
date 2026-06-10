@@ -14,7 +14,7 @@ export function ContributionStats({
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {/* Total Uploads */}
-      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-4 text-white">
+      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-none p-4 text-white">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-2xl">📤</span>
         </div>
@@ -23,16 +23,16 @@ export function ContributionStats({
       </div>
 
       {/* Approved */}
-      <div className="bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl p-4 text-white">
+      <div className="bg-gradient-to-br from-amber-500 to-retro-gold rounded-none p-4 text-white">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-2xl">✅</span>
         </div>
         <p className="text-3xl font-bold">{approvedCount}</p>
-        <p className="text-sm text-indigo-100">Diterima</p>
+        <p className="text-sm text-retro-body">Diterima</p>
       </div>
 
       {/* Items Contributed */}
-      <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-4 text-white">
+      <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-none p-4 text-white">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-2xl">🏷️</span>
         </div>
@@ -41,7 +41,7 @@ export function ContributionStats({
       </div>
 
       {/* Streak */}
-      <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl p-4 text-white">
+      <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-none p-4 text-white">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-2xl">🔥</span>
         </div>

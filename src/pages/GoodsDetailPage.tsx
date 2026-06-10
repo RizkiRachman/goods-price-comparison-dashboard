@@ -14,7 +14,7 @@ function PriceSummary({ min, max, latest, unit }: { min: number; max: number; la
 
   const cards = [
     { label: 'Terendah', value: min, color: 'text-retro-success', bar: 'bg-emerald-500', accent: 'border-l-emerald-400' },
-    { label: 'Terbaru',  value: latest, color: 'text-retro-brand', bar: 'bg-indigo-500', accent: 'border-l-indigo-400' },
+    { label: 'Terbaru',  value: latest, color: 'text-retro-brand', bar: 'bg-amber-50/300', accent: 'border-l-retro-gold' },
     { label: 'Tertinggi',value: max, color: 'text-retro-danger', bar: 'bg-rose-400', accent: 'border-l-rose-400' },
   ]
 
@@ -240,9 +240,9 @@ export default function GoodsDetailPage() {
                 if (isEditing) {
                   return (
                     <StaggerItem key={item.id}>
-                      <GlassCard className="border-l-4 border-l-indigo-400 p-4 space-y-3">
+                      <GlassCard className="border-l-4 border-l-retro-gold p-4 space-y-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-9 h-9 rounded-none bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                          <div className="w-9 h-9 rounded-none bg-gradient-to-br from-amber-500 to-retro-gold flex items-center justify-center text-white text-xs font-bold shrink-0">
                             {item.storeName.charAt(0).toUpperCase()}
                           </div>
                           <p className="font-semibold text-retro-text text-sm">{item.storeName}</p>
@@ -256,7 +256,7 @@ export default function GoodsDetailPage() {
                               step={100}
                               value={editPrice}
                               onChange={(e) => setEditPrice(Math.max(0, Number(e.target.value)))}
-                              className="mt-1 w-full rounded-none border border-retro-border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                              className="mt-1 w-full rounded-none border border-retro-border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
                             />
                           </div>
                           {isWeightUnit && (
@@ -268,7 +268,7 @@ export default function GoodsDetailPage() {
                                 step={100}
                                 value={editUnitPrice ?? ''}
                                 onChange={(e) => setEditUnitPrice(e.target.value ? Number(e.target.value) : undefined)}
-                                className="mt-1 w-full rounded-none border border-retro-border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                                className="mt-1 w-full rounded-none border border-retro-border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
                               />
                             </div>
                           )}
@@ -278,7 +278,7 @@ export default function GoodsDetailPage() {
                               type="date"
                               value={editDate}
                               onChange={(e) => setEditDate(e.target.value)}
-                              className="mt-1 w-full rounded-none border border-retro-border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                              className="mt-1 w-full rounded-none border border-retro-border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
                             />
                           </div>
                         </div>
@@ -286,7 +286,7 @@ export default function GoodsDetailPage() {
                           <button
                             onClick={saveEdit}
                             disabled={isUpdating}
-                            className="flex-1 py-2 rounded-none text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 transition"
+                            className="flex-1 py-2 rounded-none text-xs font-semibold text-white bg-retro-warning hover:bg-amber-700 disabled:opacity-50 transition"
                           >
                             {isUpdating ? 'Menyimpan…' : 'Simpan'}
                           </button>

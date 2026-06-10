@@ -7,7 +7,7 @@ const CHAIN_COLORS: Record<string, { gradient: string; initials: string }> = {
   Alfamart:   { gradient: 'from-red-500 to-red-700',         initials: 'AL' },
   Alfamidi:   { gradient: 'from-orange-400 to-red-500',      initials: 'AM' },
   Superindo:  { gradient: 'from-emerald-500 to-green-700',   initials: 'SI' },
-  Hypermart:  { gradient: 'from-purple-500 to-violet-700',   initials: 'HM' },
+  Hypermart:  { gradient: 'from-amber-500 to-retro-warning',   initials: 'HM' },
   Lottemart:  { gradient: 'from-pink-500 to-rose-600',       initials: 'LM' },
   Transmart:  { gradient: 'from-cyan-500 to-teal-600',       initials: 'TM' },
   'Diamond Supermarket': { gradient: 'from-amber-400 to-yellow-600', initials: 'DS' },

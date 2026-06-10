@@ -16,8 +16,8 @@ const PAGE_SIZE = 10
 
 const CATEGORY_COLORS: Record<string, { tint: string; emoji: string }> = {
   food:          { tint: 'bg-emerald-50',  emoji: '🍽️' },
-  beverage:      { tint: 'bg-sky-50',      emoji: '🥤' },
-  household:     { tint: 'bg-violet-50',   emoji: '🏠' },
+  beverage:      { tint: 'bg-retro-bg/50',      emoji: '🥤' },
+  household:     { tint: 'bg-amber-50/30',   emoji: '🏠' },
 }
 const DEFAULT_COLOR = { tint: 'bg-retro-bg', emoji: '📦' }
 
@@ -80,7 +80,7 @@ export function ProductPickerModal({ onClose, onSelect, excludeIds = [] }: Props
             value={search}
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Cari barang..."
-            className="w-full pl-10 pr-4 py-2.5 bg-retro-surface/60 backdrop-blur-sm border border-retro-border rounded-none text-sm text-retro-text placeholder:text-retro-muted focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
+            className="w-full pl-10 pr-4 py-2.5 bg-retro-surface/60 backdrop-blur-sm border border-retro-border rounded-none text-sm text-retro-text placeholder:text-retro-muted focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition"
           />
         </div>
       </div>
@@ -124,13 +124,13 @@ export function ProductPickerModal({ onClose, onSelect, excludeIds = [] }: Props
                   onClick={() => handleSelect(product)}
                   whileHover={{ x: 4 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full text-left flex items-center gap-3 px-4 py-3 bg-retro-surface/60 backdrop-blur-sm border border-retro-border/20 rounded-none hover:border-indigo-300 hover:bg-indigo-50/30 transition-colors group"
+                  className="w-full text-left flex items-center gap-3 px-4 py-3 bg-retro-surface/60 backdrop-blur-sm border border-retro-border/20 rounded-none hover:border-retro-gold/70 hover:bg-amber-50/30/30 transition-colors group"
                 >
                   <div className={`w-10 h-10 ${color.tint} backdrop-blur rounded-none flex items-center justify-center text-lg flex-shrink-0`}>
                     {color.emoji}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-retro-text text-sm group-hover:text-indigo-700 transition-colors truncate">
+                    <p className="font-semibold text-retro-text text-sm group-hover:text-retro-gold transition-colors truncate">
                       {product.name}
                     </p>
                     <div className="flex items-center gap-2 mt-0.5">
@@ -144,7 +144,7 @@ export function ProductPickerModal({ onClose, onSelect, excludeIds = [] }: Props
                       </span>
                     </div>
                   </div>
-                  <svg className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-slate-300 group-hover:text-retro-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </motion.button>

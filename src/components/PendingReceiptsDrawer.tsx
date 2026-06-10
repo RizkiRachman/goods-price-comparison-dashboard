@@ -76,7 +76,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
       <div className="flex items-center gap-3 px-4 py-3">
         <div
           className={`w-9 h-9 rounded-none flex items-center justify-center text-lg flex-shrink-0 backdrop-blur-sm ${
-            isPendingReview ? 'bg-amber-50' : isLlmReady ? 'bg-emerald-50' : isProcessing ? 'bg-indigo-50' : isCompleted ? 'bg-emerald-50' : 'bg-red-50'
+            isPendingReview ? 'bg-amber-50' : isLlmReady ? 'bg-emerald-50' : isProcessing ? 'bg-amber-50/30' : isCompleted ? 'bg-emerald-50' : 'bg-red-50'
           }`}
         >
           {isPendingReview ? '⏳' : isLlmReady ? '📋' : isProcessing ? '⏳' : isCompleted ? '✅' : '❌'}
@@ -98,7 +98,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
             )}
             {isProcessing && (
               <span className="inline-flex items-center gap-1 text-xs text-retro-brand font-medium">
-                <span className="w-1.5 h-1.5 rounded-none bg-indigo-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-none bg-retro-gold animate-pulse" />
                 {STATUS_LABEL[job.status] ?? 'Sedang diproses…'}
               </span>
             )}
@@ -146,7 +146,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
               {job.result.items.length > 3 && (
                 <button
                   onClick={() => onNavigate(job.receiptId)}
-                  className="w-full text-xs text-indigo-500 font-medium py-1 hover:text-retro-gold transition text-left"
+                  className="w-full text-xs text-retro-gold font-medium py-1 hover:text-retro-gold transition text-left"
                 >
                   +{job.result.items.length - 3} item lainnya → Lihat detail
                 </button>
@@ -174,7 +174,7 @@ function JobCard({ job, onRemove, onNavigate, onApprove, onReject }: {
           {/* View detail button for all items */}
           <button
             onClick={() => onNavigate(job.receiptId)}
-            className="w-full py-2 text-xs font-medium text-retro-brand bg-indigo-50/80 backdrop-blur-sm hover:bg-indigo-100 rounded-none transition"
+            className="w-full py-2 text-xs font-medium text-retro-brand bg-amber-50/30/80 backdrop-blur-sm hover:bg-amber-100/30 rounded-none transition"
           >
             Lihat Detail Struk
           </button>
@@ -277,7 +277,7 @@ export function PendingReceiptsDrawer({ jobs, onRemove, onClearCompleted, onClos
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
         {jobs.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center pb-10">
-            <div className="w-16 h-16 bg-indigo-50/80 backdrop-blur-sm rounded-none flex items-center justify-center text-3xl mb-3">🧾</div>
+            <div className="w-16 h-16 bg-amber-50/30/80 backdrop-blur-sm rounded-none flex items-center justify-center text-3xl mb-3">🧾</div>
             <p className="text-sm font-semibold text-retro-body">Belum ada struk</p>
             <p className="text-xs text-retro-muted mt-1">Upload struk untuk memulai</p>
           </div>

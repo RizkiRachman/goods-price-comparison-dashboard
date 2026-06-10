@@ -59,10 +59,10 @@ export default function FeedbackPage() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-white/10 rounded-none blur-3xl" />
-          <div className="absolute top-16 -left-16 w-56 h-56 bg-purple-400/20 rounded-none blur-3xl" />
+          <div className="absolute top-16 -left-16 w-56 h-56 bg-retro-gold/10 rounded-none blur-3xl" />
         </div>
 
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-14">
@@ -99,7 +99,7 @@ export default function FeedbackPage() {
             <div className="flex items-center justify-center gap-3">
               <button
                 onClick={handleReset}
-                className="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-retro-brand text-sm font-semibold rounded-none transition-colors"
+                className="px-5 py-2.5 bg-amber-50/30 hover:bg-amber-100/30 text-retro-brand text-sm font-semibold rounded-none transition-colors"
               >
                 Kirim Lagi
               </button>
@@ -126,7 +126,7 @@ export default function FeedbackPage() {
                     className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-none text-sm font-semibold transition ${
                       form.type === t
                         ? t === 'feedback'
-                          ? 'bg-indigo-100 text-retro-brand border-2 border-indigo-300'
+                          ? 'bg-amber-100/30 text-retro-brand border-2 border-retro-gold/70'
                           : 'bg-emerald-100 text-retro-success border-2 border-emerald-300'
                         : 'bg-retro-bg text-retro-body border-2 border-transparent hover:bg-retro-surface-alt'
                     }`}
@@ -150,8 +150,8 @@ export default function FeedbackPage() {
                 onChange={(e) => setForm((f) => ({ ...f, userName: e.target.value }))}
                 placeholder="Nama Anda"
                 className={`w-full px-4 py-2.5 rounded-none border text-sm transition ${
-                  errors.userName ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-indigo-400'
-                } outline-none focus:ring-2 focus:ring-indigo-100`}
+                  errors.userName ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
+                } outline-none focus:ring-2 focus:ring-retro-gold/50`}
               />
               {errors.userName && <p className="text-xs text-rose-500 mt-1">{errors.userName}</p>}
             </div>
@@ -168,8 +168,8 @@ export default function FeedbackPage() {
                 onChange={(e) => setForm((f) => ({ ...f, userEmail: e.target.value }))}
                 placeholder="email@contoh.com"
                 className={`w-full px-4 py-2.5 rounded-none border text-sm transition ${
-                  errors.userEmail ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-indigo-400'
-                } outline-none focus:ring-2 focus:ring-indigo-100`}
+                  errors.userEmail ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
+                } outline-none focus:ring-2 focus:ring-retro-gold/50`}
               />
               {errors.userEmail && <p className="text-xs text-rose-500 mt-1">{errors.userEmail}</p>}
             </div>
@@ -186,8 +186,8 @@ export default function FeedbackPage() {
                 placeholder={form.type === 'feedback' ? 'Ceritakan pengalaman Anda menggunakan HargaKu...' : 'Tulis pertanyaan Anda di sini...'}
                 rows={5}
                 className={`w-full px-4 py-2.5 rounded-none border text-sm transition resize-none ${
-                  errors.message ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-indigo-400'
-                } outline-none focus:ring-2 focus:ring-indigo-100`}
+                  errors.message ? 'border-rose-300 bg-rose-50' : 'border-retro-border bg-retro-surface hover:border-retro-border focus:border-retro-gold'
+                } outline-none focus:ring-2 focus:ring-retro-gold/50`}
               />
               <div className="flex items-center justify-between mt-1">
                 {errors.message && <p className="text-xs text-rose-500">{errors.message}</p>}
@@ -209,7 +209,7 @@ export default function FeedbackPage() {
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-bold rounded-none disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 flex items-center justify-center gap-2"
+              className="w-full px-6 py-3 bg-gradient-to-r from-amber-600 to-retro-gold text-white text-sm font-bold rounded-none disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 flex items-center justify-center gap-2"
             >
               {mutation.isPending ? (
                 <>

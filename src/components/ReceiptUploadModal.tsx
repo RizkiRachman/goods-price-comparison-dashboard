@@ -97,10 +97,10 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
           onClick={() => inputRef.current?.click()}
           className={`border-2 border-dashed rounded-none p-8 sm:p-10 text-center cursor-pointer transition-colors ${
             dragging
-              ? 'bg-indigo-50'
+              ? 'bg-amber-50/30'
               : file
                 ? 'bg-emerald-50'
-                : 'hover:bg-indigo-50/50'
+                : 'hover:bg-amber-50/30/50'
           }`}
         >
           <input
@@ -126,7 +126,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3">
-              <div className="w-16 h-16 bg-indigo-100 rounded-none flex items-center justify-center text-3xl">🧾</div>
+              <div className="w-16 h-16 bg-amber-100/30 rounded-none flex items-center justify-center text-3xl">🧾</div>
               <div>
                 <p className="font-semibold text-retro-body">
                   Drag & drop atau <span className="text-retro-brand">pilih file</span>
@@ -158,7 +158,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
         <button
           onClick={handleUpload}
           disabled={!file || uploading || !!error}
-          className="w-full py-4 rounded-none font-bold text-retro-text bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 text-base"
+          className="w-full py-4 rounded-none font-bold text-retro-text bg-gradient-to-r from-amber-600 to-retro-gold hover:from-amber-700 hover:to-retro-gold/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 text-base"
         >
           {uploading ? (
             <>

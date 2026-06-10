@@ -121,7 +121,7 @@ export default function ReceiptCorrectionPage() {
 
   return (
     <div className="min-h-screen bg-retro-bg">
-      <header className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700">
+      <header className="bg-gradient-to-br from-amber-600 via-retro-warning to-retro-gold">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-4 pb-8">
           <button
             onClick={() => navigate(-1)}
@@ -137,12 +137,12 @@ export default function ReceiptCorrectionPage() {
             <div>
               <p className="text-white/60 text-xs font-medium uppercase tracking-wide mb-1">Koreksi Struk</p>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">{storeName || jobResult.storeName}</h1>
-              {job.fileName && <p className="text-indigo-200 text-sm mt-1">{job.fileName}</p>}
+              {job.fileName && <p className="text-retro-gold/80 text-sm mt-1">{job.fileName}</p>}
             </div>
             <div className="text-right flex-shrink-0">
               <p className="text-white/60 text-xs mb-1">Total</p>
               <p className="text-2xl font-extrabold text-white">{fmt(totalAmount)}</p>
-              <p className="text-indigo-200 text-xs mt-1">{items.length} barang</p>
+              <p className="text-retro-gold/80 text-xs mt-1">{items.length} barang</p>
             </div>
           </div>
         </div>
@@ -190,7 +190,7 @@ export default function ReceiptCorrectionPage() {
             onChange={(e) => setStoreName(e.target.value)}
             placeholder="Nama toko…"
             className={`mt-1.5 w-full rounded-none border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.store ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-indigo-500'
+              issues.store ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-retro-gold'
             }`}
           />
         </div>
@@ -205,7 +205,7 @@ export default function ReceiptCorrectionPage() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className={`mt-1.5 w-full rounded-none border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.date ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-indigo-500'
+              issues.date ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-retro-gold'
             }`}
           />
         </div>
@@ -235,7 +235,7 @@ export default function ReceiptCorrectionPage() {
                       <select
                         value={item.category ?? 'unknown'}
                         onChange={(e) => updateItem(i, 'category', e.target.value)}
-                        className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-retro-surface"
+                        className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition bg-retro-surface"
                       >
                         {CATEGORY_OPTIONS.map((opt) => (
                           <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -259,7 +259,7 @@ export default function ReceiptCorrectionPage() {
                         value={item.quantity}
                         onChange={(e) => updateItem(i, 'quantity', Math.max(0, Number(e.target.value)))}
                         className={`mt-1 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-indigo-500'
+                          badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-retro-gold'
                         }`}
                       />
                     </div>
@@ -269,7 +269,7 @@ export default function ReceiptCorrectionPage() {
                         <select
                           value={item.unit ?? 'PIECE'}
                           onChange={(e) => updateItem(i, 'unit', e.target.value)}
-                          className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-retro-surface"
+                          className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold focus:border-transparent transition bg-retro-surface"
                         >
                           {UNIT_OPTIONS.map((opt) => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -292,7 +292,7 @@ export default function ReceiptCorrectionPage() {
                         value={item.unitPrice}
                         onChange={(e) => updateItem(i, 'unitPrice', Math.max(0, Number(e.target.value)))}
                         className={`mt-1 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badPrice ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-indigo-500'
+                          badPrice ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-retro-gold'
                         }`}
                       />
                     </div>
@@ -316,7 +316,7 @@ export default function ReceiptCorrectionPage() {
         <button
           onClick={handleSave}
           disabled={saved || correction.isPending}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-none font-bold text-sm text-white bg-retro-primary hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-none font-bold text-sm text-white bg-retro-primary hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
           {correction.isPending ? (
             <>⏳ Menyimpan…</>
