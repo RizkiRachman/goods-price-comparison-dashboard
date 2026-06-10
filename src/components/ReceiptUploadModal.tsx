@@ -96,11 +96,11 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
           className={`border-2 border-dashed rounded-none p-8 sm:p-10 text-center cursor-pointer transition-colors ${
-            dragging
-              ? 'bg-amber-50/30'
-              : file
-                ? 'bg-emerald-50'
-                : 'hover:bg-amber-50/30/50'
+dragging
+? 'bg-retro-surface-alt'
+: file
+? 'bg-retro-surface-alt border border-retro-success/30'
+: 'hover:bg-retro-surface-alt/80'
           }`}
         >
           <input
@@ -112,7 +112,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
           />
           {file ? (
             <div className="flex flex-col items-center gap-2">
-              <div className="w-14 h-14 bg-emerald-100 rounded-none flex items-center justify-center text-3xl">📄</div>
+              <div className="w-14 h-14 bg-retro-surface-alt rounded-none flex items-center justify-center text-3xl">📄</div>
               <p className="font-semibold text-retro-text text-sm">{file.name}</p>
               <p className="text-xs text-retro-muted">
                 {formatSize(file.size)}
@@ -126,7 +126,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3">
-              <div className="w-16 h-16 bg-amber-100/30 rounded-none flex items-center justify-center text-3xl">🧾</div>
+              <div className="w-16 h-16 bg-retro-surface-alt rounded-none flex items-center justify-center text-3xl">🧾</div>
               <div>
                 <p className="font-semibold text-retro-body">
                   Drag & drop atau <span className="text-retro-brand">pilih file</span>
@@ -139,7 +139,7 @@ export function ReceiptUploadModal({ onClose, onJobCreated }: Props) {
 
         {/* Error */}
         {error && (
-          <div className="flex items-start gap-2 text-sm text-rose-600 bg-rose-50 rounded-none px-3 py-2">
+          <div className="flex items-start gap-2 text-sm text-retro-danger bg-retro-surface border-l-4 border-l-retro-danger/60 border border-retro-border/50 rounded-none px-3 py-2">
             <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

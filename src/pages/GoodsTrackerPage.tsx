@@ -136,9 +136,9 @@ export default function GoodsTrackerPage() {
   const canOptimize = selected.length >= 2 && !mutation.isPending
 
   const CATEGORY_COLORS: Record<string, { tint: string; emoji: string }> = {
-    food:      { tint: 'bg-emerald-50',  emoji: '\uD83C\uDF7D\uFE0F' },
-    beverage:  { tint: 'bg-retro-bg/50',      emoji: '\uD83E\uDD64' },
-    household: { tint: 'bg-amber-50/30',   emoji: '\uD83C\uDFE0' },
+    food: { tint: 'bg-retro-surface', emoji: '\uD83C\uDF7D\uFE0F' },
+    beverage: { tint: 'bg-retro-bg/50', emoji: '\uD83E\uDD64' },
+    household: { tint: 'bg-retro-surface', emoji: '\uD83C\uDFE0' },
   }
   const DEFAULT_COLOR = { tint: 'bg-retro-bg', emoji: '\uD83D\uDCE6' }
 
@@ -218,7 +218,7 @@ export default function GoodsTrackerPage() {
                     </div>
                     <button
                       onClick={() => handleRemove(idx)}
-                      className="w-8 h-8 flex items-center justify-center bg-retro-surface border border-retro-border hover:bg-rose-50 hover:text-retro-danger hover:border-rose-200 text-retro-muted rounded-none transition-colors flex-shrink-0"
+                      className="w-8 h-8 flex items-center justify-center bg-retro-surface border border-retro-border hover:bg-retro-danger/10 hover:text-retro-danger hover:border-retro-danger/50 text-retro-muted rounded-none transition-colors flex-shrink-0"
                       aria-label={`Hapus ${product.name}`}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -276,7 +276,7 @@ export default function GoodsTrackerPage() {
 
         {/* Error state */}
         {mutation.isError && (
-          <div className="mt-6 bg-rose-50 border border-rose-200 rounded-none p-4 text-sm text-rose-700 flex items-start gap-3">
+          <div className="mt-6 bg-retro-surface border-l-4 border-l-retro-danger/60 border border-retro-border/50 rounded-none p-4 text-sm text-retro-danger flex items-start gap-3">
             <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

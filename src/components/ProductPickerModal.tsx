@@ -15,9 +15,9 @@ interface Props {
 const PAGE_SIZE = 10
 
 const CATEGORY_COLORS: Record<string, { tint: string; emoji: string }> = {
-  food:          { tint: 'bg-emerald-50',  emoji: '🍽️' },
-  beverage:      { tint: 'bg-retro-bg/50',      emoji: '🥤' },
-  household:     { tint: 'bg-amber-50/30',   emoji: '🏠' },
+food: { tint: 'bg-retro-surface', emoji: '🍽️' },
+  beverage: { tint: 'bg-retro-bg/50', emoji: '🥤' },
+  household: { tint: 'bg-retro-surface', emoji: '🏠' },
 }
 const DEFAULT_COLOR = { tint: 'bg-retro-bg', emoji: '📦' }
 
@@ -124,7 +124,7 @@ export function ProductPickerModal({ onClose, onSelect, excludeIds = [] }: Props
                   onClick={() => handleSelect(product)}
                   whileHover={{ x: 4 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full text-left flex items-center gap-3 px-4 py-3 bg-retro-surface/60 backdrop-blur-sm border border-retro-border/20 rounded-none hover:border-retro-gold/70 hover:bg-amber-50/30/30 transition-colors group"
+                  className="w-full text-left flex items-center gap-3 px-4 py-3 bg-retro-surface/60 backdrop-blur-sm border border-retro-border/20 rounded-none hover:border-retro-gold/70 hover:bg-retro-surface-alt/80 transition-colors group"
                 >
                   <div className={`w-10 h-10 ${color.tint} backdrop-blur rounded-none flex items-center justify-center text-lg flex-shrink-0`}>
                     {color.emoji}
@@ -144,7 +144,7 @@ export function ProductPickerModal({ onClose, onSelect, excludeIds = [] }: Props
                       </span>
                     </div>
                   </div>
-                  <svg className="w-5 h-5 text-slate-300 group-hover:text-retro-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-retro-muted group-hover:text-retro-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </motion.button>

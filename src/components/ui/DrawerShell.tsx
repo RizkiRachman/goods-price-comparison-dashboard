@@ -61,7 +61,7 @@ export function DrawerShell({ open, onClose, children }: DrawerShellProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full max-w-sm bg-white/90 backdrop-blur-2xl border-l border-white/20 h-full flex flex-col shadow-2xl"
+            className="relative w-full max-w-sm bg-retro-surface/95 backdrop-blur-2xl border-l border-retro-border/30 h-full flex flex-col shadow-2xl"
           >
             {children}
           </motion.div>

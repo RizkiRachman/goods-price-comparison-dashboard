@@ -138,8 +138,8 @@ export default function ReceiptCreatePage() {
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 -mt-4 pb-12 space-y-4">
         {create.isError && (
-          <div className="bg-red-50 border border-red-200 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-red-100 rounded-none flex items-center justify-center text-lg">✗</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-danger/40 border-l-4 border-l-retro-danger/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg">✗</div>
             <div>
               <p className="text-sm font-semibold text-red-800">Gagal menyimpan</p>
               <p className="text-xs text-red-600 mt-0.5">Coba lagi atau hubungi admin</p>
@@ -148,8 +148,8 @@ export default function ReceiptCreatePage() {
         )}
 
         {saved && (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-none px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-emerald-100 rounded-none flex items-center justify-center text-lg">✅</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-success/40 border-l-4 border-l-retro-success/60 rounded-none px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg">✅</div>
             <div>
               <p className="text-sm font-semibold text-emerald-800">Data tersimpan</p>
               <p className="text-xs text-emerald-600 mt-0.5">Mengalihkan…</p>
@@ -158,8 +158,8 @@ export default function ReceiptCreatePage() {
         )}
 
         {issueCount > 0 && !saved && (
-          <div className="bg-amber-50 border border-amber-200 rounded-none px-5 py-4 flex items-start gap-3">
-            <div className="w-9 h-9 bg-amber-100 rounded-none flex items-center justify-center text-lg flex-shrink-0">⚠️</div>
+          <div className="bg-retro-surface-alt/80 border border-retro-warning/40 border-l-4 border-l-retro-warning/60 rounded-none px-5 py-4 flex items-start gap-3">
+            <div className="w-9 h-9 bg-retro-bg/50 rounded-none flex items-center justify-center text-lg flex-shrink-0">⚠️</div>
             <div>
               <p className="text-sm font-semibold text-amber-800">{issueCount} masalah perlu diperbaiki</p>
               <p className="text-xs text-amber-600 mt-0.5">Perbaiki data yang ditandai merah sebelum menyimpan</p>
@@ -168,7 +168,7 @@ export default function ReceiptCreatePage() {
         )}
 
         {/* Store Name */}
-        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.store ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-100'}`}>
+        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.store ? 'border-red-300 ring-1 ring-red-200' : 'border-retro-border/30'}`}>
           <label className={`text-xs font-semibold uppercase tracking-wide flex items-center gap-1.5 ${issues.store ? 'text-retro-danger' : 'text-retro-body'}`}>
             Nama Toko
             {issues.store && <span className="text-retro-danger text-xs font-normal">(wajib diisi)</span>}
@@ -179,25 +179,25 @@ export default function ReceiptCreatePage() {
             onChange={(e) => setStoreName(e.target.value)}
             placeholder="Nama toko…"
             className={`mt-1.5 w-full rounded-none border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.store ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-emerald-500'
+              issues.store ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-retro-gold/60'
             }`}
           />
         </div>
 
         {/* Store Location */}
-        <div className="bg-retro-surface rounded-none border border-gray-100 px-5 py-4">
+        <div className="bg-retro-surface rounded-none border border-retro-border/30 px-5 py-4">
           <label className="text-xs font-semibold uppercase tracking-wide text-retro-body">Lokasi Toko</label>
           <input
             type="text"
             value={storeLocation}
             onChange={(e) => setStoreLocation(e.target.value)}
             placeholder="Jl. Contoh No. 123, Kota…"
-            className="mt-1.5 w-full rounded-none border border-retro-border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+            className="mt-1.5 w-full rounded-none border border-retro-border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold/60 focus:border-transparent transition"
           />
         </div>
 
         {/* Date */}
-        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.date ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-100'}`}>
+        <div className={`bg-retro-surface rounded-none border px-5 py-4 ${issues.date ? 'border-red-300 ring-1 ring-red-200' : 'border-retro-border/30'}`}>
           <label className="text-xs font-semibold uppercase tracking-wide flex items-center gap-1.5">
             <span className={issues.date ? 'text-retro-danger' : 'text-retro-body'}>Tanggal Struk</span>
             {issues.date && <span className="text-retro-danger text-xs font-normal">(wajib diisi)</span>}
@@ -207,27 +207,27 @@ export default function ReceiptCreatePage() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className={`mt-1.5 w-full rounded-none border px-4 py-2.5 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-              issues.date ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-emerald-500'
+              issues.date ? 'border-red-300 focus:ring-red-400' : 'border-retro-border focus:ring-retro-gold/60'
             }`}
           />
         </div>
 
         {/* Items */}
-        <div className="bg-retro-surface rounded-none border border-gray-100 overflow-hidden">
-          <div className="px-5 py-3 border-b border-gray-50 flex items-center justify-between">
+        <div className="bg-retro-surface rounded-none border border-retro-border/30 overflow-hidden">
+          <div className="px-5 py-3 border-b border-retro-border/20 flex items-center justify-between">
             <p className="text-xs font-semibold text-retro-body uppercase tracking-wide">Daftar Barang</p>
             {issues.noItems && (
               <span className="text-xs font-medium text-retro-danger">Minimal 1 barang</span>
             )}
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-retro-border/20">
             {items.map((item, i) => {
               const badName = issues.itemsMissingName[i]
               const badPrice = issues.itemsMissingPrice[i]
               const badQty = issues.itemsMissingQty[i]
               const hasIssue = badName || badPrice || badQty
               return (
-                <div key={i} className={`px-5 py-4 ${hasIssue ? 'bg-red-50/40' : ''}`}>
+                <div key={i} className={`px-5 py-4 ${hasIssue ? 'bg-retro-danger/10' : ''}`}>
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="flex-1">
                       <label className={`text-xs font-medium flex items-center gap-1 ${badName ? 'text-retro-danger' : 'text-retro-muted'}`}>
@@ -240,7 +240,7 @@ export default function ReceiptCreatePage() {
                         onChange={(e) => updateItem(i, 'productName', e.target.value)}
                         placeholder="Nama barang…"
                         className={`mt-1 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badName ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-emerald-500'
+                          badName ? 'border-red-300 focus:ring-red-400 bg-retro-danger/10' : 'border-retro-border focus:ring-retro-gold/60'
                         }`}
                       />
                     </div>
@@ -248,7 +248,7 @@ export default function ReceiptCreatePage() {
                       <button
                         type="button"
                         onClick={() => removeItem(i)}
-                        className="mt-6 p-2 text-retro-muted hover:text-retro-danger hover:bg-red-50 rounded-none transition flex-shrink-0"
+                        className="mt-6 p-2 text-retro-muted hover:text-retro-danger hover:bg-retro-danger/10 rounded-none transition flex-shrink-0"
                         aria-label="Hapus barang"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,7 +264,7 @@ export default function ReceiptCreatePage() {
                       <select
                         value={item.category ?? 'unknown'}
                         onChange={(e) => updateItem(i, 'category', e.target.value)}
-                        className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-retro-surface"
+                        className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold/60 focus:border-transparent transition bg-retro-surface"
                       >
                         {CATEGORY_OPTIONS.map((opt) => (
                           <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -290,7 +290,7 @@ export default function ReceiptCreatePage() {
                         onChange={(e) => updateItem(i, 'quantity', Math.max(0, Number(e.target.value)))}
                         placeholder="0"
                         className={`h-10 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badQty ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-emerald-500'
+                          badQty ? 'border-red-300 focus:ring-red-400 bg-retro-danger/10' : 'border-retro-border focus:ring-retro-gold/60'
                         }`}
                       />
                     </div>
@@ -302,7 +302,7 @@ export default function ReceiptCreatePage() {
                         <select
                           value={item.unit ?? 'PIECE'}
                           onChange={(e) => updateItem(i, 'unit', e.target.value)}
-                          className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-retro-surface"
+                          className="h-10 w-full appearance-none rounded-none border border-retro-border px-3 pr-8 text-sm text-retro-text focus:outline-none focus:ring-2 focus:ring-retro-gold/60 focus:border-transparent transition bg-retro-surface"
                         >
                           {UNIT_OPTIONS.map((opt) => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -326,7 +326,7 @@ export default function ReceiptCreatePage() {
                         onChange={(e) => updateItem(i, 'unitPrice', Math.max(0, Number(e.target.value)))}
                         placeholder="0"
                         className={`h-10 w-full rounded-none border px-3 py-2 text-sm text-retro-text focus:outline-none focus:ring-2 focus:border-transparent transition ${
-                          badPrice ? 'border-red-300 focus:ring-red-400 bg-red-50' : 'border-retro-border focus:ring-emerald-500'
+                          badPrice ? 'border-red-300 focus:ring-red-400 bg-retro-danger/10' : 'border-retro-border focus:ring-retro-gold/60'
                         }`}
                       />
                     </div>
@@ -340,7 +340,7 @@ export default function ReceiptCreatePage() {
           </div>
 
           {/* Add item button */}
-          <div className="px-5 py-3 border-t border-gray-50">
+          <div className="px-5 py-3 border-t border-retro-border/20">
             <button
               type="button"
               onClick={addItem}
@@ -354,7 +354,7 @@ export default function ReceiptCreatePage() {
           </div>
 
           {/* Total row */}
-          <div className="border-t border-gray-100 px-5 py-4 bg-retro-bg">
+          <div className="border-t border-retro-border/30 px-5 py-4 bg-retro-bg">
             <div className="flex justify-between text-base font-extrabold text-retro-text">
               <span>Total ({items.length} barang)</span>
               <span className="text-emerald-600">{fmt(totalAmount)}</span>

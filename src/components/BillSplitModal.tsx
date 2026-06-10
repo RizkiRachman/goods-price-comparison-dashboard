@@ -217,14 +217,14 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
           <motion.div key="mode" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-3 mt-2">
             <button
               onClick={() => { setMode('SELECTION'); setView('max') }}
-              className={`w-full text-left p-4 rounded-none border-2 transition ${mode === 'SELECTION' ? 'border-retro-gold bg-amber-50/30' : 'border-retro-border hover:border-retro-gold/70'}`}
+              className={`w-full text-left p-4 rounded-none border-2 transition ${mode === 'SELECTION' ? 'border-retro-gold bg-retro-surface-alt/80' : 'border-retro-border hover:border-retro-gold/70'}`}
             >
               <p className="font-bold text-retro-text">Pilih Barang</p>
               <p className="text-sm text-retro-muted mt-1">Setiap peserta memilih barang yang dibeli. Cocok untuk belanja bersama dimana tiap orang belanja berbeda.</p>
             </button>
             <button
               onClick={() => { setMode('RATIO'); setView('max') }}
-              className={`w-full text-left p-4 rounded-none border-2 transition ${mode === 'RATIO' ? 'border-retro-gold bg-amber-50/30' : 'border-retro-border hover:border-retro-gold/70'}`}
+              className={`w-full text-left p-4 rounded-none border-2 transition ${mode === 'RATIO' ? 'border-retro-gold bg-retro-surface-alt/80' : 'border-retro-border hover:border-retro-gold/70'}`}
             >
               <p className="font-bold text-retro-text">Bagi Rata</p>
               <p className="text-sm text-retro-muted mt-1">Total dibagi sama rata ke seluruh peserta. Cocok untuk biaya bersama seperti traktiran atau patungan.</p>
@@ -245,12 +245,12 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
               </svg>
             </button>
             <div className="text-center py-4">
-              <div className="w-16 h-16 bg-amber-50/30 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">{'\uD83D\uDC65'}</div>
+              <div className="w-16 h-16 bg-retro-bg/50 rounded-none flex items-center justify-center text-3xl mx-auto mb-4">{'\uD83D\uDC65'}</div>
               <p className="text-lg font-bold text-retro-text mb-1">Berapa orang?</p>
               <p className="text-sm text-retro-muted">Masukkan jumlah maksimal peserta</p>
             </div>
 
-            <div className="bg-retro-surface rounded-none border border-gray-100  px-5 py-5 space-y-4">
+            <div className="bg-retro-surface rounded-none border border-retro-border/30  px-5 py-5 space-y-4">
               <div className="flex items-center justify-center gap-4">
                 <button
                   onClick={() => setMaxParticipants(Math.max(2, maxParticipants - 1))}
@@ -337,7 +337,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                       className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-retro-surface-alt/50 transition"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 bg-amber-100/30 rounded-none flex items-center justify-center text-xs font-bold text-retro-brand flex-shrink-0">
+                        <div className="w-8 h-8 bg-retro-bg/50 rounded-none flex items-center justify-center text-xs font-bold text-retro-brand flex-shrink-0">
                           {detail.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
@@ -352,7 +352,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
                         </button>
-                        <button onClick={(e) => { e.stopPropagation(); handleDeleteDetail(detail.id) }} className="w-7 h-7 flex items-center justify-center rounded-none hover:bg-red-50 text-retro-muted hover:text-retro-danger transition">
+                        <button onClick={(e) => { e.stopPropagation(); handleDeleteDetail(detail.id) }} className="w-7 h-7 flex items-center justify-center rounded-none hover:bg-retro-danger/10 text-retro-muted hover:text-retro-danger transition">
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
@@ -393,7 +393,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
 
             {/* Unassigned summary */}
             {details.length > 0 && unassignedItems().length > 0 && (
-              <div className="bg-amber-50 border border-amber-100 rounded-none px-4 py-3 flex items-center justify-between">
+              <div className="bg-retro-surface-alt/80 border border-retro-gold/40 rounded-none px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-amber-700">{'\u26A0\uFE0F'}</span>
                   <p className="text-sm font-medium text-amber-800">
@@ -408,7 +408,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
 
             {/* Summary */}
             {details.length > 0 && (
-              <div className="bg-amber-50/30 rounded-none px-4 py-3 flex justify-between items-center">
+              <div className="bg-retro-surface-alt/80 rounded-none px-4 py-3 flex justify-between items-center">
                 <span className="text-sm font-semibold text-retro-gold">Total Struk</span>
                 <span className="text-lg font-extrabold text-retro-gold">{formatPrice(totalAmount)}</span>
               </div>
@@ -489,7 +489,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                       {/* Items */}
                       <div>
                         <p className="text-xs font-semibold text-retro-muted uppercase tracking-wider mb-2">Pilih Barang</p>
-                        <div className="border border-gray-100 rounded-none divide-y divide-gray-100">
+                        <div className="border border-retro-border/30 rounded-none divide-y divide-retro-border/30">
                           {items.length === 0 ? (
                             <div className="py-6 text-center text-sm text-retro-muted">Tidak ada barang</div>
                           ) : (
@@ -531,7 +531,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                                     <div className="flex items-center gap-2 mt-1.5">
                                       <div className="flex-1 h-1.5 bg-retro-surface rounded-none overflow-hidden">
                                         <div
-                                          className="h-full bg-amber-50/300 rounded-none transition-all duration-200"
+                                          className="h-full bg-retro-bg/50 rounded-none transition-all duration-200"
                                           style={{ width: `${Math.min(((myQty + (totalQty - available)) / totalQty) * 100, 100)}%` }}
                                         />
                                       </div>
@@ -558,7 +558,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
         {view === 'result' && result && (
           <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-4 mt-2">
             {/* Summary */}
-            <div className="bg-amber-50/30 rounded-none px-4 py-4">
+            <div className="bg-retro-surface-alt/80 rounded-none px-4 py-4">
               <div className="flex justify-between items-center">
                 <p className="text-sm font-semibold text-retro-gold">Total</p>
                 <p className="text-xl font-extrabold text-retro-gold">{formatPrice(result.totalAmount)}</p>
@@ -583,7 +583,7 @@ export function BillSplitModal({ open, onClose, receiptId, items }: BillSplitMod
                       className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-retro-surface-alt/50 transition"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 bg-amber-100/30 rounded-none flex items-center justify-center text-xs font-bold text-retro-brand flex-shrink-0">
+                        <div className="w-8 h-8 bg-retro-bg/50 rounded-none flex items-center justify-center text-xs font-bold text-retro-brand flex-shrink-0">
                           {p.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
