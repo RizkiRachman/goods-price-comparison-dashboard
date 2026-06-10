@@ -7,14 +7,14 @@ import { DataTable, type Column } from '@/components/DataTable'
 import type { Category, EntityStatus } from '@/types/api'
 
 const statusPill: Record<EntityStatus, { bg: string; text: string }> = {
-  pending: { bg: 'bg-gray-100', text: 'text-gray-600' },
-  pending_review: { bg: 'bg-blue-50', text: 'text-blue-600' },
-  pending_approval: { bg: 'bg-amber-50', text: 'text-amber-600' },
-  approved: { bg: 'bg-emerald-50', text: 'text-emerald-600' },
-  rejected: { bg: 'bg-red-50', text: 'text-red-600' },
-  ingestion: { bg: 'bg-indigo-50', text: 'text-indigo-600' },
-  ingestion_failed: { bg: 'bg-orange-50', text: 'text-orange-600' },
-  completed: { bg: 'bg-emerald-50', text: 'text-emerald-700' },
+  pending: { bg: 'bg-retro-muted/15', text: 'text-retro-muted' },
+  pending_review: { bg: 'bg-retro-brand/15', text: 'text-retro-brand' },
+  pending_approval: { bg: 'bg-retro-warning/15', text: 'text-retro-warning' },
+  approved: { bg: 'bg-retro-success/15', text: 'text-retro-success' },
+  rejected: { bg: 'bg-retro-danger/15', text: 'text-retro-danger' },
+  ingestion: { bg: 'bg-retro-brand/15', text: 'text-retro-brand' },
+  ingestion_failed: { bg: 'bg-retro-warning/15', text: 'text-retro-warning' },
+  completed: { bg: 'bg-retro-success/15', text: 'text-retro-success' },
 }
 
 const statusLabel: Record<EntityStatus, string> = {
@@ -49,29 +49,29 @@ export default function CategoryListPage() {
     {
       key: 'id',
       header: 'ID',
-      render: (c) => <span className="font-mono text-xs bg-gray-100 px-2 py-0.5 rounded">{c.id}</span>,
+      render: (c) => <span className="font-mono text-xs bg-retro-surface-alt text-retro-gold px-2 py-0.5 rounded-none">{c.id}</span>,
     },
     {
       key: 'name',
       header: 'Nama',
       sortable: true,
-      render: (c) => <span className="font-semibold text-gray-900">{c.name}</span>,
+      render: (c) => <span className="font-semibold text-retro-body">{c.name}</span>,
     },
     {
       key: 'description',
       header: 'Deskripsi',
       render: (c) => (
-        <span className="text-gray-500 text-sm line-clamp-2">{c.description ?? '-'}</span>
+        <span className="text-retro-muted text-sm line-clamp-2">{c.description ?? '-'}</span>
       ),
     },
     {
       key: 'status',
       header: 'Status',
       render: (c) => {
-        const s = statusPill[c.status] ?? { bg: 'bg-gray-100', text: 'text-gray-600' }
+        const s = statusPill[c.status] ?? { bg: 'bg-retro-muted/15', text: 'text-retro-muted' }
         const label = statusLabel[c.status] ?? c.status
         return (
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${s.bg} ${s.text}`}>
+          <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${s.bg} ${s.text}`}>
             {label}
           </span>
         )
@@ -81,7 +81,7 @@ export default function CategoryListPage() {
       key: 'createdAt',
       header: 'Dibuat',
       sortable: true,
-      render: (c) => <span className="text-gray-400 text-sm">{new Date(c.createdAt).toLocaleDateString('id-ID')}</span>,
+      render: (c) => <span className="text-retro-muted text-sm">{new Date(c.createdAt).toLocaleDateString('id-ID')}</span>,
     },
   ]
 
@@ -89,8 +89,8 @@ export default function CategoryListPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-3">
         <span className="text-4xl">{'\u26A0\uFE0F'}</span>
-        <p className="text-lg font-semibold text-gray-700">Gagal memuat kategori</p>
-        <button onClick={() => navigate('/goods')} className="text-sm text-indigo-600 font-semibold hover:underline">
+        <p className="text-lg font-semibold text-retro-body">Gagal memuat kategori</p>
+        <button onClick={() => navigate('/goods')} className="text-sm text-retro-brand font-semibold hover:underline">
           Kembali
         </button>
       </div>
@@ -105,14 +105,14 @@ export default function CategoryListPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Kategori</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Kelola kategori produk</p>
+          <h1 className="text-2xl font-extrabold text-retro-text">Kategori</h1>
+          <p className="text-sm text-retro-muted mt-0.5">Kelola kategori produk</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/admin/categories/new')}
-          className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition"
+          className="flex items-center gap-2 px-4 py-2.5 bg-retro-primary text-retro-text rounded-none text-sm font-semibold hover:brightness-110 transition border-[3px] border-retro-primary [border-style:outset] shadow-[0_4px_0_#2a4a68] active:shadow-none active:translate-y-1 focus-visible:ring-2 focus-visible:ring-retro-gold/50 focus-visible:outline-none"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -137,7 +137,7 @@ export default function CategoryListPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={(e) => { e.stopPropagation(); navigate(`/admin/categories/${c.id}`) }}
-                className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+                className="text-xs text-retro-brand hover:brightness-110 font-medium"
               >
                 Edit
               </button>
@@ -148,7 +148,7 @@ export default function CategoryListPage() {
                     deleteMutation.mutate(c.id)
                   }
                 }}
-                className="text-xs text-red-500 hover:text-red-700 font-medium"
+                className="text-xs text-retro-danger hover:brightness-110 font-medium"
               >
                 Hapus
               </button>

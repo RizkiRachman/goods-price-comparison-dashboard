@@ -41,7 +41,7 @@ export function SubmitButton({
       type={type}
       onClick={onClick}
       disabled={isDisabled}
-      className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm text-white transition disabled:opacity-50 disabled:cursor-not-allowed ${done ? 'bg-emerald-500' : 'bg-indigo-600 hover:bg-indigo-700'} ${className}`}
+      className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-none font-bold text-sm transition disabled:opacity-50 disabled:cursor-not-allowed ${done ? 'bg-retro-success border-retro-success/50 [border-style:outset] text-retro-bg' : 'bg-retro-primary border-retro-primary [border-style:outset] text-retro-text hover:brightness-110'} border-[3px] shadow-[0_4px_0_#2a4a68] active:shadow-none active:translate-y-1 focus-visible:ring-2 focus-visible:ring-retro-gold/50 focus-visible:outline-none ${className}`}
     >
       {loading ? <Spinner /> : null}
       {loading ? loadingLabel : done ? doneLabel : label}

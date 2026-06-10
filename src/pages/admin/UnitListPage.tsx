@@ -7,20 +7,20 @@ import { DataTable, type Column } from '@/components/DataTable'
 import type { Unit, UnitType, EntityStatus } from '@/types/api'
 
 const unitTypeBadge: Record<UnitType, { bg: string; text: string; label: string }> = {
-  WEIGHT: { bg: 'bg-blue-50', text: 'text-blue-600', label: 'Berat' },
-  VOLUME: { bg: 'bg-cyan-50', text: 'text-cyan-600', label: 'Volume' },
-  QUANTITY: { bg: 'bg-purple-50', text: 'text-purple-600', label: 'Jumlah' },
+  WEIGHT: { bg: 'bg-retro-brand/15', text: 'text-retro-brand', label: 'Berat' },
+  VOLUME: { bg: 'bg-retro-gold/15', text: 'text-retro-gold', label: 'Volume' },
+  QUANTITY: { bg: 'bg-retro-muted/15', text: 'text-retro-muted', label: 'Jumlah' },
 }
 
 const statusPill: Record<EntityStatus, { bg: string; text: string }> = {
-  pending: { bg: 'bg-gray-100', text: 'text-gray-600' },
-  pending_review: { bg: 'bg-blue-50', text: 'text-blue-600' },
-  pending_approval: { bg: 'bg-amber-50', text: 'text-amber-600' },
-  approved: { bg: 'bg-emerald-50', text: 'text-emerald-600' },
-  rejected: { bg: 'bg-red-50', text: 'text-red-600' },
-  ingestion: { bg: 'bg-indigo-50', text: 'text-indigo-600' },
-  ingestion_failed: { bg: 'bg-orange-50', text: 'text-orange-600' },
-  completed: { bg: 'bg-emerald-50', text: 'text-emerald-700' },
+  pending: { bg: 'bg-retro-muted/15', text: 'text-retro-muted' },
+  pending_review: { bg: 'bg-retro-brand/15', text: 'text-retro-brand' },
+  pending_approval: { bg: 'bg-retro-warning/15', text: 'text-retro-warning' },
+  approved: { bg: 'bg-retro-success/15', text: 'text-retro-success' },
+  rejected: { bg: 'bg-retro-danger/15', text: 'text-retro-danger' },
+  ingestion: { bg: 'bg-retro-brand/15', text: 'text-retro-brand' },
+  ingestion_failed: { bg: 'bg-retro-warning/15', text: 'text-retro-warning' },
+  completed: { bg: 'bg-retro-success/15', text: 'text-retro-success' },
 }
 
 const statusLabel: Record<EntityStatus, string> = {
@@ -57,18 +57,18 @@ export default function UnitListPage() {
     {
       key: 'id',
       header: 'ID',
-      render: (u) => <span className="font-mono text-xs bg-gray-100 px-2 py-0.5 rounded">{u.id}</span>,
+      render: (u) => <span className="font-mono text-xs bg-retro-surface-alt text-retro-gold px-2 py-0.5 rounded-none">{u.id}</span>,
     },
     {
       key: 'name',
       header: 'Nama',
       sortable: true,
-      render: (u) => <span className="font-semibold text-gray-900">{u.name}</span>,
+      render: (u) => <span className="font-semibold text-retro-body">{u.name}</span>,
     },
     {
       key: 'symbol',
       header: 'Simbol',
-      render: (u) => <span className="text-gray-500 text-sm">{u.symbol ?? '-'}</span>,
+      render: (u) => <span className="text-retro-muted text-sm">{u.symbol ?? '-'}</span>,
     },
     {
       key: 'type',
@@ -77,7 +77,7 @@ export default function UnitListPage() {
       render: (u) => {
         const badge = unitTypeBadge[u.type]
         return (
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
           </span>
         )
@@ -87,10 +87,10 @@ export default function UnitListPage() {
       key: 'status',
       header: 'Status',
       render: (u) => {
-        const s = statusPill[u.status] ?? { bg: 'bg-gray-100', text: 'text-gray-600' }
+        const s = statusPill[u.status] ?? { bg: 'bg-retro-muted/15', text: 'text-retro-muted' }
         const label = statusLabel[u.status] ?? u.status
         return (
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${s.bg} ${s.text}`}>
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium ${s.bg} ${s.text}`}>
             {label}
           </span>
         )
@@ -100,7 +100,7 @@ export default function UnitListPage() {
       key: 'createdAt',
       header: 'Dibuat',
       sortable: true,
-      render: (u) => <span className="text-gray-400 text-sm">{new Date(u.createdAt).toLocaleDateString('id-ID')}</span>,
+      render: (u) => <span className="text-retro-muted text-sm">{new Date(u.createdAt).toLocaleDateString('id-ID')}</span>,
     },
   ]
 
@@ -108,8 +108,8 @@ export default function UnitListPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-3">
         <span className="text-4xl">{'\u26A0\uFE0F'}</span>
-        <p className="text-lg font-semibold text-gray-700">Gagal memuat satuan</p>
-        <button onClick={() => navigate('/goods')} className="text-sm text-indigo-600 font-semibold hover:underline">
+        <p className="text-lg font-semibold text-retro-body">Gagal memuat satuan</p>
+        <button onClick={() => navigate('/goods')} className="text-sm text-retro-brand font-semibold hover:underline">
           Kembali
         </button>
       </div>
@@ -124,14 +124,14 @@ export default function UnitListPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Satuan</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Kelola satuan ukuran produk</p>
+          <h1 className="text-2xl font-extrabold text-retro-text">Satuan</h1>
+          <p className="text-sm text-retro-muted mt-0.5">Kelola satuan ukuran produk</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/admin/units/new')}
-          className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition"
+          className="flex items-center gap-2 px-4 py-2.5 bg-retro-primary text-retro-text rounded-none text-sm font-semibold hover:brightness-110 transition border-[3px] border-retro-primary [border-style:outset] shadow-[0_4px_0_#2a4a68] active:shadow-none active:translate-y-1 focus-visible:ring-2 focus-visible:ring-retro-gold/50 focus-visible:outline-none"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -146,10 +146,10 @@ export default function UnitListPage() {
           <button
             key={t}
             onClick={() => { setTypeFilter(t); setPage(1) }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`px-3 py-1.5 rounded-none text-xs font-semibold transition ${
               typeFilter === t
-                ? 'bg-indigo-100 text-indigo-700'
-                : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-retro-gold/20 text-retro-gold border-[3px] border-retro-gold/40 [border-style:inset]'
+                : 'bg-retro-surface text-retro-muted border-[3px] border-retro-border [border-style:ridge] hover:bg-retro-surface-alt'
             }`}
           >
             {t === '' ? 'Semua' : unitTypeBadge[t].label}
@@ -158,8 +158,7 @@ export default function UnitListPage() {
       </div>
 
       {/* Table */}
-      <DataTable
-          columns={columns}
+      <DataTable          columns={columns}
           data={units}
           pagination={pagination}
           onPageChange={setPage}
@@ -173,7 +172,7 @@ export default function UnitListPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={(e) => { e.stopPropagation(); navigate(`/admin/units/${u.id}`) }}
-                className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+                className="text-xs text-retro-brand hover:brightness-110 font-medium"
               >
                 Edit
               </button>
@@ -184,7 +183,7 @@ export default function UnitListPage() {
                     deleteMutation.mutate(u.id)
                   }
                 }}
-                className="text-xs text-red-500 hover:text-red-700 font-medium"
+                className="text-xs text-retro-danger hover:brightness-110 font-medium"
               >
                 Hapus
               </button>

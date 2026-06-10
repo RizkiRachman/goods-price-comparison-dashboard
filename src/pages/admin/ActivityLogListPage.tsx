@@ -5,20 +5,20 @@ import { DataTable, type Column } from '@/components/DataTable'
 import type { ActivityLog } from '@/types/api'
 
 const typeBadge: Record<string, { bg: string; text: string; label: string }> = {
-  RECEIPT: { bg: 'bg-blue-50', text: 'text-blue-600', label: 'Struk' },
-  PRODUCT: { bg: 'bg-emerald-50', text: 'text-emerald-600', label: 'Produk' },
-  STORE: { bg: 'bg-amber-50', text: 'text-amber-600', label: 'Toko' },
-  PRICE_RECORD: { bg: 'bg-purple-50', text: 'text-purple-600', label: 'Harga' },
-  CATEGORY: { bg: 'bg-pink-50', text: 'text-pink-600', label: 'Kategori' },
-  UNIT: { bg: 'bg-cyan-50', text: 'text-cyan-600', label: 'Satuan' },
-  FEEDBACK_QUESTION: { bg: 'bg-indigo-50', text: 'text-indigo-600', label: 'Feedback' },
-  ALERT: { bg: 'bg-red-50', text: 'text-red-600', label: 'Alert' },
+  RECEIPT: { bg: 'bg-retro-brand/15', text: 'text-retro-brand', label: 'Struk' },
+  PRODUCT: { bg: 'bg-retro-success/15', text: 'text-retro-success', label: 'Produk' },
+  STORE: { bg: 'bg-retro-warning/15', text: 'text-retro-warning', label: 'Toko' },
+  PRICE_RECORD: { bg: 'bg-retro-muted/15', text: 'text-retro-muted', label: 'Harga' },
+  CATEGORY: { bg: 'bg-retro-danger/15', text: 'text-retro-danger', label: 'Kategori' },
+  UNIT: { bg: 'bg-retro-gold/15', text: 'text-retro-gold', label: 'Satuan' },
+  FEEDBACK_QUESTION: { bg: 'bg-retro-brand/15', text: 'text-retro-brand', label: 'Feedback' },
+  ALERT: { bg: 'bg-retro-danger/15', text: 'text-retro-danger', label: 'Alert' },
 }
 
 const actionBadge: Record<string, { bg: string; text: string; label: string }> = {
-  CREATE: { bg: 'bg-emerald-50', text: 'text-emerald-700', label: 'Buat' },
-  UPDATE: { bg: 'bg-blue-50', text: 'text-blue-700', label: 'Ubah' },
-  DELETE: { bg: 'bg-red-50', text: 'text-red-700', label: 'Hapus' },
+  CREATE: { bg: 'bg-retro-success/15', text: 'text-retro-success', label: 'Buat' },
+  UPDATE: { bg: 'bg-retro-brand/15', text: 'text-retro-brand', label: 'Ubah' },
+  DELETE: { bg: 'bg-retro-danger/15', text: 'text-retro-danger', label: 'Hapus' },
 }
 
 function formatDate(iso: string): string {
@@ -52,7 +52,7 @@ export default function ActivityLogListPage() {
       render: (log) => {
         const badge = typeBadge[log.type]
         return (
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
+          <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
           </span>
         )
@@ -65,7 +65,7 @@ export default function ActivityLogListPage() {
       render: (log) => {
         const badge = actionBadge[log.action]
         return (
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
+          <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${badge.bg} ${badge.text}`}>
             {badge.label}
           </span>
         )
@@ -74,13 +74,13 @@ export default function ActivityLogListPage() {
     {
       key: 'description',
       header: 'Deskripsi',
-      render: (log) => <span className="text-gray-700 text-sm">{log.description}</span>,
+      render: (log) => <span className="text-retro-body text-sm">{log.description}</span>,
     },
     {
       key: 'createdAt',
       header: 'Waktu',
       sortable: true,
-      render: (log) => <span className="text-gray-400 text-sm whitespace-nowrap">{formatDate(log.createdAt)}</span>,
+      render: (log) => <span className="text-retro-muted text-sm whitespace-nowrap">{formatDate(log.createdAt)}</span>,
     },
   ]
 
@@ -88,8 +88,8 @@ export default function ActivityLogListPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-3">
         <span className="text-4xl">{'\u26A0\uFE0F'}</span>
-        <p className="text-lg font-semibold text-gray-700">Gagal memuat log aktivitas</p>
-        <button onClick={() => navigate('/goods')} className="text-sm text-indigo-600 font-semibold hover:underline">
+        <p className="text-lg font-semibold text-retro-body">Gagal memuat log aktivitas</p>
+        <button onClick={() => navigate('/goods')} className="text-sm text-retro-brand font-semibold hover:underline">
           Kembali
         </button>
       </div>
@@ -103,15 +103,15 @@ export default function ActivityLogListPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-extrabold text-gray-900">Log Aktivitas</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Riwayat aktivitas pengguna</p>
+        <h1 className="text-2xl font-extrabold text-retro-text">Log Aktivitas</h1>
+        <p className="text-sm text-retro-muted mt-0.5">Riwayat aktivitas pengguna</p>
       </div>
 
       {/* Table */}
       {isLoading ? (
         <div className="space-y-3">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-14 bg-white rounded-xl animate-pulse" />
+            <div key={i} className="h-14 bg-retro-surface-alt rounded-none animate-pulse" />
           ))}
         </div>
       ) : (
