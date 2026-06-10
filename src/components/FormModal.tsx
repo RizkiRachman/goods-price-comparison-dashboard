@@ -38,7 +38,7 @@ export function FormModal({ open, onClose, title, subtitle, children }: FormModa
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60"
             onClick={onClose}
           />
           <motion.div
@@ -47,22 +47,22 @@ export function FormModal({ open, onClose, title, subtitle, children }: FormModa
             exit={{ opacity: 0, y: 60, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             ref={contentRef}
-            className="relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[85vh] flex flex-col"
+            className="relative w-full sm:max-w-lg bg-retro-surface rounded-none border-[3px] border-retro-border [border-style:ridge] max-h-[85vh] flex flex-col"
           >
             {/* Mobile drag handle */}
             <div className="flex justify-center pt-3 pb-1 sm:hidden">
-              <div className="w-10 h-1 bg-gray-300 rounded-full" />
+              <div className="w-10 h-1 bg-retro-muted rounded-none" />
             </div>
 
             {/* Header */}
             <div className="flex items-start justify-between px-5 pt-4 pb-2">
               <div>
-                <h2 className="text-xl font-bold text-gray-900">{title}</h2>
-                {subtitle && <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>}
+                <h2 className="text-xl font-bold text-retro-text">{title}</h2>
+                {subtitle && <p className="text-sm text-retro-muted mt-0.5">{subtitle}</p>}
               </div>
               <button
                 onClick={onClose}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 transition flex-shrink-0"
+                className="w-9 h-9 flex items-center justify-center rounded-none bg-retro-surface-alt hover:bg-retro-border text-retro-muted hover:text-retro-body border-[3px] border-retro-border [border-style:outset] transition flex-shrink-0"
                 aria-label="Tutup"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
