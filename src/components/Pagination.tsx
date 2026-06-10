@@ -25,14 +25,14 @@ export function Pagination({ page, totalPages, onPageChange }: Props) {
   if (totalPages <= 1) return null
 
   const pill =
-    'h-9 min-w-[2.25rem] px-3 rounded-xl text-sm font-semibold flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed'
+    'h-9 min-w-[2.25rem] px-3 rounded-none text-sm font-semibold flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed'
 
   return (
     <nav className="flex items-center justify-center gap-1 mt-8" aria-label="Pagination">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className={`${pill} bg-white/60 backdrop-blur-sm border border-slate-200 text-slate-500 hover:bg-slate-50 hover:border-slate-300 active:scale-95`}
+        className={`${pill} bg-retro-surface border-[3px] border-retro-border [border-style:ridge] text-retro-muted hover:bg-retro-surface-alt hover:text-retro-body active:scale-95`}
         aria-label="Previous page"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,7 +42,7 @@ export function Pagination({ page, totalPages, onPageChange }: Props) {
 
       {pages.map((p) =>
         p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-          <span key={p} className="h-9 w-9 flex items-center justify-center text-slate-400 text-sm">
+          <span key={p} className="h-9 w-9 flex items-center justify-center text-retro-muted text-sm">
             &hellip;
           </span>
         ) : (
@@ -51,8 +51,8 @@ export function Pagination({ page, totalPages, onPageChange }: Props) {
             onClick={() => onPageChange(p)}
             className={`${pill} ${
               p === page
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 border border-indigo-600'
-                : 'bg-white/60 backdrop-blur-sm border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 active:scale-95'
+                ? 'bg-retro-gold text-retro-surface font-bold border-[3px] border-retro-gold [border-style:inset]'
+                : 'bg-retro-surface border-[3px] border-retro-border [border-style:ridge] text-retro-body hover:bg-retro-surface-alt hover:text-retro-text active:scale-95'
             }`}
           >
             {p}
@@ -63,7 +63,7 @@ export function Pagination({ page, totalPages, onPageChange }: Props) {
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page >= totalPages}
-        className={`${pill} bg-white/60 backdrop-blur-sm border border-slate-200 text-slate-500 hover:bg-slate-50 hover:border-slate-300 active:scale-95`}
+        className={`${pill} bg-retro-surface border-[3px] border-retro-border [border-style:ridge] text-retro-muted hover:bg-retro-surface-alt hover:text-retro-body active:scale-95`}
         aria-label="Next page"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
